@@ -45,7 +45,7 @@ int obtenerVelocidad2(int fd, double *velocidad);
  @param codificadorPosicion1 Puntero a la dirección de memoria donde se encuentra el valor del contador de posición del motor 1.
  @return 0 Operacion exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del valor codificador 1.
-		-2 Error no se pudieron leer los datos de los registro del codificador 1.
+		-2 Error no se logro leer los datos de los registro del codificador 1.
 */
 int obtenerCodificadorMotor1(int fd, int *codificadorPosicion1);
 
@@ -55,7 +55,7 @@ int obtenerCodificadorMotor1(int fd, int *codificadorPosicion1);
  @param codificadorPosicion2 Puntero a la dirección de memoria donde se encuentra el valor del contador de posición del motor 2.
  @return 0 Operacion exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del valor codificador 2.
-		-2 Error no se pudieron leer los datos de los registro del codificador 2.
+		-2 Error no se logro leer los datos de los registro del codificador 2.
 */
 int obtenerCodificadorMotor2(int fd, int *codificadorPosicion2);
 
@@ -66,7 +66,7 @@ int obtenerCodificadorMotor2(int fd, int *codificadorPosicion2);
  @param codificadorPosicion2 Puntero a la dirección de memoria donde se encuentra el valor del contador de posición del motor 2.
  @return 0 Operación exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del valor de los codificadores.
-		-2 Error no se pudieron leer los datos de los registro de los codificadores.
+		-2 Error no se logro leer los datos de los registro de los codificadores.
 */
 int obtenerCodificadoresMotores(int fd, int *codificadorPosicion1, int *codificadorPosicion2);
 
@@ -76,7 +76,7 @@ int obtenerCodificadoresMotores(int fd, int *codificadorPosicion1, int *codifica
  @param voltajeBateria Puntero a la dirección de memoria donde se encuentra el valor del voltaje de la bateria que alimenta la MD49.
  @return 0 Operacion exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del valor del voltaje.
-		-2 Error no se pudieron leer los datos de los registro del voltaje.
+		-2 Error no se logro leer los datos de los registro del voltaje.
 */
 int obtenerVolajeBateria(int fd, double *voltajeBateria);
 
@@ -86,7 +86,7 @@ int obtenerVolajeBateria(int fd, double *voltajeBateria);
  @param corriente Puntero a la dirección de memoria donde se encuentra el valor de la corriente consumida por el motor 1.
  @return 0 Operacion exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del valor de la corriente del motor 1.
-		-2 Error no se pudieron leer los datos de los registro de corriente del motor 1.
+		-2 Error no se logro leer los datos de los registro de corriente del motor 1.
 */
 int obtenerCorrienteMotor1(int fd, double *corrienteMotor1);
 
@@ -96,7 +96,7 @@ int obtenerCorrienteMotor1(int fd, double *corrienteMotor1);
  @param corriente Puntero a la dirección de memoria donde se encuentra el valor de la corriente consumida por el motor 2.
  @return 0 Operacion exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del valor de la corriente del motor 2.
-		-2 Error no se pudieron leer los datos de los registro de corriente del motor 2.
+		-2 Error no se logro leer los datos de los registro de corriente del motor 2.
 */
 int obtenerCorrienteMotor2(int fd, double *corrienteMotor2);
 
@@ -106,9 +106,9 @@ int obtenerCorrienteMotor2(int fd, double *corrienteMotor2);
  @param versionSoftware Puntero a la dirección de memoria donde se encuentra la versión del software del controlador MD49.
  @return 0 Operacion exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura de la versión del software.
-		-2 Error no se pudo leer el registro que contiene la versión del software.
+		-2 Error no se logro leer el registro que contiene la versión del software.
 */
-int obtenerNumeroVersion(int fd, double *versionSoftware);
+int obtenerNumeroVersionSoftware(int fd, double *versionSoftware);
 
 /**
  @brief Actualiza el modo de aceleración en que trabaja la controladora.
@@ -116,7 +116,7 @@ int obtenerNumeroVersion(int fd, double *versionSoftware);
  @param modoAceleracion Puntero a la dirección de memoria donde se encuentra el modo de aceleración actual.
  @return 0 Operación exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del modo de aceleración.
-		-2 Error no se pudo leer el registro que contiene el modo de aceleración.
+		-2 Error no se logro leer el registro que contiene el modo de aceleración.
 */
 int obtenerModoAceleracion(int fd, int *modoAceleracion);
 
@@ -126,7 +126,7 @@ int obtenerModoAceleracion(int fd, int *modoAceleracion);
  @param modo Puntero a la dirección de memoria donde se encuentra el modo de velocidad actual.
  @return 0 Operación exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del modo de velocidad.
-		-2 Error no se pudo leer el registro que contiene el modo de velocidad.
+		-2 Error no se logro leer el registro que contiene el modo de velocidad.
 */
 int obtenerModoVelocidad(int fd, int *modoVelocidad);
 

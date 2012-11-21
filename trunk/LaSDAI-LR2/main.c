@@ -104,7 +104,6 @@ int asignarVelocidad1(int fd, double velocidad){
 	sbuf[2] = velocidad;
 	int escribir;
 	escribir = escribirDatos(fd, 3, sbuf);
-	printf("escribio: %d \n", escribir);
 //	if(escribir !=  0){
 //		#ifdef DEBUG
 //			perror("asignarVelocidad1: Error al intentar escribir los datos de velocidad 1\n");
