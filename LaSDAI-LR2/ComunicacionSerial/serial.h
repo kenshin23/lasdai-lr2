@@ -16,7 +16,7 @@
  @return 0 operación exitosa en caso contrario.
 		-1 Error: No se logro abrir el puerto de comunicación con el dispositivo.
 */
-int abrirPuerto(int *fd, char* tty, char* baudios);
+int abrirPuerto(int *fd, char *tty,  unsigned int baudios);
 
 /**
  @brief Clausura del puerto de comunicación serial.

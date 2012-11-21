@@ -11,12 +11,12 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <termios.h>
-#include <definicion.h>
+#include "definicion.h"
 #include "serial.h"
 
 /*******************************************************/
 
-int abrirPuerto(int *fd, char* tty, char* baudios){
+int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 	int _fd;
 	struct termios options;
 	_fd = open(tty, O_RDWR | O_NOCTTY);
