@@ -26,7 +26,7 @@ int obtenerVelocidad1(int fd, double *velocidad){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerVelocidad1: Error al enviar la solicitud de lectura para valor del registro de velocidad 1.\n");
+			perror("obtenerVelocidad1: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -34,7 +34,7 @@ int obtenerVelocidad1(int fd, double *velocidad){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerVelocidad1: Error no se logro leer los datos del registro velocidad 1.\n");
+				perror("obtenerVelocidad1: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -54,7 +54,7 @@ int obtenerVelocidad2(int fd, double *velocidad){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerVelocidad2: Error al enviar la solicitud de lectura para valor del registro de velocidad 2.\n");
+			perror("obtenerVelocidad2: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -62,7 +62,7 @@ int obtenerVelocidad2(int fd, double *velocidad){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerVelocidad2: Error no se logro leer los datos del registro velocidad 2.\n");
+				perror("obtenerVelocidad2: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -83,7 +83,7 @@ int obtenerCodificadorMotor1(int fd, int *codificadorPosicion1){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerCodificadorMotor1: Error al enviar la solicitud de lectura del valor codificador 1.\n");
+			perror("obtenerCodificadorMotor1: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -91,7 +91,7 @@ int obtenerCodificadorMotor1(int fd, int *codificadorPosicion1){
 		leer = leerDatos(fd,4, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerCodificadorMotor1: Error no se logro leer los datos del registro codificador 1.\n");
+				perror("obtenerCodificadorMotor1: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -116,7 +116,7 @@ int obtenerCodificadorMotor2(int fd, int *codificadorPosicion2){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerCodificadorMotor2: Error al enviar la solicitud de lectura del valor codificador 2.\n");
+			perror("obtenerCodificadorMotor2: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -124,7 +124,7 @@ int obtenerCodificadorMotor2(int fd, int *codificadorPosicion2){
 		leer = leerDatos(fd,4, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerCodificadorMotor2: Error no se logro leer los datos del registro codificador 2.\n");
+				perror("obtenerCodificadorMotor2: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -149,7 +149,7 @@ int obtenerCodificadorMotores(int fd, int *codificadorPosicion1, int *codificado
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerCodificadorMotores: Error al enviar la solicitud de lectura del valor de los codificadores.\n");
+			perror("obtenerCodificadorMotores: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -157,7 +157,7 @@ int obtenerCodificadorMotores(int fd, int *codificadorPosicion1, int *codificado
 		leer = leerDatos(fd,8, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerCodificadorMotores: Error no se logro leer los datos de los registros de codificador 1 y codificador 2.\n");
+				perror("obtenerCodificadorMotores: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -186,7 +186,7 @@ int obtenerVolajeBateria(int fd, double *voltajeBateria){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerVolajeBateria: Error al enviar la solicitud de lectura del valor del voltaje. \n");
+			perror("obtenerVolajeBateria: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -194,7 +194,7 @@ int obtenerVolajeBateria(int fd, double *voltajeBateria){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerVolajeBateria: Error no se logro leer los datos de los registro del voltaje.\n");
+				perror("obtenerVolajeBateria: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -215,7 +215,7 @@ int obtenerCorrienteMotor1(int fd, double *corrienteMotor1){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerCorrienteMotor1: Error al enviar la solicitud de lectura del valor de la corriente del motor 1.\n");
+			perror("obtenerCorrienteMotor1: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -223,7 +223,7 @@ int obtenerCorrienteMotor1(int fd, double *corrienteMotor1){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerCorrienteMotor1: Error no se logro leer los datos de los registro de corriente del motor 1.\n");
+				perror("obtenerCorrienteMotor1: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -244,7 +244,7 @@ int obtenerCorrienteMotor2(int fd, double *corrienteMotor2){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerCorrienteMotor2: Error al enviar la solicitud de lectura del valor de la corriente del motor 2.\n");
+			perror("obtenerCorrienteMotor2: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -252,7 +252,7 @@ int obtenerCorrienteMotor2(int fd, double *corrienteMotor2){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerCorrienteMotor2: Error no se logro leer los datos de los registro de corriente del motor 2.\n");
+				perror("obtenerCorrienteMotor2: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -272,7 +272,7 @@ int obtenerNumeroVersionSoftware(int fd, double *versionSoftware){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerNumeroVersion: Error al enviar la solicitud de lectura de la version del software.\n");
+			perror("obtenerNumeroVersion: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -280,7 +280,7 @@ int obtenerNumeroVersionSoftware(int fd, double *versionSoftware){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerNumeroVersion: Error no se pudo leer el registro que contiene la version del software.\n");
+				perror("obtenerNumeroVersion: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -300,7 +300,7 @@ int obtenerModoAceleracion(int fd, int *modoAceleracion){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerModoAceleracion: Error al enviar la solicitud de lectura del modo de aceleracion.\n");
+			perror("obtenerModoAceleracion: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -308,7 +308,7 @@ int obtenerModoAceleracion(int fd, int *modoAceleracion){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerModoAceleracion: Error no se logro leer el registro que contiene el modo de aceleracion.\n");
+				perror("obtenerModoAceleracion: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -328,7 +328,7 @@ int obtenerModoVelocidad(int fd, int *modoVelocidad){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerModoVelocidad: Error al enviar la solicitud de lectura del modo de velocidad.\n");
+			perror("obtenerModoVelocidad: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -336,7 +336,7 @@ int obtenerModoVelocidad(int fd, int *modoVelocidad){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerModoVelocidad: Error no se logro leer el registro que contiene el modo de velocidad.\n");
+				perror("obtenerModoVelocidad: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -356,7 +356,7 @@ int obtenerDatosEnergia(int fd, int *voltajeBateria, int *corrienteMotor1, int *
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerDatosEnergia: Error al enviar la solicitud de lectura de los datos de Energia.\n");
+			perror("obtenerDatosEnergia: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -364,7 +364,7 @@ int obtenerDatosEnergia(int fd, int *voltajeBateria, int *corrienteMotor1, int *
 		leer = leerDatos(fd,3, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerDatosEnergia: Error no se logro leer los registros que contienen los datos de energia.\n");
+				perror("obtenerDatosEnergia: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -386,7 +386,7 @@ int obtenerError(int fd, int *error){
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("obtenerError: Error al enviar la solicitud de lectura del registro de errores de la MD49.\n");
+			perror("obtenerError: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -394,7 +394,7 @@ int obtenerError(int fd, int *error){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("obtenerError: Error no se logro leer el registro que contiene el manejador de errores de la MD49.\n");
+				perror("obtenerError: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -415,7 +415,7 @@ int asignarVelocidad1(int fd, double velocidad){
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("asignarVelocidad1: Error al intentar escribir los datos de velocidad 1.\n");
+			perror("asignarVelocidad1: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -423,7 +423,7 @@ int asignarVelocidad1(int fd, double velocidad){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("asignarVelocidad1: Error al escribir en el registro de la velocidad 1.\n");
+				perror("asignarVelocidad1: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -443,7 +443,7 @@ int asignarVelocidad2(int fd, double velocidad){
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("asignarVelocidad2: Error al intentar escribir los datos de velocidad 2.\n");
+			perror("asignarVelocidad2: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -451,7 +451,7 @@ int asignarVelocidad2(int fd, double velocidad){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("asignarVelocidad2: Error al escribir en el registro de la velocidad 2.\n");
+				perror("asignarVelocidad2: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -471,7 +471,7 @@ int asignarModoAceleracion(int fd, int modoAceleracion){
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("asignarModoAceleracion: Error al intentar escribir los datos del registro modo aceleracion.\n");
+			perror("asignarModoAceleracion: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -479,7 +479,7 @@ int asignarModoAceleracion(int fd, int modoAceleracion){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("asignarModoAceleracion: Error al escribir los datos en el registro modo aceleracion.\n");
+				perror("asignarModoAceleracion: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -499,7 +499,7 @@ int asignarModoVelocidad(int fd, int modoVelocidad){
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef DEBUG
-			perror("asignarModoVelocidad: Error al intentar escribir los datos del registro modo velocidad\n");
+			perror("asignarModoVelocidad:Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
@@ -507,7 +507,7 @@ int asignarModoVelocidad(int fd, int modoVelocidad){
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef DEBUG
-				perror("asignarModoAceleracion: Error la escritura del registro modo velocidad no fue correcta\n");
+				perror("asignarModoAceleracion: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
@@ -519,31 +519,136 @@ int asignarModoVelocidad(int fd, int modoVelocidad){
 /**************************************************************************************************/
 
 int reinicializarCodificadores(int fd){
-
+	static unsigned char sbuf[2];
+	sbuf[0] = byteDeSincronizacion;
+	sbuf[1] = comandoReinicioContadorCodificador;
+	int escribir, leer;
+	escribir = escribirDatos(fd, 2, sbuf);
+	if(escribir !=  0){
+			#ifdef DEBUG
+				perror("reinicializarCodificadores: Error al intenetar escribir el comando.\n");
+			#endif
+			return (-1);
+	}else{
+		usleep(retraso);
+		leer = leerDatos(fd,1, sbuf);
+		if(leer != 0){
+			#ifdef DEBUG
+				perror("reinicializarCodificadores: Error el comando no se ejecuto correctamente.\n");
+			#endif
+			return (-2);
+		}else{
+			return (0);
+		}
+	}
 }
 
 /**************************************************************************************************/
 
 int activarRetroalimentacionCodificadores(int fd){
-
+	static unsigned char sbuf[2];
+	sbuf[0] = byteDeSincronizacion;
+	sbuf[1] = comandoActivarRetroalimentacion;
+	int escribir, leer;
+	escribir = escribirDatos(fd, 2, sbuf);
+	if(escribir !=  0){
+			#ifdef DEBUG
+				perror("activarRetroalimentacionCodificadores: Error al intenetar escribir el comando.\n");
+			#endif
+			return (-1);
+	}else{
+		usleep(retraso);
+		leer = leerDatos(fd,1, sbuf);
+		if(leer != 0){
+			#ifdef DEBUG
+				perror("activarRetroalimentacionCodificadores: Error el comando no se ejecuto correctamente.\n");
+			#endif
+			return (-2);
+		}else{
+			return (0);
+		}
+	}
 }
 
 /**************************************************************************************************/
 
 int desactivarRetroalimentacionCodificadores(int fd){
-
+	static unsigned char sbuf[2];
+	sbuf[0] = byteDeSincronizacion;
+	sbuf[1] = comandoDesactivarRetroalimentacion;
+	int escribir, leer;
+	escribir = escribirDatos(fd, 2, sbuf);
+	if(escribir !=  0){
+			#ifdef DEBUG
+				perror("desactivarRetroalimentacionCodificadores: Error al intenetar escribir el comando.\n");
+			#endif
+			return (-1);
+	}else{
+		usleep(retraso);
+		leer = leerDatos(fd,1, sbuf);
+		if(leer != 0){
+			#ifdef DEBUG
+				perror("desactivarRetroalimentacionCodificadores: Error el comando no se ejecuto correctamente.\n");
+			#endif
+			return (-2);
+		}else{
+			return (0);
+		}
+	}
 }
 
 /**************************************************************************************************/
 
 int activarTiempoSeguridad(int fd){
-
+	static unsigned char sbuf[2];
+	sbuf[0] = byteDeSincronizacion;
+	sbuf[1] = comandoActivarTiempoSeguridad;
+	int escribir, leer;
+	escribir = escribirDatos(fd, 2, sbuf);
+	if(escribir !=  0){
+			#ifdef DEBUG
+				perror("activarTiempoSeguridad: Error al intenetar escribir el comando.\n");
+			#endif
+			return (-1);
+	}else{
+		usleep(retraso);
+		leer = leerDatos(fd,1, sbuf);
+		if(leer != 0){
+			#ifdef DEBUG
+				perror("activarTiempoSeguridad: Error el comando no se ejecuto correctamente.\n");
+			#endif
+			return (-2);
+		}else{
+			return (0);
+		}
+	}
 }
 
 /**************************************************************************************************/
 
 int desactivarTiempoSeguridad(int fd){
-
+	static unsigned char sbuf[2];
+	sbuf[0] = byteDeSincronizacion;
+	sbuf[1] = comandoDesactivarTiempoSeguridad;
+	int escribir, leer;
+	escribir = escribirDatos(fd, 2, sbuf);
+	if(escribir !=  0){
+			#ifdef DEBUG
+				perror("desactivarTiempoSeguridad: Error al intenetar escribir el comando.\n");
+			#endif
+			return (-1);
+	}else{
+		usleep(retraso);
+		leer = leerDatos(fd,1, sbuf);
+		if(leer != 0){
+			#ifdef DEBUG
+				perror("desactivarTiempoSeguridad: Error el comando no se ejecuto correctamente.\n");
+			#endif
+			return (-2);
+		}else{
+			return (0);
+		}
+	}
 }
 
 
