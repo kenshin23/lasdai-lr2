@@ -175,7 +175,7 @@ int main(){
 	disable2(fd);
 	asignarVelocidad2(fd,velocidad);
 	asignarVelocidad1(fd,velocidad);
-	usleep(5000000);
+	usleep(15000000);
 	velocidad = 128;
 	asignarVelocidad1(fd,velocidad);
 	asignarVelocidad2(fd,velocidad);
