@@ -16,6 +16,9 @@
 /** Velocidad de trabajo de la comunicacion Serial con la MD49 **/
 #define baudios "B38400"
 
+/** Tiempo de retraso para esperar respuesta de la MD49 despues de escribir **/
+#define retraso 7800
+
 /** Se envia en el bufer antes de cada comando. */
 #define  byteDeSincronizacion 0x00
 
@@ -51,11 +54,11 @@
 /** Comando para obtener el nivel de aceleración actual. */
 #define comandoObtenerAceleracion 0x2A
 
-/** Comando para obtener el modo de aceleración actual. */
-#define comandoObtenerModo 0x2B
+/** Comando para obtener el modo de velocidad actual. */
+#define comandoObtenerModoVelocidad 0x2B
 
 /** Comando para obtener el voltaje de la bateria y la la corriente consumida por cada motor. */
-#define comandoObtenerDatosPotencia 0x2C
+#define comandoObtenerDatosEnergia 0x2C
 
 /** Comando para obtener el error indicado por el manejador de errores de la MD49. */
 #define comandoObtenerError 0x2D
@@ -70,7 +73,7 @@
 #define comandoAsignarAceleracion 0x33
 
 /** Comando para selecionar el mode de trabajo deseado */
-#define comandoSeleccionarModo 0x34
+#define comandoSeleccionarModoVelocidad 0x34
 
 /** Comando para reiniciar el contador de los codificadores de los motores */
 #define comandoReinicioContadorCodificador 0x35
@@ -86,5 +89,6 @@
 
 /** Comando para activar el tiempo de seguridad que detiene la funcionalidad de la MD49 despues de 2 seg sin comunicación*/
 #define comandoActivarTiempoSeguridad 0x39
+
 
 
