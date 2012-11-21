@@ -1,28 +1,28 @@
 /**
- @file md49.h
- @brief Declaración de constantes y api de funciones para el manejo de los motores EMG49 con reductora 49:1 y una controladora MD49.
- @date Junio, 2012
+ @file   md49.h
+ @brief  Declaración de constantes y api de funciones para el manejo de los motores EMG49 con reductora 49:1 usando la controladora MD49.
+ @date   Junio, 2012
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
 
  Algunos datos: La controladora MD49 funciona bajo dos estandares de comunicación Serial. Permite el control de dos motores, y esta
  	 	 	 	diseñada especialmente para el control de motores EMG49. Las declaración  de constantes y api de funciones desarrolladas
  	 	 	 	a continuacion representan el control del la placa MD49 en lenguaje C con comunicacion serial, para la conexion de la
  	 	 	 	placa con el computador se esta usando el modulo tarjeta CP2102 USB-Serial. Los controladores de este modulo pueden
- 	 	 	 	descargarse de https://www.sparkfun.com/products/198.
+ 	 	 	 	descargarse de https://www.sparkfun.com/products/198, los controladores de la CP2102 USB-Serial vienen incluidos en en el
+ 	 	 	 	kernel de linux Versión 3.6.6.
 */
 
 #ifndef MD49_H_
 #define MD49_H_
 
 
-
 /** API DE FUNCIONES */
 
 /**
  @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
- @param fd número del puerto de comunicación.
- @param velocidad puntero a la direccion de memoria donde se encuentra el valor de la velocidad 1.
- @return 0 operación exitosa en caso contrario.
+ @param fd Número del puerto de comunicación.
+ @param Velocidad puntero a la direccion de memoria donde se encuentra el valor de la velocidad 1.
+ @return 0 Operación exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
 		-2 Error no se logro leer los datos de el registro de velocidad 1.
 */
@@ -31,62 +31,49 @@ int obtenerVelocidad1(int fd, double *velocidad);
 
 /**
  @brief Obtiene el valor del registro de velocidad 2 del MD49 y actualiza su valor.
- @param fd número del puerto de comunicación.
- @param velocidad puntero a la direccion de memoria donde se encuentra el valor de la velocidad 2.
- @return 0 operación exitosa en caso contrario.
+ @param fd Número del puerto de comunicación.
+ @param velocidad Puntero a la dirección de memoria donde se encuentra el valor de la velocidad 2.
+ @return 0 Operación exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 2.
 		-2 Error no se logro leer los datos de el registro de velocidad 2.
 */
 int obtenerVelocidad2(int fd, double *velocidad);
 
 /**
- @brief establece un nuevo valor a el registro de velocidad 1 del controlador.
- @param fd numero del puerto de comunicacion.
- @param velocidad nuevo valor de velocidad.
- @return 0 operacion exitosa en caso contrario.
-	-1 Error al intentar escribir los datos de velocidad 1.
-	-2 Error la escritura de la velocidad 1 no fue correcta.
-*/
-int asignarVelocidad1(int fd, double velocidad);
-
-
-
-/**
- @brief establece un nuevo valor a el registro de velocidad 2 del controlador.
- @param fd numero de puerto de comunicacion.
- @param velocidad nuevo valor de velocidad.
- @return 0 operacion exitosa en caso contrario.
-	-1 Error al intentar escribir los datos de velocidad 2.
-	-2 Error la escritura de la velocidad 2 no fue correcta.
-*/
-int asignarVelocidad2(int fd, double velocidad);
-
-
-
-/**
- @brief actualiza la posicion del condificador del motor 1.
- @param fd numero del puerto de comunicacion.
- @param posicion puntero a la direccion de memoria donde se encuentra el valor de la posicion del motor 1.
- @return 0 operacion exitosa en caso contrario.
+ @brief Actualiza el contador del codificador de posición correspondiente al motor 1.
+ @param fd Número del puerto de comunicación.
+ @param codificadorPosicion Puntero a la dirección de memoria donde se encuentra el valor del contador de posición del motor 1.
+ @return 0 Operacion exitosa en caso contrario.
 	-1 Error al enviar la solicitud de lectura del valor codificador 1.
 	-2 Error no se pudieron leer los datos de los registro del codificador 1.
 */
-int obtenerCodificadorMotor1(int fd, int *posicion);
+int obtenerCodificadorMotor1(int fd, int *codificadorPosicion);
 
 /**
- @brief actualiza la posicion del condificador del motor 2.
- @param fd numero del puerto de comunicacion.
- @param posicion puntero a la direccion de memoria donde se encuentra el valor de la posicion del motor 2.
- @return 0 operacion exitosa en caso contrario.
+ @brief Actualiza el contador del codificador de posición correspondiente al motor 2.
+ @param fd Número del puerto de comunicación.
+ @param codificadorPosicion Puntero a la dirección de memoria donde se encuentra el valor del contador de posición del motor 2.
+ @return 0 Operacion exitosa en caso contrario.
 	-1 Error al enviar la solicitud de lectura del valor codificador 2.
 	-2 Error no se pudieron leer los datos de los registro del codificador 2.
 */
-int obtenerCodificadorMotor2(int fd, int *posicion);
+int obtenerCodificadorMotor2(int fd, int *codificadorPosicion);
 
 /**
- @brief actualiza el valor del voltaje de la bateria.
- @param fd numero del puerto de comunicacion.
- @param voltaje puntero a la direccion de memoria donde se encuentra el valor del voltaje.
+ @brief Actualiza el contador de los codificadores de posición correspondiente a los motores.
+ @param fd Número del puerto de comunicación.
+ @param codificadorPosicion1 Puntero a la dirección de memoria donde se encuentra el valor del contador de posición del motor 1.
+ @param codificadorPosicion2 Puntero a la dirección de memoria donde se encuentra el valor del contador de posición del motor 2.
+ @return 0 Operación exitosa en caso contrario.
+	-1 Error al enviar la solicitud de lectura del valor de los codificadores.
+	-2 Error no se pudieron leer los datos de los registro de los codificadores.
+*/
+int obtenerCodificadoresMotores(int fd, int *codificadorPosicion1, int *codificadorPosicion2);
+
+/**
+ @brief Actualiza el valor del voltaje de la bateria que alimenta la MD49.
+ @param fd Número del puerto de comunicación.
+ @param voltaje Puntero a la dirección de memoria donde se encuentra el valor del voltaje de la bateria que alimenta la MD49.
  @return 0 operacion exitosa en caso contrario.
 	-1 Error al enviar la solicitud de lectura del valor del voltaje.
 	-2 Error no se pudieron leer los datos de los registro del voltaje.
@@ -112,6 +99,42 @@ int obtenerCorrienteMotor1(int fd, double *corriente);
 	-2 Error no se pudieron leer los datos de los registro de corriente del motor 2.
 */
 int obtenerCorrienteMotor2(int fd, double *corriente);
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ @brief establece un nuevo valor a el registro de velocidad 1 del controlador.
+ @param fd numero del puerto de comunicacion.
+ @param velocidad nuevo valor de velocidad.
+ @return 0 operacion exitosa en caso contrario.
+	-1 Error al intentar escribir los datos de velocidad 1.
+	-2 Error la escritura de la velocidad 1 no fue correcta.
+*/
+int asignarVelocidad1(int fd, double velocidad);
+
+
+
+/**
+ @brief establece un nuevo valor a el registro de velocidad 2 del controlador.
+ @param fd numero de puerto de comunicacion.
+ @param velocidad nuevo valor de velocidad.
+ @return 0 operacion exitosa en caso contrario.
+	-1 Error al intentar escribir los datos de velocidad 2.
+	-2 Error la escritura de la velocidad 2 no fue correcta.
+*/
+int asignarVelocidad2(int fd, double velocidad);
+
+
+
 
 /**
  @brief actualiza el numero de la vercion del software del controlador.
