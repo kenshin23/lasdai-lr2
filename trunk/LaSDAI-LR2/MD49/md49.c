@@ -1,15 +1,9 @@
 /**
- @file md25.c
- @brief Decsarrollo de las las funciones para el manejo de la placa controladora MD25.
- @date Agosors, 2011.
+ @file md49.c
+ @brief Decsarrollo de los metodos para el manejo de la placa controladora MD49 definidos en md49.h.
+ @date Junio, 2012.
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com.
 
- Algunos datos: La controladora MD25 funciona bajo dos estandares de comunicacion Serial e I2C.
-		Permite el control de dos motores, y esta diseñada especialmente para el control de moteres EMG30.
-		Las funciones desarrolladas a continuacion representas el control del la placa MD25 en lenguaje C.
-		con comunicacion I2C usando un circuito interfaz USB-I2C S310425 que utiliza el chip USB FTDI FT232R.
-		Los controladores de este chip pueden descargarce de http://www.ftdichip.com/Products/ICs/FT232R.htm.
-		pero ya vienen incluidos en el kernel de linux a partir de la version 2.6.
 */
 
 #include <stdio.h>
@@ -457,31 +451,5 @@ int obtenerModoVelocidad(int fd, int *modoVelocidad){
 
 /**************************************************************************************************/
 
-int enviarComando(int fd, unsigned char comando){
-	static unsigned char sbuf[5];
-	sbuf[0] = I2C_CMD;
-	sbuf[1] = MD25_W;
-	sbuf[2] = REGISTRO_16;
-	sbuf[3] = 1;
-	sbuf[4] = comando;
-	int escribir, leer;
-	escribir = escribirDatos(fd, 5, sbuf);
-	if(escribir !=  0){
-		#ifdef DEBUG
-			perror("enviarComando: Error al intentar enviar un comando\n");
-		#endif
-		return (-1);
-	}else{
-		usleep(RETRASO);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef DEBUG
-				perror("enviarComando: Error el comando no fue enviado con exito\n");
-			#endif
-			return (-2);
-		}else{
-			return (0);
-		}
-	}
-}
+
 
