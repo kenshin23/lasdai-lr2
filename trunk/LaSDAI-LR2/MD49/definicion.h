@@ -11,10 +11,10 @@
 #define DEBUG
 
 /** Puerto de Trabajo del la comunicacion serial con la MD49 tty **/
-#define tty "ttyUSB0"
+#define ttyMD49 "ttyUSB0"
 
 /** Velocidad de trabajo de la comunicacion Serial con la MD49 **/
-#define baudios "B38400"
+#define baudiosMD49 38400
 
 /** Tiempo de retraso para esperar respuesta de la MD49 despues de escribir **/
 #define retraso 7800

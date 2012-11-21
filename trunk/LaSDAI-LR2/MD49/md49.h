@@ -19,6 +19,12 @@
 /** API DE FUNCIONES */
 
 /**
+ @brief Apertura y confugura la comunicación serial con la MD49.
+ @param fd Puntero a la direccion de memoria de la varible entera donde se almacena el número del puerto (ID) de comunicación.
+*/
+int iniciarComunicacionMD49(int *fd);
+
+/**
  @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
  @param fd Número del puerto de comunicación.
  @param Velocidad puntero a la direccion de memoria donde se encuentra el valor de la velocidad 1.
@@ -232,6 +238,11 @@ int activarTiempoSeguridad(int fd);
 */
 int desactivarTiempoSeguridad(int fd);
 
+/**
+ @brief Da por terminada la comunición con la MD40 y cierra el puerto serial.
+ @param fd Número de puerto de comunicación.
+*/
+int terminarComunicacionMD49(int fd);
 
 /***********************************************************************/
 

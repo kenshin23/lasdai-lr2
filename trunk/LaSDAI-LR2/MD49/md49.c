@@ -208,7 +208,6 @@ int obtenerVolajeBateria(int fd, double *voltajeBateria){
 
 int obtenerCorrienteMotor1(int fd, double *corrienteMotor1){
 	static unsigned char sbuf[2];
-	double _corrienteMotor1;
 	sbuf[0] = byteDeSincronizacion;
    	sbuf[1] = comandoObtenerCorrienteMotor1;
 	int escribir, leer;
@@ -227,7 +226,7 @@ int obtenerCorrienteMotor1(int fd, double *corrienteMotor1){
 			#endif
 			return (-2);
 		}else{
-			*_corrienteMotor1 = sbuf[0]/10;
+			*corrienteMotor1 = sbuf[0]/10;
 			return (0);
 		}
 	}
@@ -237,7 +236,6 @@ int obtenerCorrienteMotor1(int fd, double *corrienteMotor1){
 
 int obtenerCorrienteMotor2(int fd, double *corrienteMotor2){
 	static unsigned char sbuf[2];
-	double _corrienteMotor2;
 	sbuf[0] = byteDeSincronizacion;
    	sbuf[1] = comandoObtenerCorrienteMotor2;
 	int escribir, leer;
@@ -256,7 +254,7 @@ int obtenerCorrienteMotor2(int fd, double *corrienteMotor2){
 			#endif
 			return (-2);
 		}else{
-			*_corrienteMotor2 = sbuf[0]/10;
+			*corrienteMotor2 = sbuf[0]/10;
 			return (0);
 		}
 	}
