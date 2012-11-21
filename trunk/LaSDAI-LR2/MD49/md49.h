@@ -152,52 +152,86 @@ int obtenerDatosEnergia(int fd, int *voltaje, int *corrienteMotor1, int *corrien
 */
 int obtenerError(int fd, int *error);
 
-
-
-
-
-
-
-
 /**
- @brief establece un nuevo valor a el registro de velocidad 1 del controlador.
- @param fd numero del puerto de comunicacion.
- @param velocidad nuevo valor de velocidad.
- @return 0 operacion exitosa en caso contrario.
-	-1 Error al intentar escribir los datos de velocidad 1.
-	-2 Error la escritura de la velocidad 1 no fue correcta.
+ @brief Establece un nuevo valor a el registro de velocidad 1 del controlador MD49.
+ @param fd Número del puerto de comunicación.
+ @param velocidad Nuevo valor de velocidad que se establecera al registro de velocidad 1.
+ @return 0 Operación exitosa en caso contrario.
+		-1 Error al intentar escribir los datos en el registro de velocidad 1.
+		-2 Error la escritura del registro velocidad 1 no fue correcta.
 */
 int asignarVelocidad1(int fd, double velocidad);
 
 /**
- @brief establece un nuevo valor a el registro de velocidad 2 del controlador.
- @param fd numero de puerto de comunicacion.
- @param velocidad nuevo valor de velocidad.
- @return 0 operacion exitosa en caso contrario.
-	-1 Error al intentar escribir los datos de velocidad 2.
-	-2 Error la escritura de la velocidad 2 no fue correcta.
+ @brief Establece un nuevo valor a el registro de velocidad 2 del controlador MD49.
+ @param fd Número del puerto de comunicación.
+ @param velocidad Nuevo valor de velocidad que se establecera al registro de velocidad 2.
+ @return 0 Operación exitosa en caso contrario.
+		-1 Error al intentar escribir los datos en el registro de velocidad 2.
+		-2 Error la escritura del registro velocidad 2 no fue correcta.
 */
 int asignarVelocidad2(int fd, double velocidad);
 
 /**
- @brief establece un nuevo mode de aceleracion a la controladora.
- @param fd numero de puerto de comunicacion.
- @param modo nuevo modo de aceleracion.
- @return 0 operacion exitosa en caso contrario.
-	-1 Error al intentar escribir los datos del registro modo aceleracion.
-	-2 Error la escritura del registro modo aceleracion no fue correcta.
+ @brief Establece un nuevo modo de aceleración a la controladora MD49.
+ @param fd Número de puerto de comunicación.
+ @param modoAceleracion Nuevo modo de aceleración.
+ @return 0 Operación exitosa en caso contrario.
+		-1 Error al intentar escribir los datos del registro modo aceleración.
+		-2 Error la escritura del registro modo aceleración no fue correcta.
 */
-int asignarModoAceleracion(int fd, int modo);
+int asignarModoAceleracion(int fd, int modoAceleracion);
 
 /**
- @brief establece un nuevo mode de velocidad de la controladora.
- @param fd numero de puerto de comunicacion.
- @param modo nuevo modo de velocidad.
- @return 0 operacion exitosa en caso contrario.
-	-1 Error al intentar escribir los datos del registro modo velocidad.
-	-2 Error la escritura del registro modo velocidad no fue correcta.
+ @brief Establece un nuevo modo de velocidad de la controladora MD49.
+ @param fd Número de puerto de comunicación.
+ @param modoVelocidad Nuevo modo de velocidad.
+ @return 0 Operacion exitosa en caso contrario.
+		-1 Error al intentar escribir los datos del registro modo velocidad.
+		-2 Error la escritura del registro modo velocidad no fue correcta.
 */
 int asignarModoVelocidad(int fd, int modoVelocidad);
+
+/**
+ @brief Coloca en cero "0" los registros que almacenan los contadores de los codificados en la MD49.
+ @param fd Número de puerto de comunicación.
+ @return 0 Operacion exitosa en caso contrario.
+ 	 	-1 Ocurrio un error al ejecutar el comando.
+*/
+int reinicializarCodificadores(int fd);
+
+/**
+ @brief Activa la función de retroalimentación de los encoder.
+ @param fd Número de puerto de comunicación.
+ @return 0 Operacion exitosa en caso contrario.
+		-1 Ocurrio un error al ejecutar el comando.
+*/
+int activarRetroalimentacionCodificadores(int fd);
+
+/**
+ @brief Desactiva la función de retroalimentación de los encoder.
+ @param fd Número de puerto de comunicación.
+ @return 0 Operacion exitosa en caso contrario.
+		-1 Ocurrio un error al ejecutar el comando.
+*/
+int desactivarRetroalimentacionCodificadores(int fd);
+
+/**
+ @brief Activa la función de tiempo de seguridad (La MD49 deja de enviar ordenes a los motores si tiene 2 segundos sin comunicación).
+ @param fd Número de puerto de comunicación.
+ @return 0 Operacion exitosa en caso contrario.
+		-1 Ocurrio un error al ejecutar el comando.
+*/
+int activarTiempoSeguridad(int fd);
+
+/**
+ @brief Desactiva la función de tiempo de seguridad.
+ @param fd Número de puerto de comunicación.
+ @return 0 Operacion exitosa en caso contrario.
+		-1 Ocurrio un error al ejecutar el comando.
+*/
+int desactivarTiempoSeguridad(int fd);
+
 
 /***********************************************************************/
 
