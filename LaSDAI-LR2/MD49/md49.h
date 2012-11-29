@@ -18,7 +18,7 @@
 /** API DE FUNCIONES */
 
 /**
- @brief Apertura y confugura la comunicación serial con la MD49.
+ @brief Apertura y configura la comunicación serial con la MD49.
  @param fd Puntero a la direccion de memoria de la varible entera donde se almacena el número del puerto (ID) de comunicación.
 */
 int iniciarComunicacionMD49(int *fd);
@@ -127,6 +127,7 @@ int obtenerModoAceleracion(int fd, int *modoAceleracion);
 
 /**
  @brief Actualiza el modo de velocidad en que trabaja la controladora.
+
  @param fd Número de puerto de comunicación.
  @param modo Puntero a la dirección de memoria donde se encuentra el modo de velocidad actual.
  @return 0 Operación exitosa en caso contrario.
