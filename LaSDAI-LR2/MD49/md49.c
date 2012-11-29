@@ -1,8 +1,8 @@
 /**
  @file md49.c
- @brief Desarrollo de los metodos para el manejo de la placa controladora MD49 definidos en md49.h.
+ @brief Desarrollo de los métodos para el manejo de la placa controladora MD49 definidos en md49.h.
  @date Junio, 2012.
- @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com.
+ @author José Delgado Pérez, josedelgado@ula.ve josed43@gmail.com.
 */
 
 #include <stdio.h>
@@ -16,7 +16,7 @@
 #include "definicion.h"
 #include "../ComunicacionSerial/serial.h"
 
-/****** Metodos de manipulaciónn del controlador MD49 ******/
+/****** Métodos de manipulación del controlador MD49 ******/
 
 int obtenerVelocidad1(int fd, double *velocidad){
 	static unsigned char sbuf[2];
@@ -648,32 +648,3 @@ int desactivarTiempoSeguridad(int fd){
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
