@@ -76,7 +76,7 @@ int obtenerCodificadorMotor2(int fd, int *codificadorPosicion2);
 int obtenerCodificadoresMotores(int fd, int *codificadorPosicion1, int *codificadorPosicion2);
 
 /**
- @brief Actualiza el valor del voltaje de la bateria que alimenta la MD49.
+ @brief Actualiza el valor del voltaje de la batería que alimenta la MD49.
  @param fd Número del puerto de comunicación.
  @param voltajeBateria Puntero a la dirección de memoria donde se encuentra el valor del voltaje de la bateria que alimenta la MD49.
  @return 0 Operación exitosa en caso contrario.
@@ -146,7 +146,7 @@ int obtenerModoVelocidad(int fd, int *modoVelocidad);
 		-1 Error al enviar la solicitud de lectura de los datos de energía.
 		-2 Error no se pudo leer los registros que contienen los datos de energía.
 */
-int obtenerDatosEnergia(int fd, int *voltaje, int *corrienteMotor1, int *corrienteMotor2);
+int obtenerDatosEnergia(int fd, double *voltaje, double *corrienteMotor1, double *corrienteMotor2);
 
 /**
  @brief Actualiza el estado del manejador de errores de la MD49.
@@ -166,7 +166,7 @@ int obtenerError(int fd, int *error);
 		-1 Error al intentar escribir los datos en el registro de velocidad 1.
 		-2 Error la escritura del registro velocidad 1 no fue correcta.
 */
-int asignarVelocidad1(int fd, double velocidad);
+int asignarVelocidad1(int fd, double velocidad1);
 
 /**
  @brief Establece un nuevo valor a el registro de velocidad 2 del controlador MD49.
@@ -176,7 +176,7 @@ int asignarVelocidad1(int fd, double velocidad);
 		-1 Error al intentar escribir los datos en el registro de velocidad 2.
 		-2 Error la escritura del registro velocidad 2 no fue correcta.
 */
-int asignarVelocidad2(int fd, double velocidad);
+int asignarVelocidad2(int fd, double velocidad1);
 
 /**
  @brief Establece un nuevo modo de aceleración a la controladora MD49.
