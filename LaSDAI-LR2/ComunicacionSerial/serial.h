@@ -29,7 +29,7 @@ int cerrarPuerto(int fd);
 /**
  @brief Escribir datos por el puerto serial.
  @param fd Número del puerto de comunicación.
- @param nBytes Números de datos a escribir.
+ @param nBytes Número de datos a escribir.
  @param sbuf Puntero a la dirección de memoria del buffer que contiene los datos a escribir.
  @return 0 Operación exitosa en caso contrario.
 		-1 Error no se lograron escribir los datos.
@@ -40,7 +40,7 @@ int escribirDatos(int fd, int nBytes, unsigned char* sbuf);
 /**
  @brief Leer datos por el puerto serial.
  @param fd Número del puerto de comunicación.
- @param nBytes Números de datos a leer.
+ @param nBytes Número de datos a leer.
  @param sbuf Puntero a la dirección de memoria del buffer donde se almacenaran los datos a leer.
  @return 0 Operación exitosa en caso contrario.
 	-1 Error no se logro leer los datos.
