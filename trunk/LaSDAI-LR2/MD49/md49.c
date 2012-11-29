@@ -411,7 +411,27 @@ int obtenerError(int fd, int *error){
 			#endif
 			return (-2);
 		}else{
-			*error = sbuf[0]; //Ojo esto esta mal.
+			if(sbuf[0] == 0){
+				*error = 0; //no hay ningún error en la controladora MD49.
+			}
+			if(sbuf[0] & ERROR_BAJO_VOLTAJE){
+				*error = -1; //error -1: se detecto bajo voltaje en la alimentación de la MD49.
+			}
+			if(sbuf[0] & ERROR_ALTO_VOLTAJE){
+				*error = -2; //error -2: se detecto alto voltaje en la alimentación de la MD49.
+			}
+			if(sbuf[0] & ERROR_CORRIENTE_MOTOR_1){
+				*error = -3; //error -3: se detecto alto consumo de corriente por parte del motor 1.
+			}
+			if(sbuf[0] & ERROR_CORRIENTE_MOTOR_2){
+				*error = -4; //error -4: se detecto alto consumo de corriente por parte del motor 2.
+			}
+			if(sbuf[0] & ERROR_CORTO_MOTOR_1){
+				*error = -5; //error -5: se detecto corto en el motor 1.
+			}
+			if(sbuf[0] & ERROR_CORTO_MOTOR_2){
+				*error = -6; //error -6: se detecto corto en el motor 2.
+			}
 			return (0);
 		}
 	}
