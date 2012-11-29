@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <termios.h>
+
 #include "definicion.h"
 #include "serial.h"
 
