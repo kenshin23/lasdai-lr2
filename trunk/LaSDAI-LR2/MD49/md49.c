@@ -18,6 +18,21 @@
 
 /****** Métodos de manipulación del controlador MD49 ******/
 
+int iniciarComunicacionMD49(int *fd){
+	int com;
+	com = abrirPuerto(fd,ttyMD49,baudiosMD49);
+	if(com !=  0){
+			#ifdef DEBUG
+				perror("iniciarComunicacionMD49: Error al iniciar la comunicación con la MD49.\n");
+			#endif
+			return (-1);
+	}else{
+		return (0);
+	}
+}
+
+/**************************************************************************************************/
+
 int obtenerVelocidad1(int fd, double *velocidad){
 	static unsigned char sbuf[2];
 	sbuf[0] = byteDeSincronizacion;
@@ -346,7 +361,7 @@ int obtenerModoVelocidad(int fd, int *modoVelocidad){
 
 /**************************************************************************************************/
 
-int obtenerDatosEnergia(int fd, int *voltajeBateria, int *corrienteMotor1, int *corrienteMotor2){
+int obtenerDatosEnergia(int fd, double *voltajeBateria, double *corrienteMotor1, double *corrienteMotor2){
 	static unsigned char sbuf[3];
 	sbuf[0] = byteDeSincronizacion;
 	sbuf[1] = comandoObtenerDatosEnergia;
@@ -404,11 +419,11 @@ int obtenerError(int fd, int *error){
 
 /**************************************************************************************************/
 
-int asignarVelocidad1(int fd, double velocidad){
+int asignarVelocidad1(int fd, double velocidad1){
 	static unsigned char sbuf[3];
 	sbuf[0] = byteDeSincronizacion;
 	sbuf[1] = comandoAsignarVelocidad1;
-	sbuf[2] = velocidad;
+	sbuf[2] = velocidad1;
 	int escribir,leer;
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
@@ -432,11 +447,11 @@ int asignarVelocidad1(int fd, double velocidad){
 
 /**************************************************************************************************/
 
-int asignarVelocidad2(int fd, double velocidad){
+int asignarVelocidad2(int fd, double velocidad2){
 	static unsigned char sbuf[3];
 	sbuf[0] = byteDeSincronizacion;
 	sbuf[1] = comandoAsignarVelocidad2;
-	sbuf[2] = velocidad;
+	sbuf[2] = velocidad2;
 	int escribir,leer;
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
@@ -646,5 +661,20 @@ int desactivarTiempoSeguridad(int fd){
 		}else{
 			return (0);
 		}
+	}
+}
+
+/**************************************************************************************************/
+
+int terminarComunicacionMD49(int fd){
+	int com;
+	com = cerrarPuerto(fd);
+	if(com !=  0){
+			#ifdef DEBUG
+				perror("terminarComunicacionMD49: Error al terminar la comunicación con la MD49.\n");
+			#endif
+			return (-1);
+	}else{
+		return (0);
 	}
 }
