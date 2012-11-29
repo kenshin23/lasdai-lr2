@@ -9,4 +9,4 @@
 
 /** La definicion de la variable DEBUG activa el modo de depuración del para las rutinas de manejo de comunicacion serial.
     Para desactivar el modod depuracion comente la definición.**/
-#define DEBUG
+#define SERIAL_DEBUG

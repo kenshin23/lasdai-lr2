@@ -36,7 +36,7 @@ int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 		*fd = _fd;
 		return (0);
    }else{
-		#ifdef DEBUG
+		#ifdef SERIAL_DEBUG
 		perror("abrirPuerto: No se puede abrir el puerto de comunicación con el dispositivo\n");
 		#endif
 		return (-1);
@@ -49,7 +49,7 @@ int cerrarPuerto(int fd){
 	int respuesta;
 	respuesta = close(fd);
 	if(respuesta < 0){
-		#ifdef DEBUG
+		#ifdef SERIAL_DEBUG
 			perror("cerrarPuerto: No se puede cerrar el puerto de comunicación con el dispositivo\n");
 		#endif
 		return (-1);
@@ -64,14 +64,14 @@ int escribirDatos(int fd, int nBytes, unsigned char* sbuf){
 	int bytes;
 	bytes = write(fd, sbuf, nBytes);
 	if(bytes < 0){
-		#ifdef DEBUG
+		#ifdef SERIAL_DEBUG
 			perror("escribirDatos: Error no se lograron escribir los datos\n");
 		#endif
 		return (-1);
 	}else{
 		if(bytes != nBytes){
-			#ifdef DEBUG
-				printf("escribirDatos: Error solo se logro escribir %u bytes de %u bytes\n", bytes , nBytes);
+			#ifdef SERIAL_DEBUG
+				fprintf(stderr,"escribirDatos: Error solo se logro escribir %u bytes de %u bytes\n", bytes , nBytes);
 			#endif
 			return (-2);
 		}
@@ -85,13 +85,13 @@ int leerDatos(int fd, int nBytes, unsigned char* sbuf){
 	int bytes;
 	bytes = read(fd, sbuf, nBytes);
 	if(bytes < 0){
-		#ifdef DEBUG
+		#ifdef SERIAL_DEBUG
 			perror("leerDatos: Error no se logro leer los datos\n");
 		#endif
 		return (-1);
 	}if(bytes != nBytes){
-		#ifdef DEBUG
-			printf("leerDatos: Error solo se logro leer %u bytes de %u bytes\n", bytes, nBytes);
+		#ifdef SERIAL_DEBUG
+			fprintf(stderr,"leerDatos: Error solo se logro leer %u bytes de %u bytes\n", bytes, nBytes);
 		#endif
 		return (-2);
 	}
