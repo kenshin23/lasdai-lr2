@@ -5,8 +5,8 @@
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
 
  Algunos datos: La controladora MD49 funciona bajo dos estandares de comunicación Serial. Permite el control de dos motores, y esta
- 	 	 	 	diseñada especialmente para el control de motores EMG49. Las declaración  de constantes y api de funciones desarrolladas
- 	 	 	 	a continuacion representan el control del la placa MD49 en lenguaje C con comunicacion serial, para la conexion de la
+ 	 	 	 	diseñada especialmente para el control de motores EMG49. La declaración de constantes y api de funciones desarrolladas
+ 	 	 	 	a continuación representan el control del la placa MD49 en lenguaje C con comunicación serial, para la conexión de la
  	 	 	 	placa con el computador se esta usando el modulo tarjeta CP2102 USB-Serial. Los controladores de este modulo pueden
  	 	 	 	descargarse de https://www.sparkfun.com/products/198, los controladores de la CP2102 USB-Serial vienen incluidos en en el
  	 	 	 	kernel de linux Versión 3.6.6.
@@ -14,7 +14,6 @@
 
 #ifndef MD49_H_
 #define MD49_H_
-
 
 /** API DE FUNCIONES */
 
@@ -239,7 +238,7 @@ int activarTiempoSeguridad(int fd);
 int desactivarTiempoSeguridad(int fd);
 
 /**
- @brief Da por terminada la comunición con la MD40 y cierra el puerto serial.
+ @brief Finaliza la comunición con la MD49 y cierra el puerto serial.
  @param fd Número de puerto de comunicación.
 */
 int terminarComunicacionMD49(int fd);
