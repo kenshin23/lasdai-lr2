@@ -3,6 +3,7 @@
  @brief		Implementación de funciones para el manejo de puerto serial.
  @date		Junio, 2012
  @author	José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
+ @version 0.9
 */
 
 #include <stdio.h>
