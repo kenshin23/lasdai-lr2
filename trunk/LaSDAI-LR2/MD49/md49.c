@@ -15,7 +15,7 @@
 
 #include "md49.h"
 #include "definicion.h"
-//#include "../ComunicacionSerial/serial.h"
+#include "../ComunicacionSerial/serial.h"
 
 /****** Métodos de manipulación del controlador MD49 ******/
 
