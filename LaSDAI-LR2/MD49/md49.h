@@ -3,6 +3,7 @@
  @brief  Declaración de constantes y api de funciones para el manejo de los motores EMG49 con reductora 49:1 usando la controladora MD49.
  @date   Junio, 2012
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
+ @version 0.9
 
  Algunos datos: La controladora MD49 funciona bajo dos estándares de comunicación Serial. Permite el control de dos motores, y esta
  	 	 	 	diseñada especialmente para el control de motores EMG49. La declaración de constantes y api de funciones desarrolladas
