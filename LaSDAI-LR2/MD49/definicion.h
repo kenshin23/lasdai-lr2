@@ -7,19 +7,19 @@
 
 /** DEFINICIONES MD49*/
 
-/** Activacion del modod depuracion para las rutinas de MD49 **/
+/** Activación del modo depuración para las rutinas de MD49 **/
 #define DEBUG
 
-/** Puerto de Trabajo del la comunicacion serial con la MD49 tty **/
+/** Puerto de Trabajo del la comunicación serial con la MD49 tty **/
 #define ttyMD49 "ttyUSB0"
 
-/** Velocidad de trabajo de la comunicacion Serial con la MD49 **/
+/** Velocidad de trabajo de la comunicación Serial con la MD49 **/
 #define baudiosMD49 38400
 
-/** Tiempo de retraso para esperar respuesta de la MD49 despues de escribir **/
+/** Tiempo de retraso para esperar respuesta de la MD49 después de escribir **/
 #define retraso 7800
 
-/** Se envia en el bufer antes de cada comando. */
+/** Se enviá en el bufer antes de cada comando. */
 #define  byteDeSincronizacion 0x00
 
 /** COMANDOS */
@@ -57,7 +57,7 @@
 /** Comando para obtener el modo de velocidad actual. */
 #define comandoObtenerModoVelocidad 0x2B
 
-/** Comando para obtener el voltaje de la bateria y la la corriente consumida por cada motor. */
+/** Comando para obtener el voltaje de la batería y la la corriente consumida por cada motor. */
 #define comandoObtenerDatosEnergia 0x2C
 
 /** Comando para obtener el error indicado por el manejador de errores de la MD49. */
@@ -72,22 +72,22 @@
 /** Comando para asignar la aceleración deseada */
 #define comandoAsignarAceleracion 0x33
 
-/** Comando para selecionar el mode de trabajo deseado */
+/** Comando para seleccionar el mode de trabajo deseado */
 #define comandoSeleccionarModoVelocidad 0x34
 
 /** Comando para reiniciar el contador de los codificadores de los motores */
 #define comandoReinicioContadorCodificador 0x35
 
-/** Comando para desactivar la variación de la potencia de salida a través de la retroalimetación de los codificadores */
+/** Comando para desactivar la variación de la potencia de salida a través de la retroalimentación de los codificadores */
 #define comandoDesactivarRetroalimentacion 0x36
 
-/** Comando para activar la variación de la potencia de salida a través de la retroalimetación de los codificadores */
+/** Comando para activar la variación de la potencia de salida a través de la retroalimentación de los codificadores */
 #define comandoActivarRetroalimentacion 0x37
 
-/** Comando para desactivar el tiempo de seguridad que detiene la funcionalidad de la MD49 despues de 2 seg sin comunicación*/
+/** Comando para desactivar el tiempo de seguridad que detiene la funcionalidad de la MD49 después de 2 seg sin comunicación*/
 #define comandoDesactivarTiempoSeguridad 0x38
 
-/** Comando para activar el tiempo de seguridad que detiene la funcionalidad de la MD49 despues de 2 seg sin comunicación*/
+/** Comando para activar el tiempo de seguridad que detiene la funcionalidad de la MD49 después de 2 seg sin comunicación*/
 #define comandoActivarTiempoSeguridad 0x39
 
 
