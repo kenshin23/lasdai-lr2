@@ -79,7 +79,7 @@ int obtenerCodificadoresMotores(int fd, int *codificadorPosicion1, int *codifica
 /**
  @brief Actualiza el valor del voltaje de la batería que alimenta la MD49.
  @param fd Número del puerto de comunicación.
- @param voltajeBateria Puntero a la dirección de memoria donde se encuentra el valor del voltaje de la bateria que alimenta la MD49.
+ @param voltajeBateria Puntero a la dirección de memoria donde se encuentra el valor del voltaje de la batería que alimenta la MD49.
  @return 0 Operación exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del valor del voltaje.
 		-2 Error no se logro leer los datos de los registro del voltaje.
@@ -100,7 +100,7 @@ int obtenerCorrienteMotor1(int fd, double *corrienteMotor1);
  @brief Actualiza el valor de la corriente consumida por el motor 2.
  @param fd Número del puerto de comunicación.
  @param corriente Puntero a la dirección de memoria donde se encuentra el valor de la corriente consumida por el motor 2.
- @return 0 Operacion exitosa en caso contrario.
+ @return 0 Operación exitosa en caso contrario.
 		-1 Error al enviar la solicitud de lectura del valor de la corriente del motor 2.
 		-2 Error no se logro leer los datos de los registro de corriente del motor 2.
 */
