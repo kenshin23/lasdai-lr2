@@ -5,7 +5,9 @@
  *      Author: jose
  */
 
-//PRUEBa
+//PRUEBa}
+
+#include <stdio.h>
 
 int main(){
 	int fd;
