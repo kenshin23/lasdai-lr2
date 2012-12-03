@@ -82,5 +82,14 @@ int obtenerBarridoTraseroUS(){
 }
 
 int terminarComunicacionSP(int fd){
-	return 0;
+	int com;
+	com = cerrarPuerto(fd);
+	if(com !=  0){
+			#ifdef PERCEPCION_DEBUG
+				perror("terminarComunicacionSP: Error al terminar la comunicación con el sistema de Percepción.\n");
+			#endif
+			return (-1);
+	}else{
+		return (0);
+	}
 }

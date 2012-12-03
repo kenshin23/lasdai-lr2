@@ -8,20 +8,20 @@
 //PRUEBa}
 
 #include <stdio.h>
+#include "Percepcion/percepcion.h"
 
 int main(){
-	int fd;
-	char * tty;
-	tty = "/dev/ttyUSB0";
-	double velocidad = 170;
-	//fd = abrirPuerto(tty);
-	//asignarVelocidad1(fd,velocidad);
-	//asignarVelocidad1(fd,velocidad);
-	usleep(15000000);
-	velocidad = 128;
-//	asignarVelocidad1(fd,velocidad);
-	//asignarVelocidad2(fd,velocidad);
-	//cerrarPuerto(fd);
+	int fd, idSensor, distancia;
+	iniciarComunicacionSP(&fd);
+	while(1){
+		scanf("Inserte el id del sensor US que desea leer: %d", idSensor );
+		if(idSensor != 9){
+			obtenerMedidaSensorUS(fd,idSensor,&distancia);
+		}else{
+			break;
+		}
+	}
+	terminarComunicacionSP(fd);
 	return 0;
 }
 
