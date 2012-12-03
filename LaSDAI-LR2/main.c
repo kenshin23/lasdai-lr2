@@ -11,10 +11,10 @@
 #include "Percepcion/percepcion.h"
 
 int main(){
-	int fd, idSensor, distancia;
+	int fd, idSensor = 0, distancia = 0;
 	iniciarComunicacionSP(&fd);
 	while(1){
-		scanf("Inserte el id del sensor US que desea leer: %d", idSensor );
+		scanf("Inserte el id del sensor US que desea leer: %d", &idSensor );
 		if(idSensor != 9){
 			obtenerMedidaSensorUS(fd,idSensor,&distancia);
 		}else{
