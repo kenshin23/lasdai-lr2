@@ -1,6 +1,6 @@
 /**
  @file   definicion.h
- @brief  Definición de las variables y comando utilizadas por las rutinas de manipulacion de la tarjeta controladora de motores MD49.
+ @brief  Definición de las variables y comandos utilizadas por las rutinas de manipulación de la tarjeta controladora de motores MD49.
  @date   Octubre, 2012
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
  @version 0.9
