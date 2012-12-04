@@ -32,7 +32,7 @@ int iniciarComunicacionSP(int *fd){
 
 int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 	static unsigned char sbuf[4];
-	unsigned short int _distanciaUS;
+	//unsigned short int _distanciaUS;
 	int escribir, leer;
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = OBTENER_MEDIDA_US;
@@ -46,16 +46,14 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 		return (-1);
 	}else{
 		usleep(RETRASO);
-		leer = leerDatos(fd,2, sbuf);
+		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
 				perror("obtenerMedidaSensorUS: Error el comando no se ejecuto correctamente.\n");
 			#endif
 			return (-2);
 		}else{
-			_distanciaUS = sbuf[0];
-			_distanciaUS = (_distanciaUS<<8)+sbuf[1];
-			*distanciaUS = (int)_distanciaUS;
+			*distanciaUS = (int)sbuf[0];
 			return (0);
 		}
 	}
@@ -75,7 +73,7 @@ int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR){
 		#endif
 		return (-1);
 	}else{
-		usleep(10000);
+		usleep(RETRASO);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
