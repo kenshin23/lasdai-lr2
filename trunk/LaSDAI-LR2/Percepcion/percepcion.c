@@ -46,7 +46,7 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 		return (-1);
 	}else{
 		usleep(RETRASO);
-		leer = leerDatos(fd,2, sbuf);
+		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
 				perror("obtenerMedidaSensorUS: Error el comando no se ejecuto correctamente.\n");
