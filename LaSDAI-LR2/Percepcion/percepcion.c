@@ -32,7 +32,7 @@ int iniciarComunicacionSP(int *fd){
 
 int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 	static unsigned char sbuf[4];
-	unsigned long _distanciaUS;
+	//unsigned long _distanciaUS;
 	int escribir, leer;
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = OBTENER_MEDIDA_US;
@@ -53,9 +53,9 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 			#endif
 			return (-2);
 		}else{
-			_distanciaUS = sbuf[0];
-			_distanciaUS = (_distanciaUS<<8)+sbuf[1];
-			*distanciaUS = (int)_distanciaUS;
+			//_distanciaUS = sbuf[0];
+			//_distanciaUS = (_distanciaUS<<8)+sbuf[1];
+			*distanciaUS = (int)sbuf[0];
 			return (0);
 		}
 	}
