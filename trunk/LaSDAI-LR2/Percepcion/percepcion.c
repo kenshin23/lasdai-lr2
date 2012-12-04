@@ -75,8 +75,8 @@ int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
-		leer = leerDatos(fd,2, sbuf);
+		usleep(10000);
+		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
 				perror("obtenerMedidaSensorIR: Error el comando no se ejecuto correctamente.\n");
