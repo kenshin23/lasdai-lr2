@@ -11,7 +11,7 @@
 #include "Percepcion/percepcion.h"
 
 int main(){
-	int fd, idSensor = 0, distancia = 10;
+	int fd, idSensor = 0, distancia = 0;
 	iniciarComunicacionSP(&fd);
 	while(1){
 		printf("Inserte el id del sensor US que desea leer: ");
