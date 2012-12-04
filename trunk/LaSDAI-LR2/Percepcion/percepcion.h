@@ -14,7 +14,7 @@ int iniciarComunicacionSP(int *fd);
 
 int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS);
 
-int obtenerMedidaSensorIR(int idSensorIR);
+int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR);
 
 int obtenerMedidaSensorTraseroUS(int angulo);
 
