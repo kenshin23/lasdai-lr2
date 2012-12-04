@@ -12,7 +12,7 @@
 #define PERCEPCION_DEBUG
 
 /** Puerto de Trabajo del la comunicación serial con la manejadora del sistema de percepción tty **/
-#define TTY_PERCEPCION "/dev/ttyACM1"
+#define TTY_PERCEPCION "/dev/ttyACM0"
 
 /** Velocidad de trabajo de la comunicación Serial para la comunicación con la manejadora del sistema de percepción **/
 #define BAUDIOS_PERCEPCION 9600
