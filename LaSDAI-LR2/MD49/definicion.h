@@ -12,7 +12,7 @@
 #define MD49_DEBUG
 
 /** Puerto de Trabajo del la comunicación serial con la MD49 tty **/
-#define TTY_MD49 "ttyUSB0"
+#define TTY_MD49 "/dev/ttyUSB0"
 
 /** Velocidad de trabajo de la comunicación Serial con la MD49 **/
 #define BAUDIOS_MD49 38400
