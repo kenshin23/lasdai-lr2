@@ -17,7 +17,7 @@ int main(){
 		printf("Inserte el id del sensor US que desea leer: ");
 		scanf("%d", &idSensor );
 		if(idSensor != 9){
-			obtenerMedidaSensorUS(fd,idSensor,&distancia);
+			obtenerMedidaSensorIR(fd,idSensor,&distancia);
 			printf("distancia: %d \n", distancia);
 		}else{
 			break;

@@ -45,7 +45,7 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 		#endif
 		return (-1);
 	}else{
-		usleep(2000000);
+		usleep(RETRASO);
 		leer = leerDatos(fd,2, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
@@ -61,8 +61,32 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 	}
 }
 
-int obtenerMedidaSensorIR(int idSensorIR){
-	return 0;
+int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR){
+	static unsigned char sbuf[4];
+	int escribir, leer;
+	sbuf[0] = BYTE_SINCRONIZACION;
+	sbuf[1] = OBTENER_MEDIDA_IR;
+	sbuf[2] = idSensorIR;
+	sbuf[3] = BYTE_FIN_COMANDO;
+	escribir = escribirDatos(fd, 4, sbuf);
+	if(escribir !=  0){
+		#ifdef PERCEPCION_DEBUG
+			perror("obtenerMedidaSensorIR: Error al intenetar escribir el comando.\n");
+		#endif
+		return (-1);
+	}else{
+		usleep(RETRASO);
+		leer = leerDatos(fd,2, sbuf);
+		if(leer != 0){
+			#ifdef PERCEPCION_DEBUG
+				perror("obtenerMedidaSensorIR: Error el comando no se ejecuto correctamente.\n");
+			#endif
+			return (-2);
+		}else{
+			*distanciaIR = (int)sbuf[0];
+			return (0);
+		}
+	}
 }
 
 int obtenerMedidaSensorTraseroUS(int angulo){
