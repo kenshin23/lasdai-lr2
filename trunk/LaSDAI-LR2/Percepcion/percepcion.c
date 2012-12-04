@@ -45,7 +45,7 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(2000000);
 		leer = leerDatos(fd,2, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG

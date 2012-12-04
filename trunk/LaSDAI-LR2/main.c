@@ -14,9 +14,11 @@ int main(){
 	int fd, idSensor = 0, distancia = 0;
 	iniciarComunicacionSP(&fd);
 	while(1){
-		scanf("Inserte el id del sensor US que desea leer: %d", &idSensor );
+		printf("Inserte el id del sensor US que desea leer: ");
+		scanf("%d", &idSensor );
 		if(idSensor != 9){
 			obtenerMedidaSensorUS(fd,idSensor,&distancia);
+			printf("distancia: %d \n", distancia);
 		}else{
 			break;
 		}
