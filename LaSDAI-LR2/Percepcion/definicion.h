@@ -18,7 +18,7 @@
 #define BAUDIOS_PERCEPCION 9600
 
 /** Tiempo de retraso para esperar respuesta del sistema de percepción después de escribir un comando**/
-#define RETRASO 7800
+#define RETRASO 95000
 
 /** Se enviá en el bufer antes de cada comando. */
 #define  BYTE_SINCRONIZACION 0x00
