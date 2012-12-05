@@ -5,7 +5,6 @@
  *      Author: jose
  */
 
-//PRUEBa}
 
 #include <stdio.h>
 #include "Percepcion/percepcion.h"
