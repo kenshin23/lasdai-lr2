@@ -1,6 +1,6 @@
 /**
  @file percepcion.c
- @brief .
+ @brief Desarrollo de los métodos para el manejo del sistema de percepción definidos en percepcion.h.
  @date Diciembre, 2012.
  @author José Delgado Pérez, josedelgado@ula.ve josed43@gmail.com.
  @version 0.9
