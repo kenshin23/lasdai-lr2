@@ -32,7 +32,7 @@ int iniciarComunicacionSP(int *fd){
 
 int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 	static unsigned char sbuf[4];
-	unsigned short int _distanciaUS;
+	unsigned long _distanciaUS;
 	int escribir, leer;
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = OBTENER_MEDIDA_US;
@@ -45,7 +45,7 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(90000);
 		leer = leerDatos(fd,2, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
@@ -60,18 +60,6 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 		}
 	}
 }
-
-//void serializeShort(static unsigned char  *buf, unsigned short int *value) {
-//   union{
-//	   static unsigned char c[2];
-//       unsigned short int val;
-//   } unsigned_short_int;
-//   if (buf == NULL) { return; }
-//   unsigned_short_int.c[0] = buf[0];
-//   unsigned_short_int.c[1] = buf[1];
-//   value = unsigned_short_int.val;
-//
-//}
 
 int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR){
 	static unsigned char sbuf[4];
