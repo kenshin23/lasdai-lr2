@@ -1,10 +1,16 @@
 /**
  @file   percepcion.h
- @brief
+ @brief	 Declaración de constantes y api de funciones para el manejo del sistema de percepción usando un Arduino Mega.
  @date   Diciembre, 2012
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
  @version 0.9
 
+ Algunos datos: La controladora MD49 funciona bajo dos estándares de comunicación Serial. Permite el control de dos motores, y esta
+ 	 	 	 	diseñada especialmente para el control de motores EMG49. La declaración de constantes y api de funciones desarrolladas
+ 	 	 	 	a continuación representan el control del la placa MD49 en lenguaje C con comunicación serial, para la conexión de la
+ 	 	 	 	placa con el computador se esta usando el modulo tarjeta CP2102 USB-Serial. Los controladores de este modulo pueden
+ 	 	 	 	descargarse de https://www.sparkfun.com/products/198, los controladores de la CP2102 USB-Serial vienen incluidos en en el
+ 	 	 	 	kernel de linux Version 3.6.6.
 */
 
 #ifndef PERCEPCION_H_
