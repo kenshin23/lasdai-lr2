@@ -130,7 +130,7 @@ int obtenerMedidaSensorTraseroUS(int fd, int angulo, int *distanciaUST){
 int obtenerBarridoFrontalUS(int fd, int *distanciasUS){
 	static unsigned char sbuf[12];
 	unsigned long _distanciasUS;
-	int escribir, leer;
+	int escribir, leer, i;
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = OBTENER_BARRIDO_FRONTAL_US;
 	sbuf[2] = BYTE_FIN_COMANDO;
@@ -149,7 +149,7 @@ int obtenerBarridoFrontalUS(int fd, int *distanciasUS){
 			#endif
 			return (-2);
 		}else{
-			for (int i = 0; i < 6; ++i) {
+			for(i = 0; i < 6; ++i ){
 				_distanciasUS = sbuf[i*2];
 				_distanciasUS = (_distanciasUS<<8)+sbuf[(i*2)+1];
 				distanciasUS[i] = (int)_distanciasUS;
@@ -163,7 +163,7 @@ int obtenerBarridoFrontalUS(int fd, int *distanciasUS){
 
 int obtenerBarridoFrontalIR(int fd, int *distanciasIR){
 	static unsigned char sbuf[6];
-	int escribir, leer;
+	int escribir, leer, i;
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = OBTENER_BARRIDO_FRONTAL_IR;
 	sbuf[3] = BYTE_FIN_COMANDO;
@@ -182,7 +182,7 @@ int obtenerBarridoFrontalIR(int fd, int *distanciasIR){
 			#endif
 			return (-2);
 		}else{
-			for (int i = 0; i < 6; ++i) {
+			for( i = 0; i < 6; ++i ){
 				distanciasIR[i] = (int)sbuf[i];
 			}
 			return (0);
@@ -195,7 +195,7 @@ int obtenerBarridoFrontalIR(int fd, int *distanciasIR){
 int obtenerBarridoTraseroUS(int fd, int *distanciasUST){
 	static unsigned char sbuf[10];
 	unsigned long _distanciasUST;
-	int escribir, leer;
+	int escribir, leer, i;
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = OBTENER_BARRIDO_TRASERO;
 	sbuf[2] = BYTE_FIN_COMANDO;
@@ -214,7 +214,7 @@ int obtenerBarridoTraseroUS(int fd, int *distanciasUST){
 			#endif
 			return (-2);
 		}else{
-			for (int i = 0; i < 5; ++i) {
+			for ( i = 0; i < 5; ++i ) {
 				_distanciasUST = sbuf[i*2];
 				_distanciasUST = (_distanciasUST<<8)+sbuf[(i*2)+1];
 				distanciasUST[i] = (int)_distanciasUST;
