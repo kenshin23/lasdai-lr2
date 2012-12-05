@@ -56,7 +56,7 @@ int obtenerMedidaSensorTraseroUS(int fd, int angulo, int *distanciaUST);
 		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
 		-2 Error no se logro leer los datos de el registro de velocidad 1.
 */
-int obtenerBarridoFrontalUS(int fd, int *distanciaUS);
+int obtenerBarridoFrontalUS(int fd, int *distanciasUS);
 
 /**
  @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
@@ -66,7 +66,7 @@ int obtenerBarridoFrontalUS(int fd, int *distanciaUS);
 		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
 		-2 Error no se logro leer los datos de el registro de velocidad 1.
 */
-int obtenerBarridoFrontalIR(int fd, int *distanciaIR);
+int obtenerBarridoFrontalIR(int fd, int *distanciasIR);
 
 /**
  @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
@@ -76,7 +76,7 @@ int obtenerBarridoFrontalIR(int fd, int *distanciaIR);
 		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
 		-2 Error no se logro leer los datos de el registro de velocidad 1.
 */
-int obtenerBarridoTraseroUS(int fd, int *distanciaUST);
+int obtenerBarridoTraseroUS(int fd, int *distanciasUST);
 
 /**
  @brief Finaliza la comunicación con la MD49 y cierra el puerto serial.
