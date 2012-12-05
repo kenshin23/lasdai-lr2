@@ -42,7 +42,7 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 	escribir = escribirDatos(fd, 4, sbuf);
 	if(escribir !=  0){
 		#ifdef PERCEPCION_DEBUG
-			perror("obtenerMedidaSensorUS: Error al intenetar escribir el comando.\n");
+			perror("obtenerMedidaSensorUS: Error al intentar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
