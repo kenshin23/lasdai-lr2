@@ -10,8 +10,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
-
-
 #include "md49.h"
 #include "definicion.h"
 #include "../ComunicacionSerial/serial.h"

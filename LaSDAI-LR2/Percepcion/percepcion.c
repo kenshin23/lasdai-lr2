@@ -6,16 +6,15 @@
  @version 0.9
 */
 
-
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
-
 #include "percepcion.h"
 #include "definicion.h"
 #include "../ComunicacionSerial/serial.h"
 
+/****** Métodos de manipulación del sistema de percepción ******/
 
 int iniciarComunicacionSP(int *fd){
 	int com;
@@ -29,6 +28,8 @@ int iniciarComunicacionSP(int *fd){
 		return (0);
 	}
 }
+
+/**************************************************************************************************/
 
 int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 	static unsigned char sbuf[4];
@@ -61,6 +62,7 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 	}
 }
 
+/**************************************************************************************************/
 
 int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR){
 	static unsigned char sbuf[4];
@@ -90,21 +92,58 @@ int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR){
 	}
 }
 
-int obtenerMedidaSensorTraseroUS(int angulo){
+/**************************************************************************************************/
+
+int obtenerMedidaSensorTraseroUS(int fd, int angulo, int *distanciaUST){
+	static unsigned char sbuf[4];
+	unsigned long _distanciaUST;
+	int escribir, leer;
+	sbuf[0] = BYTE_SINCRONIZACION;
+	sbuf[1] = OBTENER_MEDIDA_US;
+	sbuf[2] = angulo;
+	sbuf[3] = BYTE_FIN_COMANDO;
+	escribir = escribirDatos(fd,4,sbuf);
+	if(escribir !=  0){
+		#ifdef PERCEPCION_DEBUG
+			perror("obtenerMedidaSensorTraseroUS: Error al intenetar escribir el comando.\n");
+		#endif
+		return (-1);
+	}else{
+		usleep(RETRASO);
+		leer = leerDatos(fd,2, sbuf);
+		if(leer != 0){
+			#ifdef PERCEPCION_DEBUG
+				perror("obtenerMedidaSensorTraseroUS: Error el comando no se ejecuto correctamente.\n");
+			#endif
+			return (-2);
+		}else{
+			_distanciaUST = sbuf[0];
+			_distanciaUST = (_distanciaUST<<8)+sbuf[1];
+			*distanciaUST = (int)_distanciaUST;
+			return (0);
+		}
+	}
+}
+
+/**************************************************************************************************/
+
+int obtenerBarridoFrontalUS(int fd, int *distanciaUS){
 	return 0;
 }
 
-int obtenerBarridoFrontalUS(){
+/**************************************************************************************************/
+
+int obtenerBarridoFrontalIR(int fd, int *distanciaIR){
 	return 0;
 }
 
-int obtenerBarridoFrontalIR(){
+/**************************************************************************************************/
+
+int obtenerBarridoTraseroUS(int fd, int *distanciaUST){
 	return 0;
 }
 
-int obtenerBarridoTraseroUS(){
-	return 0;
-}
+/**************************************************************************************************/
 
 int terminarComunicacionSP(int fd){
 	int com;
