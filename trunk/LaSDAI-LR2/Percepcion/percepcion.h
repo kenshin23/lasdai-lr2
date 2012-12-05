@@ -5,12 +5,10 @@
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
  @version 0.9
 
- Algunos datos: La controladora MD49 funciona bajo dos estándares de comunicación Serial. Permite el control de dos motores, y esta
- 	 	 	 	diseñada especialmente para el control de motores EMG49. La declaración de constantes y api de funciones desarrolladas
- 	 	 	 	a continuación representan el control del la placa MD49 en lenguaje C con comunicación serial, para la conexión de la
- 	 	 	 	placa con el computador se esta usando el modulo tarjeta CP2102 USB-Serial. Los controladores de este modulo pueden
- 	 	 	 	descargarse de https://www.sparkfun.com/products/198, los controladores de la CP2102 USB-Serial vienen incluidos en en el
- 	 	 	 	kernel de linux Version 3.6.6.
+ Algunos datos: El sistema de percepción esta implementando sobre un controlador Arduino Mega, controlado desde el computador bajo
+  	  	  	  	estándares de comunicación Serial. Permite acceder al valor de cada uno de los sensores de la plataforma, y establece
+  	  	  	  	el manejo de los puertos de expación. La declaración de constantes y api de funciones desarrolladas a continuación
+  	  	  	  	representan el control del sistema de percepción en lenguaje C con comunicación serial.
 */
 
 #ifndef PERCEPCION_H_
@@ -19,74 +17,81 @@
 /** API DE FUNCIONES */
 
 /**
- @brief Apertura y configura la comunicación  serial con la MD49.
+ @brief Apertura y configura la comunicación  serial con el Arduino.
  @param fd Puntero a la dirección de memoria de la variable entera donde se almacena el numero del puerto (ID) de comunicación.
+ @return 0 Operación exitosa en caso contrario.
+		-1 Error al iniciar la comunicación con el Sistema de Percepción.
 */
 int iniciarComunicacionSP(int *fd);
 
 /**
- @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
+ @brief Obtiene el valor del sensor Ultra Sonido que se indica en el parámetro idSensorUS.
  @param fd Número del puerto de comunicación.
- @param Velocidad puntero a la dirección de memoria donde se encuentra el valor de la velocidad 1.
+ @param idSensorUS Identificador del sensor Ultra Sonido.
+ @param distanciaUS Puntero a la dirección de memoria de la variable entera donde se almacena el valor del sensor.
  @return 0 Operación exitosa en caso contrario.
-		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
-		-2 Error no se logro leer los datos de el registro de velocidad 1.
+		-1 Error al intentar escribir el comando.
+		-2 Error el comando no se ejecuto correctamente.
 */
 int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS);
 
 /**
- @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
+ @brief Obtiene el valor del sensor Infra Rojo que se indica en el parámetro idSensorIR.
  @param fd Número del puerto de comunicación.
- @param Velocidad puntero a la dirección de memoria donde se encuentra el valor de la velocidad 1.
+ @param idSensorIR Identificador del sensor Ultra Sonido.
+ @param distanciaIR Puntero a la dirección de memoria de la variable entera donde se almacena el valor del sensor.
  @return 0 Operación exitosa en caso contrario.
-		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
-		-2 Error no se logro leer los datos de el registro de velocidad 1.
+		-1 Error al intentar escribir el comando.
+		-2 Error el comando no se ejecuto correctamente.
 */
 int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR);
 
 /**
- @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
+ @brief Obtiene el valor del sensor Ultra Sonido ubicado en la parte trasera con un angulo especifico (50 - 130).
  @param fd Número del puerto de comunicación.
- @param Velocidad puntero a la dirección de memoria donde se encuentra el valor de la velocidad 1.
+ @param angulo Ángulo de posición del sensor Ultra Sonido trasero.
+ @param distanciaUST Puntero a la dirección de memoria de la variable entera donde se almacena el valor del sensor.
  @return 0 Operación exitosa en caso contrario.
-		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
-		-2 Error no se logro leer los datos de el registro de velocidad 1.
+		-1 Error al intentar escribir el comando.
+		-2 Error el comando no se ejecuto correctamente.
 */
 int obtenerMedidaSensorTraseroUS(int fd, int angulo, int *distanciaUST);
 
 /**
- @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
+ @brief Actualiza el vector con los valores del barrido de los 6 sensores Ultra Sonido delanteros.
  @param fd Número del puerto de comunicación.
- @param Velocidad puntero a la dirección de memoria donde se encuentra el valor de la velocidad 1.
+ @param distanciasUS puntero a la dirección de memoria del vector que almacena el valor de los 6 sensores US delanteros.
  @return 0 Operación exitosa en caso contrario.
-		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
-		-2 Error no se logro leer los datos de el registro de velocidad 1.
+		-1 Error al intenetar escribir el comando..
+		-2 Error el comando no se ejecuto correctamente.
 */
 int obtenerBarridoFrontalUS(int fd, int *distanciasUS);
 
 /**
- @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
+ @brief Actualiza el vector con los valores del barrido de los 6 sensores IR delanteros.
  @param fd Número del puerto de comunicación.
- @param Velocidad puntero a la dirección de memoria donde se encuentra el valor de la velocidad 1.
+ @param distanciasIR puntero a la dirección de memoria del vector que almacena el valor de los 6 sensores IR delanteros.
  @return 0 Operación exitosa en caso contrario.
-		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
-		-2 Error no se logro leer los datos de el registro de velocidad 1.
+		-1 Error al intenetar escribir el comando..
+		-2 Error el comando no se ejecuto correctamente.
 */
 int obtenerBarridoFrontalIR(int fd, int *distanciasIR);
 
 /**
- @brief Obtiene el valor del registro de velocidad 1 del MD49 y actualiza el dato.
+ @brief Actualiza el vector con los valores del barrido en 5 posiciones del sensor US delantero.
  @param fd Número del puerto de comunicación.
- @param Velocidad puntero a la dirección de memoria donde se encuentra el valor de la velocidad 1.
+ @param distanciasUST puntero a la dirección de memoria del vector que almacena el valor del barrido US del sensor trasero.
  @return 0 Operación exitosa en caso contrario.
-		-1 Error al enviar la solicitud de lectura para valor del registro de velocidad 1.
-		-2 Error no se logro leer los datos de el registro de velocidad 1.
+		-1 Error al intentar escribir el comando..
+		-2 Error el comando no se ejecuto correctamente.
 */
 int obtenerBarridoTraseroUS(int fd, int *distanciasUST);
 
 /**
- @brief Finaliza la comunicación con la MD49 y cierra el puerto serial.
+ @brief Finaliza la comunicación con el Sistema de Percepción y cierra el puerto serial.
  @param fd Número de puerto de comunicación.
+  	  	0 Operación exitosa en caso contrario.
+	   -1 Error al terminar la comunicación con el Sistema de Percepción.
 */
 int terminarComunicacionSP(int fd);
 
