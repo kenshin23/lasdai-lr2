@@ -2,7 +2,7 @@
  * main.c
  *
  *  Created on: 29/07/2012
- *      Author: jose
+ *      Author: jose (Prueba commit)
  */
 
 
