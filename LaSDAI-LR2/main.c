@@ -16,7 +16,7 @@ int main(){
 		printf("Inserte el id del sensor IR que desea leer: ");
 		scanf("%d", &idSensor );
 		if(idSensor != 9){
-			obtenerMedidaSensorIR(fd,idSensor,&distancia);
+			obtenerMedidaSensorIR(idSensor,&distancia);
 			printf("distancia: %d \n", distancia);
 		}else{
 			break;
