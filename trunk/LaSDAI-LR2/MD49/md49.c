@@ -16,9 +16,9 @@
 
 /****** Métodos de manipulación del controlador MD49 ******/
 
-int iniciarComunicacionMD49(int *fd){
+int iniciarComunicacionMD49(){
 	int com;
-	com = abrirPuerto(fd,TTY_MD49,BAUDIOS_MD49);
+	com = abrirPuerto(&fd,TTY_MD49,BAUDIOS_MD49);
 	if(com !=  0){
 			#ifdef MD49_DEBUG
 				perror("iniciarComunicacionMD49: Error al iniciar la comunicación con la MD49.\n");
@@ -31,7 +31,7 @@ int iniciarComunicacionMD49(int *fd){
 
 /**************************************************************************************************/
 
-int obtenerVelocidad1(int fd, double *velocidad){
+int obtenerVelocidad1(double *velocidad){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_VELOCIDAD_1;
@@ -59,7 +59,7 @@ int obtenerVelocidad1(int fd, double *velocidad){
 
 /**************************************************************************************************/
 
-int obtenerVelocidad2(int fd, double *velocidad){
+int obtenerVelocidad2(double *velocidad){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_VELOCIDAD_2;
@@ -87,7 +87,7 @@ int obtenerVelocidad2(int fd, double *velocidad){
 
 /**************************************************************************************************/
 
-int obtenerCodificadorMotor1(int fd, int *codificadorPosicion1){
+int obtenerCodificadorMotor1(int *codificadorPosicion1){
 	static unsigned char sbuf[4];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_CODIFICADOR_MOTOR_1;
@@ -120,7 +120,7 @@ int obtenerCodificadorMotor1(int fd, int *codificadorPosicion1){
 
 /**************************************************************************************************/
 
-int obtenerCodificadorMotor2(int fd, int *codificadorPosicion2){
+int obtenerCodificadorMotor2(int *codificadorPosicion2){
 	static unsigned char sbuf[4];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_CODIFICADOR_MOTOR_2;
@@ -153,7 +153,7 @@ int obtenerCodificadorMotor2(int fd, int *codificadorPosicion2){
 
 /**************************************************************************************************/
 
-int obtenerCodificadorMotores(int fd, int *codificadorPosicion1, int *codificadorPosicion2){
+int obtenerCodificadorMotores(int *codificadorPosicion1, int *codificadorPosicion2){
 	static unsigned char sbuf[8];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_CODIFICADOR_MOTORES;
@@ -191,7 +191,7 @@ int obtenerCodificadorMotores(int fd, int *codificadorPosicion1, int *codificado
 
 /**************************************************************************************************/
 
-int obtenerVolajeBateria(int fd, double *voltajeBateria){
+int obtenerVolajeBateria(double *voltajeBateria){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
    	sbuf[1] = COMANDO_OBTENER_VOLTAJE_BATERIA;
@@ -219,7 +219,7 @@ int obtenerVolajeBateria(int fd, double *voltajeBateria){
 
 /**************************************************************************************************/
 
-int obtenerCorrienteMotor1(int fd, double *corrienteMotor1){
+int obtenerCorrienteMotor1(double *corrienteMotor1){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
    	sbuf[1] = COMANDO_OBTENER_CORRIENTE_MOTOR_1;
@@ -247,7 +247,7 @@ int obtenerCorrienteMotor1(int fd, double *corrienteMotor1){
 
 /**************************************************************************************************/
 
-int obtenerCorrienteMotor2(int fd, double *corrienteMotor2){
+int obtenerCorrienteMotor2(double *corrienteMotor2){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
    	sbuf[1] = COMANDO_OBTENER_CORRIENTE_MOTOR_2;
@@ -275,7 +275,7 @@ int obtenerCorrienteMotor2(int fd, double *corrienteMotor2){
 
 /**************************************************************************************************/
 
-int obtenerNumeroVersionSoftware(int fd, double *versionSoftware){
+int obtenerNumeroVersionSoftware(double *versionSoftware){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
    	sbuf[1] = COMANDO_OBTENER_VERSION_SOFTWARE;
@@ -303,7 +303,7 @@ int obtenerNumeroVersionSoftware(int fd, double *versionSoftware){
 
 /**************************************************************************************************/
 
-int obtenerModoAceleracion(int fd, int *modoAceleracion){
+int obtenerModoAceleracion(int *modoAceleracion){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_MODO_ACELERACION;
@@ -331,7 +331,7 @@ int obtenerModoAceleracion(int fd, int *modoAceleracion){
 
 /**************************************************************************************************/
 
-int obtenerModoVelocidad(int fd, int *modoVelocidad){
+int obtenerModoVelocidad(int *modoVelocidad){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_MODO_VELOCIDAD;
@@ -359,7 +359,7 @@ int obtenerModoVelocidad(int fd, int *modoVelocidad){
 
 /**************************************************************************************************/
 
-int obtenerDatosEnergia(int fd, double *voltajeBateria, double *corrienteMotor1, double *corrienteMotor2){
+int obtenerDatosEnergia(double *voltajeBateria, double *corrienteMotor1, double *corrienteMotor2){
 	static unsigned char sbuf[3];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_DATOS_ENERGIA;
@@ -389,7 +389,7 @@ int obtenerDatosEnergia(int fd, double *voltajeBateria, double *corrienteMotor1,
 
 /**************************************************************************************************/
 
-int obtenerError(int fd, int *error){
+int obtenerError(int *error){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_ERROR;
@@ -437,7 +437,7 @@ int obtenerError(int fd, int *error){
 
 /**************************************************************************************************/
 
-int asignarVelocidad1(int fd, double velocidad1){
+int asignarVelocidad1(double velocidad1){
 	static unsigned char sbuf[3];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ASIGNAR_VELOCIDAD_1;
@@ -465,7 +465,7 @@ int asignarVelocidad1(int fd, double velocidad1){
 
 /**************************************************************************************************/
 
-int asignarVelocidad2(int fd, double velocidad2){
+int asignarVelocidad2(double velocidad2){
 	static unsigned char sbuf[3];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ASIGNAR_VELOCIDAD_2;
@@ -493,7 +493,7 @@ int asignarVelocidad2(int fd, double velocidad2){
 
 /**************************************************************************************************/
 
-int asignarModoAceleracion(int fd, int modoAceleracion){
+int asignarModoAceleracion(int modoAceleracion){
 	static unsigned char sbuf[3];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ASIGNAR_MODO_ACELERACION;
@@ -521,7 +521,7 @@ int asignarModoAceleracion(int fd, int modoAceleracion){
 
 /**************************************************************************************************/
 
-int asignarModoVelocidad(int fd, int modoVelocidad){
+int asignarModoVelocidad(int modoVelocidad){
 	static unsigned char sbuf[3];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ASIGNAR_MODO_VELOCIAD;
@@ -549,7 +549,7 @@ int asignarModoVelocidad(int fd, int modoVelocidad){
 
 /**************************************************************************************************/
 
-int reinicializarCodificadores(int fd){
+int reinicializarCodificadores(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_REINICIO_CONTADOR_CODIFICADOR;
@@ -576,7 +576,7 @@ int reinicializarCodificadores(int fd){
 
 /**************************************************************************************************/
 
-int activarRetroalimentacionCodificadores(int fd){
+int activarRetroalimentacionCodificadores(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ACTIVAR_RETROALIMENTACION;
@@ -603,7 +603,7 @@ int activarRetroalimentacionCodificadores(int fd){
 
 /**************************************************************************************************/
 
-int desactivarRetroalimentacionCodificadores(int fd){
+int desactivarRetroalimentacionCodificadores(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_DESACTIVAR_RETROALIMENTACION;
@@ -630,7 +630,7 @@ int desactivarRetroalimentacionCodificadores(int fd){
 
 /**************************************************************************************************/
 
-int activarTiempoSeguridad(int fd){
+int activarTiempoSeguridad(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ACTIVAR_TIEMPO_SEGURIDAD;
@@ -657,7 +657,7 @@ int activarTiempoSeguridad(int fd){
 
 /**************************************************************************************************/
 
-int desactivarTiempoSeguridad(int fd){
+int desactivarTiempoSeguridad(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_DESACTIVAR_TIEMPO_SEGURIDAD;
@@ -684,7 +684,7 @@ int desactivarTiempoSeguridad(int fd){
 
 /**************************************************************************************************/
 
-int terminarComunicacionMD49(int fd){
+int terminarComunicacionMD49(){
 	int com;
 	com = cerrarPuerto(fd);
 	if(com !=  0){

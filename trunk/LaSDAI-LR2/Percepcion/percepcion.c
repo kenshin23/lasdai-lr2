@@ -16,9 +16,9 @@
 
 /****** Métodos de manipulación del sistema de percepción ******/
 
-int iniciarComunicacionSP(int *fd){
+int iniciarComunicacionSP(){
 	int com;
-	com = abrirPuerto(fd,TTY_PERCEPCION,BAUDIOS_PERCEPCION);
+	com = abrirPuerto(&fd,TTY_PERCEPCION,BAUDIOS_PERCEPCION);
 	if(com !=  0){
 			#ifdef PERCEPCION_DEBUG
 				perror("iniciarComunicacionSP: Error al iniciar la comunicación con el Sistema de Percepción.\n");
@@ -31,7 +31,7 @@ int iniciarComunicacionSP(int *fd){
 
 /**************************************************************************************************/
 
-int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
+int obtenerMedidaSensorUS(int idSensorUS, int *distanciaUS){
 	static unsigned char sbuf[4];
 	unsigned long _distanciaUS;
 	int escribir, leer;
@@ -64,7 +64,7 @@ int obtenerMedidaSensorUS(int fd, int idSensorUS, int *distanciaUS){
 
 /**************************************************************************************************/
 
-int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR){
+int obtenerMedidaSensorIR(int idSensorIR, int *distanciaIR){
 	static unsigned char sbuf[4];
 	int escribir, leer;
 	sbuf[0] = BYTE_SINCRONIZACION;
@@ -94,7 +94,7 @@ int obtenerMedidaSensorIR(int fd, int idSensorIR, int *distanciaIR){
 
 /**************************************************************************************************/
 
-int obtenerMedidaSensorTraseroUS(int fd, int angulo, int *distanciaUST){
+int obtenerMedidaSensorTraseroUS(int angulo, int *distanciaUST){
 	static unsigned char sbuf[4];
 	unsigned long _distanciaUST;
 	int escribir, leer;
@@ -127,7 +127,7 @@ int obtenerMedidaSensorTraseroUS(int fd, int angulo, int *distanciaUST){
 
 /**************************************************************************************************/
 
-int obtenerBarridoFrontalUS(int fd, int *distanciasUS){
+int obtenerBarridoFrontalUS(int *distanciasUS){
 	static unsigned char sbuf[12];
 	unsigned long _distanciasUS;
 	int escribir, leer, i;
@@ -161,7 +161,7 @@ int obtenerBarridoFrontalUS(int fd, int *distanciasUS){
 
 /**************************************************************************************************/
 
-int obtenerBarridoFrontalIR(int fd, int *distanciasIR){
+int obtenerBarridoFrontalIR(int *distanciasIR){
 	static unsigned char sbuf[6];
 	int escribir, leer, i;
 	sbuf[0] = BYTE_SINCRONIZACION;
@@ -192,7 +192,7 @@ int obtenerBarridoFrontalIR(int fd, int *distanciasIR){
 
 /**************************************************************************************************/
 
-int obtenerBarridoTraseroUS(int fd, int *distanciasUST){
+int obtenerBarridoTraseroUS(int *distanciasUST){
 	static unsigned char sbuf[10];
 	unsigned long _distanciasUST;
 	int escribir, leer, i;
@@ -226,7 +226,7 @@ int obtenerBarridoTraseroUS(int fd, int *distanciasUST){
 
 /**************************************************************************************************/
 
-int terminarComunicacionSP(int fd){
+int terminarComunicacionSP(){
 	int com;
 	com = cerrarPuerto(fd);
 	if(com !=  0){
