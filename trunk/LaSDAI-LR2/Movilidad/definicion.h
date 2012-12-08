@@ -14,9 +14,6 @@
 #define MOVILIDAD_DEBUG
 
 /*******************************************************/
+#define DETENER 0
+#define VELOCIDAD_INICIAL_RAMPA 16
 
-#define VELOCIDAD_0_RAMPA 16
-#define VELOCIDAD_1_RAMPA 32
-#define VELOCIDAD_2_RAMPA 64
-#define VELOCIDAD_3_RAMPA 96
-#define VELOCIDAD_4_RAMPA 128

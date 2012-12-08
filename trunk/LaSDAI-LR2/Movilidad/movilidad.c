@@ -69,30 +69,22 @@ int moverLineaRecta(double d){
 	error += asignarModoVelocidad(VELOCIDAD_MODO_GIRO);
 	error += reinicializarCodificadores();
 	if(d < 0) signo=-1;
-	distancia = fabs(d);
-	if(distancia >= 60){ rampa = 1; }else{ if(45 <= d < 60){ rampa = 2; }else{ if(25 <= d < 45){ rampa = 3; }else{ if(15 <= d < 25){ rampa = 4; }else{ rampa = 5; } } } }
-	error += asignarVelocidad1(VELOCIDAD_0_RAMPA);
-
+	error += asignarVelocidad1(VELOCIDAD_INICIAL_RAMPA*signo);
 	do{
 		error += obtenerCodificadorMotores(&codificador1, &codificador2);
 		if(d < 0 && codificador1 != 0) codificador1 = (0xffffffff) - codificador1;
 		if(d < 0 && codificador2 != 0) codificador2 = (0xffffffff) - codificador2;
+		if(){}
 
-		if(((pulsos-codificador1) <= 180 || (pulsos-codificador2) <= 180) && aux == 0){
-			if(vl > 0 && vl > VL_FINAL) vl = VL_FINAL;
-			if(vl < 0 && vl < (VL_FINAL*-1)) vl = (VL_FINAL*-1);
-			respuesta = respuesta + asignarVelocidadLineal(fd, vl);
-			aux = 1;
-		}
 	}while(codificador1 < pulsos && codificador2 < pulsos);
-	respuesta = respuesta + asignarVelocidadLineal(fd,DETENER);
-	if(respuesta == 0){
+	error +=asignarVelocidadLineal(fd,DETENER);
+	if(error == 0){
 		return (0);
 	}else{
 		#ifdef DEBUG
-		perror("moverLineaRecta: No se logro realizar el movimiento\n");
+		perror("moverLineaRecta: No se realizao el movimento de forma correcta.\n");
 		#endif
-		 return (-1);
+		return (-1);
 	}
 }
 
