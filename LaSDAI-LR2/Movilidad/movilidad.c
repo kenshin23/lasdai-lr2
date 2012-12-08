@@ -1,7 +1,175 @@
-/*
- * movilidad.c
- *
- *  Created on: 29/07/2012
- *      Author: jose
- */
+/**
+ @file movilidad.c
+ @brief Desarrollo e implementación de la rutinas de movilidad de la plataforma LASDAI LR2.
 
+ @date Junio, 2012.
+ @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
+
+*/
+
+#include "movilidad.h"
+#include <math.h>
+
+/****** Métodos de movilidad ******/
+
+int inicializarMovilidad(){
+	int error = 0;
+	if(iniciarComunicacionMD49() == 0 ){
+		error += reinicializarCodificadores();
+		error += activarRetroalimentacionCodificadores();
+		error += activarTiempoSeguridad();
+		error += asignarModoAceleracion(DEFAUL_ACELERACION_MODE);
+		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
+		if(error == 0 ){
+			estadoActual.teta = 0;
+			estadoActual.x = 0;
+			estadoActual.y = 0;
+			return (0);
+		}else{
+			#ifdef MOVILIDAD_DEBUG
+				perror("inicializarMovilidad: Error al inicializar los parametros en la controladora de motores.\n");
+			#endif
+			return (-1);
+		}
+	}else{
+		#ifdef MOVILIDAD_DEBUG
+			perror("inicializarMovilidad: No se pudo inicializar la comunicación con la controladora de motores.\n");
+		#endif
+		return (-1);
+	}
+}
+
+/**************************************************************************************************/
+
+int asignarVelocidad(double v, double w){
+	double v1, v2;
+	int aux = 0;
+	long int vm1, vm2;
+	v1 = v + w*LONGITUD_EJE*0.5;
+	v2 = v - w*LONGITUD_EJE*0.5;
+	// 60 para pasar a minutos 127 es el indicador maximo de 122 rpm.
+	vm1 = (long int)((v1*60*128)/(M_PI*DIAMETRO_RUEDA*122));
+	vm2 = (long int)((v2*60*128)/(M_PI*DIAMETRO_RUEDA*122));
+	aux += asignarVelocidad1(vm1);
+	aux += asignarVelocidad2(vm2);
+	if(aux != 0){
+		#ifdef MOVILIDAD_DEBUG
+			perror("asignarVelocidad: No se pudo asignar la velocidad.\n");
+		#endif
+		return (-1);
+	}
+	return (0);
+}
+
+/**************************************************************************************************/
+
+int moverLineaRecta(double d){
+	int pulsos, codificador1, codificador2, error = 0, aux=0, signo = 1, rampa, distancia;
+	pulsos = calculoNumeroPulsos(d);
+	error += asignarModoVelocidad(VELOCIDAD_MODO_GIRO);
+	error += reinicializarCodificadores();
+	if(d < 0) signo=-1;
+	distancia = fabs(d);
+	if(distancia >= 60){ rampa = 1; }else{ if(45 <= d < 60){ rampa = 2; }else{ if(25 <= d < 45){ rampa = 3; }else{ if(15 <= d < 25){ rampa = 4; }else{ rampa = 5; } } } }
+	error += asignarVelocidad1(VELOCIDAD_0_RAMPA);
+
+	do{
+		error += obtenerCodificadorMotores(&codificador1, &codificador2);
+		if(d < 0 && codificador1 != 0) codificador1 = (0xffffffff) - codificador1;
+		if(d < 0 && codificador2 != 0) codificador2 = (0xffffffff) - codificador2;
+
+		if(((pulsos-codificador1) <= 180 || (pulsos-codificador2) <= 180) && aux == 0){
+			if(vl > 0 && vl > VL_FINAL) vl = VL_FINAL;
+			if(vl < 0 && vl < (VL_FINAL*-1)) vl = (VL_FINAL*-1);
+			respuesta = respuesta + asignarVelocidadLineal(fd, vl);
+			aux = 1;
+		}
+	}while(codificador1 < pulsos && codificador2 < pulsos);
+	respuesta = respuesta + asignarVelocidadLineal(fd,DETENER);
+	if(respuesta == 0){
+		return (0);
+	}else{
+		#ifdef DEBUG
+		perror("moverLineaRecta: No se logro realizar el movimiento\n");
+		#endif
+		 return (-1);
+	}
+}
+
+/**************************************************************************************************/
+
+int giroRelativo(double teta){
+
+
+	return 0;
+}
+
+/**************************************************************************************************/
+
+int gotoXY(struct datosCinematica estadoNuevo){
+
+
+	return 0;
+}
+
+/**************************************************************************************************/
+
+int diagnosticoOperatividad(){
+	int error;
+	if(obtenerError(&error) == 0){
+		if(error == 0){
+			return (0);
+		}else{
+			#ifdef MOVILIDAD_DEBUG
+				perror("diagnosticoOperatividad: La controladora de motores no esta operativa, esta emitiendo un error.\n");
+			#endif
+			return (-2);
+		}
+	}else{
+		#ifdef MOVILIDAD_DEBUG
+			perror("diagnosticoOperatividad: No se pudo realizar el diagnostico.\n");
+		#endif
+		return (-1);
+	}
+}
+
+/**************************************************************************************************/
+
+void asignarDatosCinematica(struct datosCinematica estadoNuevo){
+	estadoActual.x = estadoNuevo.x;
+	estadoActual.y = estadoNuevo.y;
+	estadoActual.teta = estadoNuevo.teta;
+}
+
+/**************************************************************************************************/
+
+void obtenerDatosCinematica(struct datosCinematica *estado){
+	*estado->x = estadoActual.x;
+	*estado->y = estadoActual.y;
+	*estado->teta = estadoActual.teta;
+}
+
+/**************************************************************************************************/
+
+int calculoNumeroPulsos(double d){
+	double cm;
+	cm = (M_PI*DIAMETRO_RUEDA)/PULSOS_REVOLUCION;
+	return (int)(fabs(d)/cm);
+}
+
+/**************************************************************************************************/
+
+int terminarMovilidad(){
+	if(terminarComunicacionMD49() == 0){
+		estadoActual.teta = 0;
+		estadoActual.x = 0;
+		estadoActual.y = 0;
+		return (0);
+	}else{
+		#ifdef MOVILIDAD_DEBUG
+			perror("terminarMovilidad: No termino de forma correcta la comunicación con la controladora de motores.\n");
+		#endif
+		return (-1);
+	}
+
+}

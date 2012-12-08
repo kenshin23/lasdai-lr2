@@ -14,6 +14,8 @@
 
 */
 
+#include "../MD49/md49.h"
+#include "definicion.h"
 
 #ifndef MOVILIDAD_H_
 #define MOVILIDAD_H_
@@ -33,6 +35,8 @@ struct datosCinematica {
 	double teta; /**< Orientación de la plataforma. */
 };
 
+struct datosCinematica estadoActual;
+
 /**
  @brief Carga y configura el driver de los motores e inicializa los parámetros de cinemática de la plataforma.
  @return 0 operacion exitosa en caso contrario.
@@ -47,7 +51,15 @@ int moverLineaRecta(double d);
 
 int giroRelativo(double teta);
 
-int gotoXY(struct datosCinematica *estadoActual, struct datosCinematica estadoNuevo);
+int gotoXY(struct datosCinematica estadoNuevo);
+
+int diagnosticoOperatividad();
+
+void asignarDatosCinematica(struct datosCinematica estadoNuevo);
+
+void obtenerDatosCinematica(struct datosCinematica *estado);
+
+int calculoNumeroPulsos(double d);
 
 int terminarMovilidad();
 
