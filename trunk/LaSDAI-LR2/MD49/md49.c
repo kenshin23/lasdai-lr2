@@ -153,7 +153,7 @@ int obtenerCodificadorMotor2(int *codificadorPosicion2){
 
 /**************************************************************************************************/
 
-int obtenerCodificadorMotores(int *codificadorPosicion1, int *codificadorPosicion2){
+int obtenerCodificadoresMotores(int *codificadorPosicion1, int *codificadorPosicion2){
 	static unsigned char sbuf[8];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_CODIFICADOR_MOTORES;
