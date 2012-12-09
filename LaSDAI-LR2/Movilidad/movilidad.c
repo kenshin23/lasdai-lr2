@@ -82,7 +82,7 @@ int moverLineaRecta(double d){
 		error += obtenerCodificadoresMotores(&codificador1, &codificador2);
 		if(d < 0 && codificador1 != 0) codificador1 = (0xffffffff) - codificador1;
 		if(d < 0 && codificador2 != 0) codificador2 = (0xffffffff) - codificador2;
-		vl = calculoVelecidad(signo, rampa, codificador1, codificador2);
+		vl = calculoVelecidad(rampa, codificador1, codificador2, pulsos);
 		error += asignarVelocidad1(vl*signo);
 	}while(codificador1 < pulsos && codificador2 < pulsos);
 	error += asignarVelocidad1(DETENER);
@@ -159,9 +159,25 @@ int calculoNumeroPulsos(double d){
 
 /**************************************************************************************************/
 
-int calculoVelecidad(int signo, int rampa, int codificador1, int codificador2){
+int calculoVelecidad(int rampa, int codificador1, int codificador2, int pulsos){
 	int vl = 0;
+	switch (rampa) {
+		case 1:
 
+			break;
+		case 2:
+
+			break;
+		case 3:
+
+			break;
+		case 4:
+			if((codificador1 >= 124) || (codificador2 >= 124)){ }
+			break;
+		default:
+			vl = 16;
+			break;
+	}
 	return vl;
 }
 

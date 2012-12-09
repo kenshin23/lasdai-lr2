@@ -14,9 +14,6 @@
 
 */
 
-#include "../MD49/md49.h"
-#include "definicion.h"
-
 #ifndef MOVILIDAD_H_
 #define MOVILIDAD_H_
 
@@ -60,6 +57,8 @@ void asignarDatosCinematica(struct datosCinematica estadoNuevo);
 void obtenerDatosCinematica(struct datosCinematica *estado);
 
 int calculoNumeroPulsos(double d);
+
+int calculoVelecidad(int rampa, int codificador1, int codificador2, int pulsos);
 
 int terminarMovilidad();
 
