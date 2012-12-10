@@ -123,8 +123,6 @@ int giroRelativo(double teta){
 /**************************************************************************************************/
 
 int gotoXY(struct datosCinematica estadoNuevo){
-
-
 	return 0;
 }
 
