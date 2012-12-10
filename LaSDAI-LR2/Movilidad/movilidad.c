@@ -70,13 +70,13 @@ int asignarVelocidad(double v, double w){
 /**************************************************************************************************/
 
 int moverLineaRecta(double d){
-	int pulsos, codificador1, codificador2, error = 0, signo = 1, aux = 2, aux2, rampa, distancia, vl = 0, cambios, cambiosHechos=0, pulsosDesaceleracion;
+	int pulsos, codificador1, codificador2, error = 0, signo = 1, aux = 2, aux2, distancia, vl = 0, cambios, cambiosHechos=0, pulsosDesaceleracion;
 	pulsos = calculoNumeroPulsos(d);
 	error += asignarModoVelocidad(VELOCIDAD_MODO_GIRO);
 	error += reinicializarCodificadores();
 	if(d < 0) signo=-1;
 	distancia = fabs(d);
-	if(distancia >= 60){ rampa = 1; cambios = 8; }else{ if(distancia >= 45 && distancia < 60){ rampa = 2; cambios = 6; }else{ if(distancia >= 25 && distancia < 45){ rampa = 3;	cambios = 4; }else{	if(distancia >= 15 && distancia < 25){ rampa = 4; cambios = 2; }else{ rampa = 5; cambios = 0; }	} }	}
+	cambios = calculoCambios(distancia);
 	pulsosDesaceleracion = pulsos-(cambios/2)*PULSOS_DE_CAMBIOS_RAMPA;
 	error += asignarVelocidad1(VELOCIDAD_INICIAL_RAMPA*signo);
 	do{
@@ -171,6 +171,30 @@ int calculoNumeroPulsos(double d){
 	double cm;
 	cm = M_PI*DIAMETRO_RUEDA/PULSOS_REVOLUCION;
 	return (int)(fabs(d)/cm);
+}
+
+/**************************************************************************************************/
+
+int calculoCambios(int distancia){
+	int cambios;
+	if(distancia >= 60){
+		cambios = 8;
+	}else{
+		if(distancia >= 45 && distancia < 60){
+			cambios = 6;
+		}else{
+			if(distancia >= 25 && distancia < 45){
+				cambios = 4;
+			}else{
+				if(distancia >= 15 && distancia < 25){
+					cambios = 2;
+				}else{
+					cambios = 0;
+				}
+			}
+		}
+	}
+	return cambios;
 }
 
 /**************************************************************************************************/
