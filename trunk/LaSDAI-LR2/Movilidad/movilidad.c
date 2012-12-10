@@ -160,13 +160,13 @@ int calculoNumeroPulsos(double d){
 /**************************************************************************************************/
 
 int calculoVelecidad(int rampa, int codificador1, int codificador2, int pulsos){
-	int vl = 16, codificador;
+	int vl = 16, codificador, pulsosAux;
 	if(codificador1 > codificador2){ codificador = codificador1; }else{ codificador = codificador2; }
 	switch (rampa) {
 		case 1:
 			break;
 		case 2:
-			pulsos = pulsos - 124;
+			pulsosAux = pulsos - 124;
 			if((codificador >= 124) && (codificador < 248)){
 				vl = vl*2;
 			}else{
@@ -183,8 +183,8 @@ int calculoVelecidad(int rampa, int codificador1, int codificador2, int pulsos){
 
 			break;
 		case 4:
-			pulsos = pulsos - 124;
-			if((codificador >= 124) && (codificador < pulsos)){
+			pulsosAux = pulsos - 124;
+			if((codificador >= 124) && (codificador < pulsosAux)){
 				vl = vl*2;
 			}
 			break;
