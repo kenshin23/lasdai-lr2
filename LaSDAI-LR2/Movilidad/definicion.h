@@ -15,5 +15,7 @@
 
 /*******************************************************/
 #define DETENER 0
+
 #define VELOCIDAD_INICIAL_RAMPA 16
 
+#define PULSOS_DE_CAMBIOS_RAMPA 124
