@@ -58,6 +58,8 @@ void obtenerDatosCinematica(struct datosCinematica *estado);
 
 int calculoNumeroPulsos(double d);
 
+int calculoCambios(int distancia);
+
 int terminarMovilidad();
 
 #endif /* MOVILIDAD_H_ */
