@@ -70,21 +70,37 @@ int asignarVelocidad(double v, double w){
 /**************************************************************************************************/
 
 int moverLineaRecta(double d){
-	int pulsos, codificador1, codificador2, error = 0, signo = 1, rampa, distancia, vl = 0;
+	int pulsos, codificador1, codificador2, error = 0, signo = 1, aux = 2, aux2, rampa, distancia, vl = 0, cambios, cambiosHechos=0, pulsosDesaceleracion;
 	pulsos = calculoNumeroPulsos(d);
 	error += asignarModoVelocidad(VELOCIDAD_MODO_GIRO);
 	error += reinicializarCodificadores();
 	if(d < 0) signo=-1;
 	distancia = fabs(d);
-	if(distancia >= 60){ rampa = 1; }else{ if(distancia >= 45 && distancia < 60){ rampa = 2; }else{ if(distancia >= 25 && distancia < 45){ rampa = 3; }else{ if(distancia >= 15 && distancia < 25){ rampa = 4; }else{ rampa = 5; } } } }
+	if(distancia >= 60){ rampa = 1; cambios = 8; }else{ if(distancia >= 45 && distancia < 60){ rampa = 2; cambios = 6; }else{ if(distancia >= 25 && distancia < 45){ rampa = 3;	cambios = 4; }else{	if(distancia >= 15 && distancia < 25){ rampa = 4; cambios = 2; }else{ rampa = 5; cambios = 0; }	} }	}
+	pulsosDesaceleracion = pulsos-(cambios/2)*PULSOS_DE_CAMBIOS_RAMPA;
 	error += asignarVelocidad1(VELOCIDAD_INICIAL_RAMPA*signo);
 	do{
 		error += obtenerCodificadoresMotores(&codificador1, &codificador2);
 		if(d < 0 && codificador1 != 0) codificador1 = (0xffffffff) - codificador1;
 		if(d < 0 && codificador2 != 0) codificador2 = (0xffffffff) - codificador2;
-		vl = calculoVelecidad(rampa, codificador1, codificador2, pulsos);
+		if((cambiosHechos < cambios/2) && (codificador1 >= PULSOS_DE_CAMBIOS_RAMPA*(cambiosHechos+1))){
+			vl = VELOCIDAD_INICIAL_RAMPA*aux;
+			cambiosHechos++;
+			aux = aux+2;
+			aux2 = aux-2;
+		}else{
+			if(cambiosHechos >= cambios/2 ){
+				if((cambiosHechos < cambios) && (codificador1 >= pulsosDesaceleracion)){
+					aux2 = aux2-2;
+					if(aux2 == 0) aux2 = 1;
+					vl = VELOCIDAD_INICIAL_RAMPA*aux2;
+					cambiosHechos++;
+					pulsosDesaceleracion = pulsosDesaceleracion + PULSOS_DE_CAMBIOS_RAMPA;
+				}
+			}
+		}
 		error += asignarVelocidad1(vl*signo);
-	}while(codificador1 < pulsos && codificador2 < pulsos);
+	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad1(DETENER);
 	if(error == 0){
 		return (0);
@@ -155,43 +171,6 @@ int calculoNumeroPulsos(double d){
 	double cm;
 	cm = M_PI*DIAMETRO_RUEDA/PULSOS_REVOLUCION;
 	return (int)(fabs(d)/cm);
-}
-
-/**************************************************************************************************/
-
-int calculoVelecidad(int rampa, int codificador1, int codificador2, int pulsos){
-	int vl = 16, codificador, pulsosAux;
-	if(codificador1 > codificador2){ codificador = codificador1; }else{ codificador = codificador2; }
-	switch (rampa) {
-		case 1:
-			break;
-		case 2:
-			pulsosAux = pulsos - 124;
-			if((codificador >= 124) && (codificador < 248)){
-				vl = vl*2;
-			}else{
-				if((codificador >= 248) && (codificador < 372)){
-					vl = vl*4;
-				}else{
-					if((codificador >= 372) && (codificador < pulsos)){
-						vl = vl*6;
-					}
-				}
-			}
-			break;
-		case 3:
-
-			break;
-		case 4:
-			pulsosAux = pulsos - 124;
-			if((codificador >= 124) && (codificador < pulsosAux)){
-				vl = vl*2;
-			}
-			break;
-		default:
-			break;
-	}
-	return vl;
 }
 
 /**************************************************************************************************/
