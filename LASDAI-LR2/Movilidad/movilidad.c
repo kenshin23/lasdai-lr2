@@ -194,7 +194,7 @@ int gotoXY(struct datosCinematica estadoNuevo){
 		return (0);
 	}else{
 		#ifdef MOVILIDAD_DEBUG
-		perror("gotoXY: No se logro ir a la posicion (x,y,teta)\n");
+		perror("gotoXY: No se logro ir a la posicion (x,y,theta)\n");
 		#endif
 		return (-1);
 	}
