@@ -14,6 +14,7 @@
 #define MOVILIDAD_DEBUG
 
 /*******************************************************/
+
 #define DETENER 0
 
 #define VELOCIDAD_INICIAL_RAMPA 16

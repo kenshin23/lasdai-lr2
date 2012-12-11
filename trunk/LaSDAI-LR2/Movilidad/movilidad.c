@@ -70,7 +70,9 @@ int asignarVelocidad(double v, double w){
 /**************************************************************************************************/
 
 int moverLineaRecta(double d){
-	int pulsos, codificador1, codificador2, error = 0, signo = 1, aux = 2, aux2, distancia, vl = 0, cambios, cambiosHechos=0, pulsosDesaceleracion;
+	int pulsos, codificador1, codificador2, error = 0, signo = 1;
+	int aux = 2, aux2, vl = 0, cambios, cambiosHechos = 0, pulsosDesaceleracion;
+	double distancia;
 	pulsos = calculoNumeroPulsos(d);
 	error += asignarModoVelocidad(VELOCIDAD_MODO_GIRO);
 	error += reinicializarCodificadores();
@@ -102,6 +104,7 @@ int moverLineaRecta(double d){
 		error += asignarVelocidad1(vl*signo);
 	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad1(DETENER);
+	error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
 	if(error == 0){
 		return (0);
 	}else{
@@ -114,15 +117,61 @@ int moverLineaRecta(double d){
 
 /**************************************************************************************************/
 
-int giroRelativo(double teta){
-
-
-	return 0;
+int giroRelativo(double theta){
+	int pulsos, codificador1, codificador2, error = 0, signo = 1;
+	int aux = 2, aux2, w = 0, cambios, cambiosHechos = 0, pulsosDesaceleracion;
+	double distancia;
+	theta = calcularAnguloGiroRelativo(theta);
+	distancia = (theta*LONGITUD_EJE)/2;
+	pulsos = calculoNumeroPulsos(distancia);
+	error += asignarModoVelocidad(VELOCIDAD_MODO_GIRO);
+	error += reinicializarCodificadores();
+	if(theta > 0) signo=-1;
+	cambios = calculoCambios(fabs(distancia));
+	pulsosDesaceleracion = pulsos-(cambios/2)*PULSOS_DE_CAMBIOS_RAMPA;
+	error += asignarVelocidad2(VELOCIDAD_INICIAL_RAMPA*signo);
+	do{
+		error += obtenerCodificadoresMotores(&codificador1, &codificador2);
+		if(theta < 0){
+			if(codificador2 != 0) codificador2 = (0xffffffff) - codificador2;
+		}else{
+			if(codificador1 != 0) codificador1 = (0xffffffff) - codificador1;
+		}
+		if((cambiosHechos < cambios/2) && (codificador1 >= PULSOS_DE_CAMBIOS_RAMPA*(cambiosHechos+1))){
+			w = VELOCIDAD_INICIAL_RAMPA*aux;
+			cambiosHechos++;
+			aux = aux+2;
+			aux2 = aux-2;
+		}else{
+			if(cambiosHechos >= cambios/2 ){
+				if((cambiosHechos < cambios) && (codificador1 >= pulsosDesaceleracion)){
+					aux2 = aux2-2;
+					if(aux2 == 0) aux2 = 1;
+					w = VELOCIDAD_INICIAL_RAMPA*aux2;
+					cambiosHechos++;
+					pulsosDesaceleracion = pulsosDesaceleracion + PULSOS_DE_CAMBIOS_RAMPA;
+				}
+			}
+		}
+		error += asignarVelocidad2(w*signo);
+	}while(codificador1 < pulsos || codificador2 < pulsos);
+	error += asignarVelocidad2(DETENER);
+	error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
+	if(error == 0){
+		return (0);
+	}else{
+		#ifdef MOVILIDAD_DEBUG
+			perror("giroRelativo: No se realizao el movimento de forma correcta.\n");
+		#endif
+		return (-1);
+	}
 }
 
 /**************************************************************************************************/
 
 int gotoXY(struct datosCinematica estadoNuevo){
+
+
 	return 0;
 }
 
@@ -193,6 +242,19 @@ int calculoCambios(int distancia){
 		}
 	}
 	return cambios;
+}
+
+/**************************************************************************************************/
+
+double calcularAnguloGiroRelativo(double theta){
+	theta = theta*(2*M_PI/360);
+	if(theta > (2*M_PI) || theta < (-2*M_PI)){
+		theta = theta - (int)(theta/(2*M_PI))*(2*M_PI);
+	}
+	if(theta > M_PI || theta < -M_PI){
+		theta = theta-((2*M_PI)*(theta/fabs(theta)));
+	}
+	return theta;
 }
 
 /**************************************************************************************************/
