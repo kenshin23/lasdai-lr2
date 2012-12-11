@@ -9,6 +9,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "movilidad.h"
 #include "../MD49/md49.h"
 #include "definicion.h"
@@ -175,18 +176,17 @@ int gotoXY(struct datosCinematica estadoNuevo){
 	double distancia, cOpuesto, cAdyacente ,tetaAuxiliar, tetaGiro;
 	cOpuesto = estadoNuevo.y - estadoActual.y;
 	cAdyacente = estadoNuevo.x - estadoActual.x;
-	distancia = pow(cAdyacente, 2) + pow(cOpuesto,2);
-	distancia = sqrt(distancia);
+	distancia = sqrt(pow(cAdyacente, 2) + pow(cOpuesto,2));
 
 	tetaAuxiliar = asin(cOpuesto/distancia);
 	//tetaAuxiliar = calculoCuadrante(tetaAuxiliar, cAdyacente,  cOpuesto);
 	tetaGiro = tetaAuxiliar - estadoActual.theta;
 	error = giroRelativo(tetaGiro);
 	estadoActual.theta = tetaAuxiliar;
-	//usleep(500000);
+	usleep(500000);
 	error = error + moverLineaRecta(distancia);
 	tetaGiro = estadoNuevo.theta - estadoActual.theta;
-	//usleep(500000);
+	usleep(500000);
 	error = error + giroRelativo(tetaGiro);
 	if(error == 0){
 		estadoActual.x = estadoNuevo.x;
