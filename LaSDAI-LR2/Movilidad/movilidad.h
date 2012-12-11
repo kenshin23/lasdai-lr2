@@ -29,7 +29,7 @@
 struct datosCinematica {
 	double x; /**< Posición en el eje x. */
 	double y; /**< Posición en el eje y. */
-	double teta; /**< Orientación de la plataforma. */
+	double theta; /**< Orientación de la plataforma. */
 };
 
 struct datosCinematica estadoActual;
@@ -59,6 +59,8 @@ void obtenerDatosCinematica(struct datosCinematica *estado);
 int calculoNumeroPulsos(double d);
 
 int calculoCambios(int distancia);
+
+double calcularAnguloGiroRelativo(double theta);
 
 int terminarMovilidad();
 
