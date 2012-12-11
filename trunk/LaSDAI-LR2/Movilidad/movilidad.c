@@ -7,11 +7,12 @@
 
 */
 
+#include <math.h>
+#include <stdio.h>
 #include "movilidad.h"
 #include "../MD49/md49.h"
 #include "definicion.h"
-#include <math.h>
-#include <stdio.h>
+
 
 
 /****** Métodos de movilidad ******/
@@ -25,7 +26,7 @@ int inicializarMovilidad(){
 		error += asignarModoAceleracion(DEFAUL_ACELERACION_MODE);
 		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
 		if(error == 0 ){
-			estadoActual.teta = 0;
+			estadoActual.theta = 0;
 			estadoActual.x = 0;
 			estadoActual.y = 0;
 			return (0);
@@ -170,9 +171,35 @@ int giroRelativo(double theta){
 /**************************************************************************************************/
 
 int gotoXY(struct datosCinematica estadoNuevo){
+	int error;
+	double distancia, cOpuesto, cAdyacente ,tetaAuxiliar, tetaGiro;
+	cOpuesto = estadoNuevo.y - estadoActual.y;
+	cAdyacente = estadoNuevo.x - estadoActual.x;
+	distancia = pow(cAdyacente, 2) + pow(cOpuesto,2);
+	distancia = sqrt(distancia);
 
+	tetaAuxiliar =  1; //asin(cOpuesto/distancia);
+	//tetaAuxiliar = calculoCuadrante(tetaAuxiliar, cAdyacente,  cOpuesto);
+	tetaGiro = tetaAuxiliar - estadoActual.theta;
+	error = giroRelativo(tetaGiro);
+	estadoActual.theta = tetaAuxiliar;
+	//usleep(500000);
+	error = error + moverLineaRecta(distancia);
+	tetaGiro = estadoNuevo.theta - estadoActual.theta;
+	//usleep(500000);
+	error = error + giroRelativo(tetaGiro);
+	if(error == 0){
+		estadoActual.x = estadoNuevo.x;
+		estadoActual.y = estadoNuevo.y;
+		estadoActual.theta = estadoNuevo.theta;
+		return (0);
+	}else{
+		#ifdef MOVILIDAD_DEBUG
+		perror("gotoXY: No se logro ir a la posicion (x,y,teta)\n");
+		#endif
+		return (-1);
+	}
 
-	return 0;
 }
 
 /**************************************************************************************************/
@@ -201,7 +228,7 @@ int diagnosticoOperatividad(){
 void asignarDatosCinematica(struct datosCinematica estadoNuevo){
 	estadoActual.x = estadoNuevo.x;
 	estadoActual.y = estadoNuevo.y;
-	estadoActual.teta = estadoNuevo.teta;
+	estadoActual.theta = estadoNuevo.theta;
 }
 
 /**************************************************************************************************/
@@ -209,7 +236,7 @@ void asignarDatosCinematica(struct datosCinematica estadoNuevo){
 void obtenerDatosCinematica(struct datosCinematica *estado){
 	estado->x = estadoActual.x;
 	estado->y = estadoActual.y;
-	estado->teta = estadoActual.teta;
+	estado->theta = estadoActual.theta;
 }
 
 /**************************************************************************************************/
@@ -261,7 +288,7 @@ double calcularAnguloGiroRelativo(double theta){
 
 int terminarMovilidad(){
 	if(terminarComunicacionMD49() == 0){
-		estadoActual.teta = 0;
+		estadoActual.theta = 0;
 		estadoActual.x = 0;
 		estadoActual.y = 0;
 		return (0);
