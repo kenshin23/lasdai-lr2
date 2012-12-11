@@ -46,7 +46,7 @@ int asignarVelocidad(double v, double w);
 
 int moverLineaRecta(double d);
 
-int giroRelativo(double teta);
+int giroRelativo(double theta);
 
 int gotoXY(struct datosCinematica estadoNuevo);
 
