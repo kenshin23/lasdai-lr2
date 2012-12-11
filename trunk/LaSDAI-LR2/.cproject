@@ -36,9 +36,10 @@
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/i686-linux-gnu/4.6/include"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/i686-linux-gnu/4.6/include-fixed"/>
 								</option>
+								<option id="gnu.c.compiler.option.misc.other.1197782035" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -std=c99 -lm" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1092250617" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
-							<tool commandLinePattern="${COMMAND}  -lm ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1826815644" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug">
+							<tool command="gcc" commandLinePattern="${COMMAND}${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1826815644" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug">
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1567791313" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

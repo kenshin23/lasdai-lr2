@@ -178,7 +178,7 @@ int gotoXY(struct datosCinematica estadoNuevo){
 	distancia = pow(cAdyacente, 2) + pow(cOpuesto,2);
 	distancia = sqrt(distancia);
 
-	tetaAuxiliar =  1; //asin(cOpuesto/distancia);
+	tetaAuxiliar = asin(cOpuesto/distancia);
 	//tetaAuxiliar = calculoCuadrante(tetaAuxiliar, cAdyacente,  cOpuesto);
 	tetaGiro = tetaAuxiliar - estadoActual.theta;
 	error = giroRelativo(tetaGiro);
