@@ -172,22 +172,21 @@ int giroRelativo(double theta){
 /**************************************************************************************************/
 
 int gotoXY(struct datosCinematica estadoNuevo){
-	int error;
-	double distancia, cOpuesto, cAdyacente ,tetaAuxiliar, tetaGiro;
-	cOpuesto = estadoNuevo.y - estadoActual.y;
-	cAdyacente = estadoNuevo.x - estadoActual.x;
-	distancia = sqrt(pow(cAdyacente, 2) + pow(cOpuesto,2));
-
-	tetaAuxiliar = asin(cOpuesto/distancia);
-	//tetaAuxiliar = calculoCuadrante(tetaAuxiliar, cAdyacente,  cOpuesto);
-	tetaGiro = tetaAuxiliar - estadoActual.theta;
-	error = giroRelativo(tetaGiro);
-	estadoActual.theta = tetaAuxiliar;
-	usleep(500000);
-	error = error + moverLineaRecta(distancia);
-	tetaGiro = estadoNuevo.theta - estadoActual.theta;
-	usleep(500000);
-	error = error + giroRelativo(tetaGiro);
+	int error = 0;
+	double distancia, catetoOpuesto, catetoAdyacente ,thetaAuxiliar, thetaGiro;
+	catetoOpuesto = estadoNuevo.y - estadoActual.y;
+	catetoAdyacente = estadoNuevo.x - estadoActual.x;
+	distancia = sqrt(pow(catetoAdyacente, 2) + pow(catetoOpuesto,2));
+	thetaAuxiliar = asin(catetoOpuesto/distancia);
+	thetaAuxiliar = calculoCuadrante(thetaAuxiliar, catetoAdyacente,  catetoOpuesto);
+	thetaGiro = thetaAuxiliar - estadoActual.theta;
+	error += giroRelativo(thetaGiro);
+	estadoActual.theta = thetaAuxiliar;
+	usleep(RETARDO);
+	error += moverLineaRecta(distancia);
+	thetaGiro = estadoNuevo.theta - estadoActual.theta;
+	usleep(RETARDO);
+	error += giroRelativo(thetaGiro);
 	if(error == 0){
 		estadoActual.x = estadoNuevo.x;
 		estadoActual.y = estadoNuevo.y;
@@ -282,6 +281,26 @@ double calcularAnguloGiroRelativo(double theta){
 		theta = theta-((2*M_PI)*(theta/fabs(theta)));
 	}
 	return theta;
+}
+
+
+double calculoCuadrante(double theta, double x, double y){
+	if(y >= 0){
+		if(x >= 0){
+			return theta;		
+		}else{
+			theta = (M_PI - theta);
+			return theta;
+		}
+	}else{
+		if(x >= 0){
+			theta = (2*M_PI + theta);
+			return theta;		
+		}else{
+			theta = (M_PI - theta);
+			return theta;
+		}
+	}
 }
 
 /**************************************************************************************************/
