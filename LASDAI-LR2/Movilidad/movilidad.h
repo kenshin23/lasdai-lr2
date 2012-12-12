@@ -131,6 +131,15 @@ double calcularAnguloGiroRelativo(double theta);
 		-1 Error: .
 		-2 Error: .
 */
+double calculoCuadrante(double theta, double x, double y);
+
+/**
+ @brief .
+ @param
+ @return 0 Operación exitosa en caso contrario.
+		-1 Error: .
+		-2 Error: .
+*/
 int terminarMovilidad();
 
 #endif /* MOVILIDAD_H_ */
