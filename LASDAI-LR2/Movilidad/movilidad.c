@@ -278,6 +278,7 @@ double calcularAnguloGiroRelativo(double theta){
 	return theta;
 }
 
+/**************************************************************************************************/
 
 double calculoCuadrante(double theta, double x, double y){
 	if(y >= 0){
