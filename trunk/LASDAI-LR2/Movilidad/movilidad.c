@@ -177,8 +177,7 @@ int gotoXY(struct datosCinematica estadoNuevo){
 	catetoOpuesto = estadoNuevo.y - estadoActual.y;
 	catetoAdyacente = estadoNuevo.x - estadoActual.x;
 	distancia = sqrt(pow(catetoAdyacente, 2) + pow(catetoOpuesto,2));
-	thetaAuxiliar = asin(catetoOpuesto/distancia);
-	thetaAuxiliar = calculoCuadrante(thetaAuxiliar, catetoAdyacente,  catetoOpuesto);
+	thetaAuxiliar = calculoAnguloGotoXY(distancia, catetoAdyacente,  catetoOpuesto);
 	thetaGiro = thetaAuxiliar - estadoActual.theta;
 	error += giroRelativo(thetaGiro);
 	estadoActual.theta = thetaAuxiliar;
@@ -238,8 +237,10 @@ struct datosCinematica obtenerDatosCinematica(){
 
 int calculoNumeroPulsos(double d){
 	double cm;
+	int pulsos;
 	cm = M_PI*DIAMETRO_RUEDA/PULSOS_REVOLUCION;
-	return (int)(fabs(d)/cm);
+	pulsos = (int)(fabs(d)/cm);
+	return pulsos;
 }
 
 /**************************************************************************************************/
@@ -280,20 +281,22 @@ double calcularAnguloGiroRelativo(double theta){
 
 /**************************************************************************************************/
 
-double calculoCuadrante(double theta, double x, double y){
-	if(y >= 0){
-		if(x >= 0){
+double calculoAnguloGotoXY(double distancia, double catetoAdyacente, double catetoOpuesto){
+	double theta;
+	theta = asin(catetoOpuesto/distancia);
+	if(catetoOpuesto >= 0){
+		if(catetoAdyacente >= 0){
 			return theta;		
 		}else{
 			theta = (M_PI - theta);
 			return theta;
 		}
 	}else{
-		if(x >= 0){
+		if(catetoAdyacente >= 0){
 			theta = (2*M_PI + theta);
 			return theta;		
 		}else{
-			theta = (M_PI - theta);
+			theta = (M_PI + theta);
 			return theta;
 		}
 	}

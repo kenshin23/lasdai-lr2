@@ -92,53 +92,47 @@ int diagnosticoOperatividad();
 void asignarDatosCinematica(struct datosCinematica estadoNuevo);
 
 /**
- @brief .
+ @brief Retorna los datos de la cinemática de la plataforma en un instante dado.
  @return 0 Operación exitosa en caso contrario.
 */
 struct datosCinematica obtenerDatosCinematica();
 
 /**
- @brief .
- @param
- @return 0 Operación exitosa en caso contrario.
-		-1 Error: .
-		-2 Error: .
+ @brief Calcula el numero de pulsos de encoders para una distancia d en cm.
+ @param	d Distancia a recorrer en cm.
+ @return pulsos Variable entera que contiene el numero de pulsos de encoders para una distancia d.
 */
 int calculoNumeroPulsos(double d);
 
 /**
- @brief .
- @param
- @return 0 Operación exitosa en caso contrario.
-		-1 Error: .
-		-2 Error: .
+ @brief Calcula el numero de cambios de velocidad para la rampa de aceleración implementadas en los métodos moverLineaRecta y giroRelativo.
+ 	 	los cambios dependen de la distancia a recorrer.
+ @param distancia Distancia a recorrer en cm.
+ @return cambios Número de cambios de velocidad en la rampa para la distancia indicada.
 */
 int calculoCambios(int distancia);
 
 /**
- @brief .
- @param
- @return 0 Operación exitosa en caso contrario.
-		-1 Error: .
-		-2 Error: .
+ @brief Valida el ángulo de giro, si el ángulo de giro es mayor a 180 entonces es mas óptimo realizar un giro negativo,
+ 	 	este método realiza el calculo del ángulo a girar para quedar en la posición deseada realizado un giro mas óptimo.
+ @param	theta Ángulo de giro indicado.
+ @return theta Ángulo de giro óptimo calculado.
 */
 double calcularAnguloGiroRelativo(double theta);
 
 /**
- @brief .
- @param
- @return 0 Operación exitosa en caso contrario.
-		-1 Error: .
-		-2 Error: .
+ @brief	Calcula el ángulo de orientación que debe tener la plataforma para trasladarse de un punto a otro.
+ @param	distancia Distancia entre los dos puntos.
+ @param catetoAdyacente Distancia en el eje x.
+ @param	catetoOpuesto Distancia en le eje y.
+ @return theta Ángulo calculado.
 */
-double calculoCuadrante(double theta, double x, double y);
+double calculoAnguloGotoXY(double distancia, double catetoAdyacente, double catetoOpuesto);
 
 /**
- @brief .
- @param
+ @brief Termina la comunicación con la controlodaroa de motores.
  @return 0 Operación exitosa en caso contrario.
-		-1 Error: .
-		-2 Error: .
+		-1 Error: No termino de forma correcta la comunicación con la controladora de motores.
 */
 int terminarMovilidad();
 
