@@ -1,9 +1,9 @@
 /**
  @file movilidad.c
  @brief Desarrollo e implementación de la rutinas de movilidad de la plataforma LASDAI LR2.
-
  @date Junio, 2012.
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
+ @version 0.9
 
 */
 
