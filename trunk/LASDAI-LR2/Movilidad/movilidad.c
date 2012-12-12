@@ -35,7 +35,7 @@ int inicializarMovilidad(){
 			#ifdef MOVILIDAD_DEBUG
 				perror("inicializarMovilidad: Error al inicializar los parametros en la controladora de motores.\n");
 			#endif
-			return (-1);
+			return (-2);
 		}
 	}else{
 		#ifdef MOVILIDAD_DEBUG
@@ -53,9 +53,9 @@ int asignarVelocidad(double v, double w){
 	long int vm1, vm2;
 	v1 = v + w*LONGITUD_EJE*0.5;
 	v2 = v - w*LONGITUD_EJE*0.5;
-	// 60 para pasar a minutos 127 es el indicador maximo de 122 rpm.
-	v1 = v1*60*128 / M_PI*DIAMETRO_RUEDA*122 ;
-	v2 = v2*60*128 / M_PI*DIAMETRO_RUEDA*122;
+	// 60 para pasar a minutos, 127 es el indicador maximo de 122 rpm.
+	v1 = v1*60*128/M_PI*DIAMETRO_RUEDA*122 ;
+	v2 = v2*60*128/M_PI*DIAMETRO_RUEDA*122;
 	vm1 = (long int)v1;
 	vm2 = (long int)v2;
 	aux += asignarVelocidad1(vm1);
@@ -111,7 +111,7 @@ int moverLineaRecta(double d){
 		return (0);
 	}else{
 		#ifdef MOVILIDAD_DEBUG
-			perror("moverLineaRecta: No se realizao el movimento de forma correcta.\n");
+			perror("moverLineaRecta: No se realizo el movimiento de forma correcta.\n");
 		#endif
 		return (-1);
 	}
@@ -163,7 +163,7 @@ int giroRelativo(double theta){
 		return (0);
 	}else{
 		#ifdef MOVILIDAD_DEBUG
-			perror("giroRelativo: No se realizao el movimento de forma correcta.\n");
+			perror("giroRelativo: No se realizo el movimiento de forma correcta.\n");
 		#endif
 		return (-1);
 	}
@@ -188,9 +188,7 @@ int gotoXY(struct datosCinematica estadoNuevo){
 	usleep(RETARDO);
 	error += giroRelativo(thetaGiro);
 	if(error == 0){
-		estadoActual.x = estadoNuevo.x;
-		estadoActual.y = estadoNuevo.y;
-		estadoActual.theta = estadoNuevo.theta;
+		asignarDatosCinematica(estadoNuevo);
 		return (0);
 	}else{
 		#ifdef MOVILIDAD_DEBUG
@@ -232,10 +230,8 @@ void asignarDatosCinematica(struct datosCinematica estadoNuevo){
 
 /**************************************************************************************************/
 
-void obtenerDatosCinematica(struct datosCinematica *estado){
-	estado->x = estadoActual.x;
-	estado->y = estadoActual.y;
-	estado->theta = estadoActual.theta;
+struct datosCinematica obtenerDatosCinematica(){
+	return estadoActual;
 }
 
 /**************************************************************************************************/
@@ -273,7 +269,6 @@ int calculoCambios(int distancia){
 /**************************************************************************************************/
 
 double calcularAnguloGiroRelativo(double theta){
-	theta = theta*(2*M_PI/360);
 	if(theta > (2*M_PI) || theta < (-2*M_PI)){
 		theta = theta - (int)(theta/(2*M_PI))*(2*M_PI);
 	}
