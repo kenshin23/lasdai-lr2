@@ -1,39 +1,51 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-#include <unistd.h>
 #include <errno.h>
 #include <netinet/in.h>
 #include <netdb.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "SocketCliente.h"
+#include "definicion.h"
 
 
-int inicializarConexionSocket(char *hostServidor, char *servicio){
-	struct sockaddr_in Direccion;
-	struct servent *Puerto;
-	struct hostent *Host;
-	int Descriptor;
-	Puerto = getservbyname (servicio, "tcp");
-	if (Puerto == NULL)
-		return -1;
-	Host = gethostbyname (hostServidor);
-	if (Host == NULL)
-		return -1;
-	Direccion.sin_family = AF_INET;
-	Direccion.sin_addr.s_addr = ((struct in_addr *)(Host->h_addr))->s_addr;
-	Direccion.sin_port = Puerto->s_port;
-	Descriptor = socket (AF_INET, SOCK_STREAM, 0);
-	if (Descriptor == -1)
-		return -1;
-	if (connect (
-			Descriptor,
-			(struct sockaddr *)&Direccion,
-			sizeof (Direccion)) == -1)
-	{
-		return -1;
+int inicializarConexionSocket(int* fd){
+	struct sockaddr_in direccion;
+	struct servent *puerto;
+	struct hostent *host;
+	int _fd;
+	puerto = getservbyname (SERVICIO, "tcp");
+	if (puerto == NULL){
+		#ifdef SOCKET_CLIENTE_DEBUG
+			perror("inicializarConexionSocket: No se pudo leer el puerto del servicio.\n");
+		#endif
+		return (-1);
 	}
-	return Descriptor;
+	host = gethostbyname (SERVIDOR_HOST);
+	if (host == NULL){
+		#ifdef SOCKET_CLIENTE_DEBUG
+			perror("inicializarConexionSocket: .\n");
+		#endif
+		return (-2);
+	}
+	direccion.sin_family = AF_INET;
+	direccion.sin_addr.s_addr = ((struct in_addr *)(host->h_addr))->s_addr;
+	direccion.sin_port = puerto->s_port;
+	_fd = socket(AF_INET, SOCK_STREAM, 0);
+	if (_fd == -1){
+		#ifdef SOCKET_CLIENTE_DEBUG
+			perror("inicializarConexionSocket: .\n");
+		#endif
+		return (-3);
+	}
+	if (connect (_fd, (struct sockaddr *)&direccion, sizeof (direccion)) == -1){
+		#ifdef SOCKET_CLIENTE_DEBUG
+			perror("inicializarConexionSocket: .\n");
+		#endif
+		return -4;
+	}
+	return 0;
 }
 
 int leerSocket(int fd, char *Datos, int Longitud){
@@ -84,6 +96,7 @@ int escribirSocket(int fd, char *Datos, int Longitud){
 }
 
 int terminarConexionSocket(int fd){
+	close(fd);
 	return 0;
 }
 
