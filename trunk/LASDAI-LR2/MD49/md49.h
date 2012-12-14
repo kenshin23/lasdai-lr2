@@ -35,7 +35,6 @@ int iniciarComunicacionMD49();
 */
 int obtenerVelocidad1(double *velocidad);
 
-
 /**
  @brief Obtiene el valor del registro de velocidad 2 del MD49 y actualiza su valor.
  @param velocidad Puntero a la dirección de memoria donde se encuentra el valor de la velocidad 2.
