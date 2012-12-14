@@ -1,7 +1,7 @@
 #ifndef _SOCKET_CLIENTE_H
 #define _SOCKET_CLIENTE_H
 
-int inicializarConexionSocket(int *fd, char *hostServidor, char *servicio);
+int inicializarConexionSocket(int *fd);
 
 int leerSocket(int fd, char *sbuf, int nBytes);
 
