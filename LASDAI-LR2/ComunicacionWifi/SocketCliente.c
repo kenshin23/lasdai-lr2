@@ -1,3 +1,4 @@
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -64,13 +65,13 @@ int leerSocket(int fd, char *sbuf, int nBytes){
 		if (aux > 0){
 			leidos = leidos + aux;
 		}else{
-			if(aux == -1){
-					#ifdef SOCKET_CLIENTE_DEBUG
-						perror("leerSocket: Error al leer los datos.\n");
-					#endif
-				return (-2);
-			}else{
+			if(aux == 0){
 				return (0);
+			}else{
+				#ifdef SOCKET_CLIENTE_DEBUG
+					perror("leerSocket: Error al leer los datos.\n");
+				#endif
+				return (-2);
 			}
 		}
 	}
@@ -82,22 +83,21 @@ int escribirSocket(int fd, char *sbuf, int nBytes){
 	int escritos = 0, aux = 0;
 	if ((fd == -1) || (sbuf == NULL) || (nBytes < 1)){
 		#ifdef SOCKET_CLIENTE_DEBUG
-			perror("leerSocket: Error parametros incorrecto.\n");
+			perror("escribirSocket: Error parametros incorrecto.\n");
 		#endif
 		return (-1);
 	}
-	while (escritos < nBytes){
-		aux = write (fd, sbuf + escritos, nBytes - escritos);
-		if (aux > 0){
-			escritos = escritos + aux;
+	while(escritos < nBytes){
+		aux = write(fd, sbuf + escritos, nBytes - escritos);
+		if(aux == 0){
+			return (0);
 		}else{
-			if (aux == 0)
-				return escritos;
-			else
-				return -1;
+			#ifdef SOCKET_CLIENTE_DEBUG
+				perror("leerSocket: Error al leer los datos.\n");
+			#endif
+			return (-2);
 		}
 	}
-	return escritos;
 }
 
 /**************************************************************************************************/
