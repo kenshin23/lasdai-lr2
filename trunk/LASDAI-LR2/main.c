@@ -24,17 +24,22 @@ int main(){
 		}
 	}
 	terminarComunicacionSP(fd);*/
-	char wbuf[] = "hola", sbuf[4];
-	int fd, fdCliente, i = 0;
+	unsigned char wbuf[4], sbuf[4];
+	int fd, fdCliente, i = 0, aux;
 	inicializarConexionSocket(&fd);
 	atenderCliente(fd,&fdCliente);
 	leerSocket(fdCliente, sbuf, 4);
-	printf("El cliente dijo: ");
+	printf("El cliete me envio: ");
 	while(i < 4){
-		printf("%c", sbuf[i]);
+		aux = sbuf[i];
+		printf("%d \n", aux);
 		i++;
 	}
-	printf("\n");
+	i=0;
+	while(i < 4){
+		wbuf[i] = 16*i;
+		i++;
+	}
 	escribirSocket(fdCliente, wbuf, 4);
 	terminarConexionCliente(fdCliente);
 	terminarConexionSocket(fd);
