@@ -63,7 +63,7 @@ int atenderCliente(int fd, int *fdCliente){
 		#endif
 		return -1;
 	}else{
-		*_fd = fdCliente;
+		*fdCliente = _fd;
 		return 0;
 	}
 
@@ -92,7 +92,6 @@ int leerSocket(int fdCliente, char *sbuf, int nBytes){
 			}
 		}
 	}
-	return leidos;
 }
 
 int escribirSocket(int fdCliente, char *sbuf, int nBytes){
@@ -118,12 +117,12 @@ int terminarConexionCliente(int fdCliente){
 	int error;
 	error = close(fdCliente);
 	if(error == 0){
+		return (0);
+	}else{
 		#ifdef SOCKET_SERVIDOR_DEBUG
 			perror("terminarConexionSocket: Error al intenera terminar la comunición con el cliente.\n");
 		#endif
 		return (-1);
-	}else{
-		return (0);
 	}
 }
 
@@ -132,11 +131,11 @@ int terminarConexionSocket(int fd){
 	int error;
 	error = close(fd);
 	if(error == 0){
+		return (0);
+	}else{
 		#ifdef SOCKET_SERVIDOR_DEBUG
 			perror("terminarConexionSocket: Error al intenera cerrar el socket.\n");
 		#endif
 		return (-1);
-	}else{
-		return (0);
 	}
 }
