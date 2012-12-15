@@ -51,24 +51,31 @@ int inicializarConexionSocket(int *fd){
 }
 
 
-int atenderCliente(int fd){
-	socklen_t Longitud_Cliente;
-	struct sockaddr Cliente;
-	int Hijo;
-	Longitud_Cliente = sizeof (Cliente);
-	Hijo = accept (fd, &Cliente, &Longitud_Cliente);
-	if (Hijo == -1)
+int atenderCliente(int fd, int *fdCliente){
+	socklen_t longitudCliente;
+	struct sockaddr cliente;
+	int _fd;
+	longitudCliente = sizeof(cliente);
+	_fd = accept(fd, &cliente, &longitudCliente);
+	if (_fd == -1){
+		#ifdef SOCKET_SERVIDOR_DEBUG
+			perror("inicializarConexionSocket: No se pudo atender al cliente.\n");
+		#endif
 		return -1;
-	return Hijo;
+	}else{
+		*_fd = fdCliente;
+		return 0;
+	}
+
 }
 
-int leerSocket(int fd, char *sbuf, int nBytes){
+int leerSocket(int fdCliente, char *sbuf, int nBytes){
 	int Leido = 0;
 	int Aux = 0;
-	if ((fd == -1) || (sbuf == NULL) || (nBytes < 1))
+	if ((fdCliente == -1) || (sbuf == NULL) || (nBytes < 1))
 		return -1;
 	while (Leido < nBytes){
-		Aux = read (fd, sbuf + Leido, nBytes - Leido);
+		Aux = read (fdCliente, sbuf + Leido, nBytes - Leido);
 		if (Aux > 0){
 			Leido = Leido + Aux;
 		}else{
@@ -82,13 +89,13 @@ int leerSocket(int fd, char *sbuf, int nBytes){
 	return Leido;
 }
 
-int escribirSocket(int fd, char *sbuf, int nBytes){
+int escribirSocket(int fdCliente, char *sbuf, int nBytes){
 	int Escrito = 0;
 	int Aux = 0;
-	if ((fd == -1) || (sbuf == NULL) || (nBytes < 1))
+	if ((fdCliente == -1) || (sbuf == NULL) || (nBytes < 1))
 		return -1;
 	while (Escrito < nBytes){
-		Aux = write (fd, sbuf + Escrito, nBytes - Escrito);
+		Aux = write (fdCliente, sbuf + Escrito, nBytes - Escrito);
 		if (Aux > 0){
 			Escrito = Escrito + Aux;
 		}else{
@@ -99,4 +106,31 @@ int escribirSocket(int fd, char *sbuf, int nBytes){
 		}
 	}
 	return Escrito;
+}
+
+int terminarConexionCliente(int fdCliente){
+	int error;
+	error = close(fdCliente);
+	if(error == 0){
+		#ifdef SOCKET_SERVIDOR_DEBUG
+			perror("terminarConexionSocket: Error al intenera terminar la comunición con el cliente.\n");
+		#endif
+		return (-1);
+	}else{
+		return (0);
+	}
+}
+
+
+int terminarConexionSocket(int fd){
+	int error;
+	error = close(fd);
+	if(error == 0){
+		#ifdef SOCKET_SERVIDOR_DEBUG
+			perror("terminarConexionSocket: Error al intenera cerrar el socket.\n");
+		#endif
+		return (-1);
+	}else{
+		return (0);
+	}
 }
