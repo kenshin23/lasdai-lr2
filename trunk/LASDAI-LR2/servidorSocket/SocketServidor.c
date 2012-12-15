@@ -34,14 +34,14 @@ int inicializarConexionSocket(int *fd){
 	direccion.sin_addr.s_addr =INADDR_ANY;
 	if(bind(_fd, (struct sockaddr *)&direccion, sizeof (direccion)) == -1){
 		#ifdef SOCKET_SERVIDOR_DEBUG
-			perror("inicializarConexionSocket: \n");
+			perror("inicializarConexionSocket: No se logro dar el aviso al SO de la apertura del socket. \n");
 		#endif
 		close (_fd);
 		return -1;
 	}
 	if (listen(_fd, 1) == -1){
 		#ifdef SOCKET_SERVIDOR_DEBUG
-			perror("inicializarConexionSocket: \n");
+			perror("inicializarConexionSocket: No se logro dar el aviso al SO para que acepte clientes.\n");
 		#endif
 		close (_fd);
 		return -1;
