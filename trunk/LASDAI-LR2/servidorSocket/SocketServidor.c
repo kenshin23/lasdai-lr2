@@ -12,29 +12,23 @@
 
 
 int inicializarConexionSocket(int *fd){
-	struct sockaddr_in Direccion;
+	struct sockaddr_in direccion;
 	struct servent *Puerto;
 	int Descriptor;
 	Descriptor = socket (AF_INET, SOCK_STREAM, 0);
 	if (Descriptor == -1)
 	 	return -1;
-	Puerto = getservbyname (SERVICIO, "tcp");
+	Puerto = getservbyname(SERVICIO, "tcp");
 	if (Puerto == NULL)
 		return -1;
-	Direccion.sin_family = AF_INET;
-	Direccion.sin_port = Puerto->s_port;
-	Direccion.sin_addr.s_addr =INADDR_ANY;
-	if (bind (
-			Descriptor,
-			(struct sockaddr *)&Direccion,
-			sizeof (Direccion)) == -1)
-	{
+	direccion.sin_family = AF_INET;
+	direccion.sin_port = Puerto->s_port;
+	direccion.sin_addr.s_addr =INADDR_ANY;
+	if (bind(Descriptor, (struct sockaddr *)&direccion, sizeof (direccion)) == -1){
 		close (Descriptor);
 		return -1;
 	}
-
-	if (listen (Descriptor, 1) == -1)
-	{
+	if (listen (Descriptor, 1) == -1){
 		close (Descriptor);
 		return -1;
 	}
