@@ -15,7 +15,7 @@ int inicializarConexionSocket(int *fd){
 	struct sockaddr_in direccion;
 	struct servent *puerto;
 	int _fd;
-	_fd = socket (AF_INET, SOCK_STREAM, 0);
+	_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if(_fd == -1){
 		#ifdef SOCKET_SERVIDOR_DEBUG
 			perror("inicializarConexionSocket: No se logro aperturar el socket.\n");
@@ -30,9 +30,9 @@ int inicializarConexionSocket(int *fd){
 		return (-2);
 	}
 	direccion.sin_family = AF_INET;
-	direccion.sin_port = puerto->s_port;
+	direccion.sin_port = htons(puerto->s_port);
 	direccion.sin_addr.s_addr =INADDR_ANY;
-	if(bind(_fd, (struct sockaddr *)&direccion, sizeof (direccion)) == -1){
+	if(bind(_fd, (struct sockaddr *)&direccion, sizeof(direccion)) == -1){
 		#ifdef SOCKET_SERVIDOR_DEBUG
 			perror("inicializarConexionSocket: No se logro dar el aviso al SO de la apertura del socket. \n");
 		#endif
@@ -70,42 +70,48 @@ int atenderCliente(int fd, int *fdCliente){
 }
 
 int leerSocket(int fdCliente, char *sbuf, int nBytes){
-	int Leido = 0;
-	int Aux = 0;
-	if ((fdCliente == -1) || (sbuf == NULL) || (nBytes < 1))
-		return -1;
-	while (Leido < nBytes){
-		Aux = read (fdCliente, sbuf + Leido, nBytes - Leido);
-		if (Aux > 0){
-			Leido = Leido + Aux;
+	int leidos = 0, aux = 0;
+	if((fdCliente == -1) || (sbuf == NULL) || (nBytes < 1)){
+		#ifdef SOCKET_CLIENTE_DEBUG
+			perror("leerSocket: Error parametros incorrecto.\n");
+		#endif
+		return (-1);
+	}
+	while(leidos < nBytes){
+		aux = read(fdCliente, sbuf + leidos, nBytes - leidos);
+		if (aux > 0){
+			leidos = leidos + aux;
 		}else{
-			if (Aux == 0)
-				return Leido;
-			if (Aux == -1){
-				return -1;
+			if(aux == 0){
+				return (0);
+			}else{
+				#ifdef SOCKET_CLIENTE_DEBUG
+					perror("leerSocket: Error al leer los datos.\n");
+				#endif
+				return (-2);
 			}
 		}
 	}
-	return Leido;
+	return leidos;
 }
 
 int escribirSocket(int fdCliente, char *sbuf, int nBytes){
-	int Escrito = 0;
-	int Aux = 0;
-	if ((fdCliente == -1) || (sbuf == NULL) || (nBytes < 1))
+	int escritos = 0, aux = 0;
+	if ((fdCliente == -1) || (sbuf == NULL) || (nBytes < 1)){
 		return -1;
-	while (Escrito < nBytes){
-		Aux = write (fdCliente, sbuf + Escrito, nBytes - Escrito);
-		if (Aux > 0){
-			Escrito = Escrito + Aux;
+	}
+	while (escritos < nBytes){
+		aux = write (fdCliente, sbuf + escritos, nBytes - escritos);
+		if (aux > 0){
+			escritos = escritos + aux;
 		}else{
-			if (Aux == 0)
-				return Escrito;
+			if (aux == 0)
+				return escritos;
 			else
 				return -1;
 		}
 	}
-	return Escrito;
+	return escritos;
 }
 
 int terminarConexionCliente(int fdCliente){
