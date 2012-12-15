@@ -99,6 +99,7 @@ int leerSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 			}
 		}
 	}
+	return (0);
 }
 
 int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes){
@@ -120,6 +121,7 @@ int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 			return (-2);
 		}
 	}
+	return (0);
 }
 
 int terminarConexionCliente(int fdCliente){
