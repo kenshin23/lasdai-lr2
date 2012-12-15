@@ -69,7 +69,7 @@ int atenderCliente(int fd, int *fdCliente){
 
 }
 
-int leerSocket(int fdCliente, char *sbuf, int nBytes){
+int leerSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 	int leidos = 0, aux = 0;
 	if((fdCliente == -1) || (sbuf == NULL) || (nBytes < 1)){
 		#ifdef SOCKET_CLIENTE_DEBUG
@@ -101,7 +101,7 @@ int leerSocket(int fdCliente, char *sbuf, int nBytes){
 	}
 }
 
-int escribirSocket(int fdCliente, char *sbuf, int nBytes){
+int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 	int escritos = 0, aux = 0;
 	if ((fdCliente == -1) || (sbuf == NULL) || (nBytes < 1)){
 		#ifdef SOCKET_CLIENTE_DEBUG
