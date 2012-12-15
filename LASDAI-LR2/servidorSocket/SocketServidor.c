@@ -13,26 +13,41 @@
 
 int inicializarConexionSocket(int *fd){
 	struct sockaddr_in direccion;
-	struct servent *Puerto;
-	int Descriptor;
-	Descriptor = socket (AF_INET, SOCK_STREAM, 0);
-	if (Descriptor == -1)
-	 	return -1;
-	Puerto = getservbyname(SERVICIO, "tcp");
-	if (Puerto == NULL)
-		return -1;
+	struct servent *puerto;
+	int _fd;
+	_fd = socket (AF_INET, SOCK_STREAM, 0);
+	if(_fd == -1){
+		#ifdef SOCKET_SERVIDOR_DEBUG
+			perror("inicializarConexionSocket: No se logro aperturar el socket.\n");
+		#endif
+		return (-1);
+	}
+	puerto = getservbyname(SERVICIO, "tcp");
+	if (puerto == NULL){
+		#ifdef SOCKET_SERVIDOR_DEBUG
+			perror("inicializarConexionSocket: No se pudo leer el puerto del servicio.\n");
+		#endif
+		return (-2);
+	}
 	direccion.sin_family = AF_INET;
-	direccion.sin_port = Puerto->s_port;
+	direccion.sin_port = puerto->s_port;
 	direccion.sin_addr.s_addr =INADDR_ANY;
-	if (bind(Descriptor, (struct sockaddr *)&direccion, sizeof (direccion)) == -1){
-		close (Descriptor);
+	if(bind(_fd, (struct sockaddr *)&direccion, sizeof (direccion)) == -1){
+		#ifdef SOCKET_SERVIDOR_DEBUG
+			perror("inicializarConexionSocket: \n");
+		#endif
+		close (_fd);
 		return -1;
 	}
-	if (listen (Descriptor, 1) == -1){
-		close (Descriptor);
+	if (listen(_fd, 1) == -1){
+		#ifdef SOCKET_SERVIDOR_DEBUG
+			perror("inicializarConexionSocket: \n");
+		#endif
+		close (_fd);
 		return -1;
 	}
-	return Descriptor;
+	*fd = _fd;
+	return 0;
 }
 
 
