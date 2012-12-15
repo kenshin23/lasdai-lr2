@@ -10,3 +10,5 @@
 /** La definición de la variable DEBUG activa el modo de depuración del para las rutinas de manejo de comunicacion serial.
     Para desactivar el modod depuracion comente la definición.**/
 #define SERIAL_DEBUG
+
+#define TIMEOUT_USEC 100000

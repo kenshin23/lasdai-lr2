@@ -20,14 +20,6 @@
 int abrirPuerto(int *fd, char *tty,  unsigned int baudios);
 
 /**
- @brief Clausura del puerto de comunicación serial.
- @param fd Variable entera que almacena el número del puerto de comunicación .
- @return 0 Operación exitosa en caso contrario.
-		-1 Error: No se logro cerrar el puerto de comunicación con el dispositivo.
-*/
-int cerrarPuerto(int fd);
-
-/**
  @brief Escribir datos por el puerto serial.
  @param fd Número del puerto de comunicación.
  @param nBytes Número de datos a escribir.
@@ -49,6 +41,22 @@ int escribirDatos(int fd, int nBytes, unsigned char* sbuf);
 */
 int leerDatos(int fd, int nBytes, unsigned char* sbuf);
 
+/**
+ @brief Verifica si existen datos en el bufer serial.
+ @param fd Número del puerto de comunicación.
+ @param nBytes Puntero a la direccion de memoria que almacena el numero de bytes que hay en el bufer.
+ @return 1 Hay bytes en bufer coloca el numero de bytes encontrados en nBytes.
+		 0 No hay nada en el bufer serial
+		-1 Error no se logro censar el bufer serial.
+*/
+int verificarBufer(int fd, int *nBytes);
 
+/**
+ @brief Clausura del puerto de comunicación serial.
+ @param fd Variable entera que almacena el número del puerto de comunicación .
+ @return 0 Operación exitosa en caso contrario.
+		-1 Error: No se logro cerrar el puerto de comunicación con el dispositivo.
+*/
+int cerrarPuerto(int fd);
 
 #endif /* SERIAL_H_ */

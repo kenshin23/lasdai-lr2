@@ -17,7 +17,6 @@
 #define BUFFER_SIZE 404
 
 class Serial {
-
     int _serial_fd;
     uint8_t* _buffer;
 
