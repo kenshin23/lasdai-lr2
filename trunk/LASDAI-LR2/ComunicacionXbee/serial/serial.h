@@ -16,7 +16,9 @@
 /*--------------------------*/
 
 int  serial_open(char *serial_name, speed_t baud);
+
 void serial_send(int serial_fd, char *data, int size);
+
 int  serial_read(int serial_fd, char *data, int size, int timeout_usec);
 
 int serial_read_all(int serial_fd, unsigned char *data, int timeout_usec);

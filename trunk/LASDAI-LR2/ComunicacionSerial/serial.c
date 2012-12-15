@@ -46,21 +46,6 @@ int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 
 /*******************************************************/
 
-int cerrarPuerto(int fd){
-	int respuesta;
-	respuesta = close(fd);
-	if(respuesta < 0){
-		#ifdef SERIAL_DEBUG
-			perror("cerrarPuerto: No se puede cerrar el puerto de comunicación con el dispositivo\n");
-		#endif
-		return (-1);
-	}else{
-		return (0);
-	}
-}
-
-/*******************************************************/
-
 int escribirDatos(int fd, int nBytes, unsigned char* sbuf){
 	int bytes;
 	bytes = write(fd, sbuf, nBytes);
@@ -97,4 +82,48 @@ int leerDatos(int fd, int nBytes, unsigned char* sbuf){
 		return (-2);
 	}
 	return (0);
+}
+
+/*******************************************************/
+
+int verificarBufer(int fd, int *nBytes){
+	int _nBytes;
+	fd_set _fd;
+	struct timeval tiempoSalida;
+	tiempoSalida.tv_sec  = 0;
+	tiempoSalida.tv_usec = TIMEOUT_USEC;
+	FD_ZERO(&_fd);
+	FD_SET(fd,&_fd);
+	_nBytes = select(fd+1,&_fd,NULL,NULL,&tiempoSalida);
+	if(_nBytes > 0 ){
+		*nBytes = _nBytes;
+		return (1);
+	}else{
+		if(_nBytes == 0){
+			 *nBytes = 0;
+			 return (0);
+		}else{
+			#ifdef SERIAL_DEBUG
+				perror("verificarBufer: Error no se logro censar si hay datos en el bufer serial.\n");
+			#endif
+		  *nBytes = 0;
+		  return (-1);
+		}
+	}
+}
+
+
+/*******************************************************/
+
+int cerrarPuerto(int fd){
+	int respuesta;
+	respuesta = close(fd);
+	if(respuesta < 0){
+		#ifdef SERIAL_DEBUG
+			perror("cerrarPuerto: No se puede cerrar el puerto de comunicación con el dispositivo\n");
+		#endif
+		return (-1);
+	}else{
+		return (0);
+	}
 }
