@@ -9,9 +9,9 @@ int comandos(struct tipoComando comando){
 
 /*******************************************************/
 
-short int deSerializeShort(uint8_t *buf){
+short int deSerializeShort(unsigned char *buf){
     union{
-        uint8_t c[2];
+        unsigned char c[2];
         short int val;
     }short_int;
     if(buf == NULL){
@@ -24,12 +24,12 @@ short int deSerializeShort(uint8_t *buf){
 
 /*******************************************************/
 
-void serializeShort(uint8_t *buf, short int value){
+void serializeShort(unsigned char *buf, short int value){
     if (buf == NULL){
         return;
     }
     union{
-        uint8_t c[2];
+        unsigned char c[2];
         short int val;
     }short_int;
     short_int.val = value;
@@ -38,12 +38,13 @@ void serializeShort(uint8_t *buf, short int value){
 
 /*******************************************************/
 
-double deSerializeDouble(uint8_t *buf){
+double deSerializeDouble(unsigned char *buf){
+	int k;
     union{
-        uint8_t c[8];
+        unsigned char c[8];
         double d;
     }doubling;
-    for (int k = 0; k < 8; k++){
+    for (k = 0; k < 8; k++){
         doubling.c[7 - k] = *(buf + k);
     }
     return doubling.d;
@@ -51,16 +52,17 @@ double deSerializeDouble(uint8_t *buf){
 
 /*******************************************************/
 
-void serializeDouble(uint8_t *buf, double value){
-    if (buf == NULL){
+void serializeDouble(unsigned char *buf, double value){
+    int k;
+	if (buf == NULL){
         return;
     }
     union {
-        uint8_t c[8];
+    	unsigned char c[8];
         double d;
     } doubling;
     doubling.d = value;
-    for (int k = 0; k < 8; k++){
+    for (k = 0; k < 8; k++){
         *(buf + k) = doubling.c[7 - k];
     }
 }
