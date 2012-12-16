@@ -3,19 +3,19 @@
 
 struct tipoComando{
 	unsigned char _comando;
-	uint8_t _len;
+	int _len;
 	unsigned char *_argumentos;
 };
 
 
 int comandos(struct tipoComando comando);
 
-short int deSerializeShort(uint8_t *buf);
+short int deSerializeShort(unsigned char *buf);
 
-void serializeShort(uint8_t *buf, short int value);
+void serializeShort(unsigned char *buf, short int value);
 
-double deSerializeDouble(uint8_t *buf);
+double deSerializeDouble(unsigned char *buf);
 
-void serializeDouble(uint8_t *buf, double value);
+void serializeDouble(unsigned char *buf, double value);
 
 #endif
