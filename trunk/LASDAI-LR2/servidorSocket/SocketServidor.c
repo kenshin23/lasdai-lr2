@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "SocketServidor.h"
-#include "definicion.h"
+#include "definicionSocket.h"
 
 
 int inicializarConexionSocket(int *fd){

@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include "percepcion.h"
-#include "definicion.h"
+#include "definicionPercepcion.h"
 #include "../ComunicacionSerial/serial.h"
 
 /****** Métodos de manipulación del sistema de percepción ******/

@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include "md49.h"
-#include "definicion.h"
+#include "definicionMD49.h"
 #include "../ComunicacionSerial/serial.h"
 
 /****** Métodos de manipulación del controlador MD49 ******/
