@@ -9,7 +9,7 @@ int leerSocket(int fdCliente, unsigned char *sbuf, int nBytes);
 
 int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes);
 
-int verificarBuffer();
+int verificarBufferSocket();
 
 int terminarConexionCliente(int fdCliente);
 

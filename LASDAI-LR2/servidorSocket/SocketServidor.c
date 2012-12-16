@@ -10,6 +10,7 @@
 #include "SocketServidor.h"
 #include "definicionSocket.h"
 
+/*******************************************************/
 
 int inicializarConexionSocket(int *fd){
 	struct sockaddr_in direccion;
@@ -50,6 +51,8 @@ int inicializarConexionSocket(int *fd){
 	return 0;
 }
 
+/*******************************************************/
+
 int atenderCliente(int fd, int *fdCliente){
 	socklen_t longitudCliente;
 	struct sockaddr cliente;
@@ -67,6 +70,8 @@ int atenderCliente(int fd, int *fdCliente){
 	}
 
 }
+
+/*******************************************************/
 
 int leerSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 	int leidos = 0, aux = 0;
@@ -101,6 +106,8 @@ int leerSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 	return (0);
 }
 
+/*******************************************************/
+
 int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 	int escritos = 0, aux = 0;
 	if ((fdCliente == -1) || (sbuf == NULL) || (nBytes < 1)){
@@ -123,9 +130,36 @@ int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 	return (0);
 }
 
-int verificarBuffer(){
-	return 0;
+/*******************************************************/
+
+int verificarBufferSocket(int fd, int *nBytes){
+	int _nBytes;
+	fd_set _fd;
+	struct timeval tiempoSalida;
+	tiempoSalida.tv_sec  = 0;
+	tiempoSalida.tv_usec = TIMEOUT_USEC;
+	FD_ZERO(&_fd);
+	FD_SET(fd,&_fd);
+	_nBytes = select(fd+1,&_fd,NULL,NULL,&tiempoSalida);
+	if(_nBytes > 0 ){
+		*nBytes = _nBytes;
+		return (1);
+	}else{
+		if(_nBytes == 0){
+			 *nBytes = 0;
+			 return (0);
+		}else{
+			#ifdef SERIAL_DEBUG
+				perror("verificarBufferSocket: Error no se logro censar si hay datos en el bufer socket con el cliente.\n");
+			#endif
+		  *nBytes = 0;
+		  return (-1);
+		}
+	}
+
 }
+
+/*******************************************************/
 
 int terminarConexionCliente(int fdCliente){
 	int error;
@@ -139,6 +173,8 @@ int terminarConexionCliente(int fdCliente){
 		return (-1);
 	}
 }
+
+/*******************************************************/
 
 int terminarConexionSocket(int fd){
 	int error;
