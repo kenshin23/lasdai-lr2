@@ -124,7 +124,7 @@ int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 }
 
 int verificarBuffer(){
-
+	return 0;
 }
 
 int terminarConexionCliente(int fdCliente){
