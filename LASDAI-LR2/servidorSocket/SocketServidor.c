@@ -50,7 +50,6 @@ int inicializarConexionSocket(int *fd){
 	return 0;
 }
 
-
 int atenderCliente(int fd, int *fdCliente){
 	socklen_t longitudCliente;
 	struct sockaddr cliente;
@@ -124,6 +123,10 @@ int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 	return (0);
 }
 
+int verificarBuffer(){
+
+}
+
 int terminarConexionCliente(int fdCliente){
 	int error;
 	error = close(fdCliente);
@@ -136,7 +139,6 @@ int terminarConexionCliente(int fdCliente){
 		return (-1);
 	}
 }
-
 
 int terminarConexionSocket(int fd){
 	int error;
