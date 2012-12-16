@@ -9,6 +9,8 @@ int leerSocket(int fdCliente, unsigned char *sbuf, int nBytes);
 
 int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes);
 
+int verificarBuffer();
+
 int terminarConexionCliente(int fdCliente);
 
 int terminarConexionSocket(int fd);
