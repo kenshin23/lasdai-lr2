@@ -84,11 +84,9 @@ int leerSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 	while(leidos < nBytes){
 		aux = read(fdCliente, sbuf + leidos, nBytes - leidos);
 		if (aux > 0){
-			leidos = leidos + aux;
+			leidos += aux;
 		}else{
-			if(aux == 0){
-				return (0);
-			}else{
+			if(aux != 0){
 				switch (errno){
 					case EINTR:
 					case EAGAIN:

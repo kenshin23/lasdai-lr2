@@ -1,108 +1,124 @@
 #include <stdio.h>
 #include "comandos.h"
+#include "SocketServidor.h"
 #include "../Movilidad/movilidad.h"
 #include "../Percepcion/percepcion.h"
 #include "definicionComandos.h"
 
 /*******************************************************/
 
-void * comandos(void * parametrosHilo){
+int comandos(struct parametrohilo parametrosHilo){
 	struct parametrohilo parametros = (struct parametrohilo)parametrosHilo;
-	int fdCliente = parametros.fdCliente;
-	int error;
-	char *sbuf;
+	int fdCliente = parametros.fdCliente, error, idSensorUS, idSensorIR, i, angulo;
+	short int medidaUS, medidaIR, medidaUST, *medidasUS, *medidasIR, *medidasUST;
+	double v,w,d, theta ;
+	struct datosCinematica estadoNuevo;
+	unsigned char *sbuff;
 	struct bufferSocket buffer = parametros.buf;
 	switch (buffer._comando) {
-		case ASIGNAR_VELOCIDAD:
-			double v, w;
+		case COMANDO_ASIGNAR_VELOCIDAD:
 			v = deSerializeDouble(buffer._argumentos);
 			w = deSerializeDouble(&buffer._argumentos[4]);
 			error = asignarVelocidad(v,w);
-			sbuf[0] = error;
-			error = escribirSocket(fdCliente, sbuf, 1);
+			sbuff[0] = error;
+			error = escribirSocket(fdCliente, sbuff, 1);
 			break;
-		case MOVER_LINEA_RECTA:
-			double d;
+		case COMANDO_MOVER_LINEA_RECTA:
 			d = deSerializeDouble(buffer._argumentos);
 			error = moverLineaRecta(d);
-			sbuf[0] = error;
-			error = escribirSocket(fdCliente, sbuf, 1);
+			sbuff[0] = error;
+			error = escribirSocket(fdCliente, sbuff, 1);
 			break;
-		case GIRO_RELATIVO:
-			double theta;
+		case COMANDO_GIRO_RELATIVO:
 			theta = deSerializeDouble(buffer._argumentos);
 			error = giroRelativo(theta);
-			sbuf[0] = error;
-			error = escribirSocket(fdCliente, sbuf, 1);
+			sbuff[0] = error;
+			error = escribirSocket(fdCliente, sbuff, 1);
 			break;
-		case GOTO_XY:
-			struct datosCinematica estadoNuevo;
+		case COMANDO_GOTO_XY:
 			estadoNuevo.x = deSerializeDouble(buffer._argumentos);
 			estadoNuevo.y = deSerializeDouble(&buffer._argumentos[8]);
 			estadoNuevo.theta = deSerializeDouble(&buffer._argumentos[16]);
 			error = gotoXY(estadoNuevo);
-			sbuf[0] = error;
-			error = escribirSocket(fdCliente, sbuf, 1);
+			sbuff[0] = error;
+			error = escribirSocket(fdCliente, sbuff, 1);
 			break;
-		case DIAGNOSTICO_OPERATIVIDAD:
+		case COMANDO_DIAGNOSTICO_OPERATIVIDAD:
 			error = diagnosticoOperatividad();
-			sbuf[0] = error;
-			error = escribirSocket(fdCliente, sbuf, 1);
+			sbuff[0] = error;
+			error = escribirSocket(fdCliente, sbuff, 1);
 			break;
-		case ASIGNAR_DATOS_CINEMATICA:
-			struct datosCinematica estadoNuevo;
+		case COMANDO_ASIGNAR_DATOS_CINEMATICA:
 			estadoNuevo.x = deSerializeDouble(buffer._argumentos);
 			estadoNuevo.y = deSerializeDouble(&buffer._argumentos[8]);
 			estadoNuevo.theta = deSerializeDouble(&buffer._argumentos[16]);
-			error = asignarDatosCinematica(estadoNuevo);
-			sbuf[0] = error;
-			error = escribirSocket(fdCliente, sbuf, 1);
+			asignarDatosCinematica(estadoNuevo);
 			break;
-		case OBTENER_DATOS_CINEMATICA:
-			serializeDouble(&sbuf,estadoActual.x);
-			serializeDouble(&sbuf[8],estadoActual.y);
-			serializeDouble(&sbuf[16],estadoActual.theta);
-			error = escribirSocket(fdCliente, sbuf, 24);
+		case COMANDO_OBTENER_DATOS_CINEMATICA:
+			serializeDouble(sbuff,estadoActual.x);
+			serializeDouble(&sbuff[8],estadoActual.y);
+			serializeDouble(&sbuff[16],estadoActual.theta);
+			error = escribirSocket(fdCliente, sbuff, 24);
 			break;
-		case OBTENER_MEDIDA_SENSOR_US:
-			int idSensorUS = (int)buffer._argumentos[0];
-			short int medidaUS = 0;
+		case COMANDO_OBTENER_MEDIDA_SENSOR_US:
+			idSensorUS = (int)buffer._argumentos[0];
+			medidaUS = 0;
 			error = obtenerMedidaSensorUS(idSensorUS, &medidaUS);
-			sbuf[0] = error;
-			serializeShort(&sbuf[1], medidaUS);
-			error = escribirSocket(fdCliente, sbuf, 3);
+			sbuff[0] = error;
+			serializeShort(&sbuff[1], medidaUS);
+			error = escribirSocket(fdCliente, sbuff, 3);
 			break;
-		case OBTENER_MEDIDA_SENSOR_IR:
-			int idSensorIR = (int)buffer._argumentos[0];
-			uint8_t medidaIR = 0;
+		case COMANDO_OBTENER_MEDIDA_SENSOR_IR:
+			idSensorIR = (int)buffer._argumentos[0];
+			medidaIR = 0;
 			error = obtenerMedidaSensorIR(idSensorIR, &medidaIR);
-			sbuf[0] = error;
-			sbuf[1] = medidaIR;
-			error = escribirSocket(fdCliente, sbuf, 2);
+			sbuff[0] = error;
+			sbuff[1] = medidaIR;
+			error = escribirSocket(fdCliente, sbuff, 2);
 			break;
-		case OBTENER_MEDIDA_SENSOR_US_TRASERO:
-			int angulo = (int)buffer._argumentos[0];
-			short int medidaUST = 0;
+		case COMANDO_OBTENER_MEDIDA_SENSOR_US_TRASERO:
+			angulo = (int)buffer._argumentos[0];
+			medidaUST = 0;
 			error = obtenerMedidaSensorTraseroUS(angulo, &medidaUST);
-			sbuf[0] = error;
-			serializeShort(&sbuf[1], medidaUS);
-			error = escribirSocket(fdCliente, sbuf, 3);
+			sbuff[0] = error;
+			serializeShort(&sbuff[1], medidaUST);
+			error = escribirSocket(fdCliente, sbuff, 3);
 			break;
-		case OBTENER_BARRIDO_FRONTAL_US:
-			short int *medidasUS;
-
+		case COMANDO_OBTENER_BARRIDO_FRONTAL_US:
+			error = obtenerBarridoFrontalUS(medidasUS);
+			sbuff[0] = error;
+			for(i = 0; i < 6; ++i){
+				serializeShort(&sbuff[(2*i)+1], medidasUS[i]);
+			}
+			error = escribirSocket(fdCliente, sbuff, 13);
 			break;
-		case OBTENER_BARRIDO_FRONTAL_IR:
+		case COMANDO_OBTENER_BARRIDO_FRONTAL_IR:
+			error = obtenerBarridoFrontalIR(medidasIR);
+			sbuff[0] = error;
+			for(i = 0; i < 6; ++i){
+				sbuff[i+1] = medidasIR[i];
+			}
+			error = escribirSocket(fdCliente, sbuff, 13);
 			break;
-		case OBTENER_BARRIDO_TRASERO_US:
+		case COMANDO_OBTENER_BARRIDO_TRASERO_US:
+			error = obtenerBarridoTraseroUS(medidasUST);
+			sbuff[0] = error;
+			for(i = 0; i < 5; ++i){
+				serializeShort(&sbuff[(2*i)+1], medidasUST[i]);
+			}
+			error = escribirSocket(fdCliente, sbuff, 11);
 			break;
 		default:
+			#ifdef COMANDO_DEBUG
+				perror("comandos: El comando no es valido");
+			#endif
 			break;
 	}
 	if(error != 0){
 		#ifdef COMANDO_DEBUG
 			perror("comandos: No se pudo escribir al cliente. \n");
 		#endif
+		return (-1);
 	}
 	return 0;
 }

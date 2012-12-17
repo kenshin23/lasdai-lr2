@@ -12,7 +12,7 @@ struct parametrohilo{
 	int fdCliente;
 };
 
-void * comandos(void *);
+int comandos(struct parametrohilo);
 
 short int deSerializeShort(unsigned char *buf);
 
