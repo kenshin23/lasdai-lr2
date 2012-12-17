@@ -130,31 +130,52 @@ int escribirSocket(int fdCliente, unsigned char *sbuf, int nBytes){
 
 /*******************************************************/
 
-int verificarBufferSocket(int fd, int *nBytes){
-	int _nBytes;
+int verificarBufferSocketLeer(int fdCliente){
+	int aux;
 	fd_set _fd;
 	struct timeval tiempoSalida;
 	tiempoSalida.tv_sec  = 0;
 	tiempoSalida.tv_usec = TIMEOUT_USEC;
 	FD_ZERO(&_fd);
-	FD_SET(fd,&_fd);
-	_nBytes = select(fd+1,&_fd,NULL,NULL,&tiempoSalida);
-	if(_nBytes > 0 ){
-		*nBytes = _nBytes;
+	FD_SET(fdCliente,&_fd);
+	aux = select(FD_SETSIZE,&_fd,NULL,NULL,&tiempoSalida);
+	if(aux > 0 ){
 		return (1);
 	}else{
-		if(_nBytes == 0){
-			 *nBytes = 0;
+		if(aux == 0){
 			 return (0);
 		}else{
 			#ifdef SERIAL_DEBUG
 				perror("verificarBufferSocket: Error no se logro censar si hay datos en el bufer socket con el cliente.\n");
 			#endif
-		  *nBytes = 0;
 		  return (-1);
 		}
 	}
+}
 
+/*******************************************************/
+
+int verificarBufferSocketEscribir(int fdCliente){
+	int aux;
+	fd_set _fd;
+	struct timeval tiempoSalida;
+	tiempoSalida.tv_sec  = 0;
+	tiempoSalida.tv_usec = TIMEOUT_USEC;
+	FD_ZERO(&_fd);
+	FD_SET(fdCliente,&_fd);
+	aux = select(FD_SETSIZE,NULL,&_fd,NULL,&tiempoSalida);
+	if(aux > 0 ){
+		return (1);
+	}else{
+		if(aux == 0){
+			 return (0);
+		}else{
+			#ifdef SERIAL_DEBUG
+				perror("verificarBufferSocket: Error no se logro censar si hay datos en el bufer socket con el cliente.\n");
+			#endif
+		  return (-1);
+		}
+	}
 }
 
 /*******************************************************/
