@@ -1,14 +1,18 @@
 #ifndef _COMANDOS_H
 #define _COMANDOS_H
 
-struct tipoComando{
+struct bufferSocket{
 	unsigned char _comando;
 	int _len;
 	unsigned char *_argumentos;
 };
 
+struct parametrohilo{
+	struct bufferSocket buf;
+	int fdCliente;
+};
 
-int comandos(struct tipoComando comando);
+void * comandos(void *);
 
 short int deSerializeShort(unsigned char *buf);
 
