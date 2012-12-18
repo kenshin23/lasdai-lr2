@@ -7,12 +7,7 @@ struct bufferSocket{
 	unsigned char *_argumentos;
 };
 
-struct parametrohilo{
-	struct bufferSocket buf;
-	int fdCliente;
-};
-
-int comandos(struct parametrohilo);
+int comandos(int fdCliente, struct bufferSocket buffer);
 
 short int deSerializeShort(unsigned char *buf);
 
