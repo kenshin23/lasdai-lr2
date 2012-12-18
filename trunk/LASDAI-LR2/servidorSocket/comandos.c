@@ -7,14 +7,12 @@
 
 /*******************************************************/
 
-int comandos(struct parametrohilo parametrosHilo){
-	struct parametrohilo parametros = (struct parametrohilo)parametrosHilo;
-	int fdCliente = parametros.fdCliente, error, idSensorUS, idSensorIR, i, angulo;
+int comandos(int fdCliente, struct bufferSocket buffer){
+	int error, idSensorUS, idSensorIR, i, angulo;
 	short int medidaUS, medidaIR, medidaUST, *medidasUS, *medidasIR, *medidasUST;
 	double v,w,d, theta ;
 	struct datosCinematica estadoNuevo;
 	unsigned char *sbuff;
-	struct bufferSocket buffer = parametros.buf;
 	switch (buffer._comando) {
 		case COMANDO_ASIGNAR_VELOCIDAD:
 			v = deSerializeDouble(buffer._argumentos);
