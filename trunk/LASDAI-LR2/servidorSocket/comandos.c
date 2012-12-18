@@ -7,6 +7,38 @@
 
 /*******************************************************/
 
+int incializarRobot(){
+	int error;
+	error = inicializarMovilidad();
+	error = iniciarComunicacionSP();
+	if(error == 0){
+		return (0);
+	}else{
+		#ifdef COMANDO_DEBUG
+			perror("incializarRobot: Error al inicializar el Robot.");
+		#endif
+		return (-1);
+	}
+}
+
+/*******************************************************/
+
+int destruirRobot(){
+	int error;
+	error = terminarMovilidad();
+	error = terminarComunicacionSP();
+	if(error == 0){
+		return (0);
+	}else{
+		#ifdef COMANDO_DEBUG
+			perror("destruirRobot: Error al destruir el Robot.");
+		#endif
+		return (-1);
+	}
+}
+
+/*******************************************************/
+
 int comandos(int fdCliente, struct bufferSocket buffer){
 	int error, idSensorUS, idSensorIR, i, angulo;
 	short int medidaUS, medidaIR, medidaUST, *medidasUS, *medidasIR, *medidasUST;
