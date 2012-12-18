@@ -7,7 +7,7 @@
 
 /*******************************************************/
 
-int incializarRobot(){
+int inicializarRobot(){
 	int error;
 	error = inicializarMovilidad();
 	error = iniciarComunicacionSP();

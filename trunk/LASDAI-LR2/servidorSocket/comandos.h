@@ -7,7 +7,7 @@ struct bufferSocket{
 	unsigned char *_argumentos;
 };
 
-int incializarRobot();
+int inicializarRobot();
 
 int comandos(int fdCliente, struct bufferSocket buffer);
 
