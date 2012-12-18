@@ -10,6 +10,6 @@ struct parametrohilo{
 
 int servidor();
 
-void *atencionCliente(void * estructura);
+void *atencionCliente(void * parametro);
 
 #endif /* _SERVIDOR_H */
