@@ -24,6 +24,7 @@ int inicializarConexionSocket(int *fd){
 	struct sockaddr_in direccion;
 	struct servent *puerto;
 	int _fd;
+	/** Apertura el socket del servidor **/
 	_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if(_fd == -1){
 		#ifdef SOCKET_SERVIDOR_DEBUG
@@ -41,19 +42,21 @@ int inicializarConexionSocket(int *fd){
 	direccion.sin_family = AF_INET;
 	direccion.sin_port = htons(puerto->s_port);
 	direccion.sin_addr.s_addr =INADDR_ANY;
+	/** Conecta al Socket al servicio y avisa al SO **/
 	if(bind(_fd, (struct sockaddr *)&direccion, sizeof(direccion)) == -1){
 		#ifdef SOCKET_SERVIDOR_DEBUG
-			perror("inicializarConexionSocket: No se logro dar el aviso al SO de la apertura del socket. \n");
+			perror("inicializarConexionSocket: No se logro asociar el socket al servicio. \n");
 		#endif
 		close (_fd);
-		return -1;
+		return -3;
 	}
+	/** Se informa al SO que puede recibir clientes y se asigna un maximo de clientes que pueden esperar en cola **/
 	if (listen(_fd, 1) == -1){
 		#ifdef SOCKET_SERVIDOR_DEBUG
 			perror("inicializarConexionSocket: No se logro dar el aviso al SO para que acepte clientes.\n");
 		#endif
 		close (_fd);
-		return -1;
+		return -4;
 	}
 	*fd = _fd;
 	return 0;
@@ -66,10 +69,11 @@ int atenderCliente(int fd, int *fdCliente){
 	struct sockaddr cliente;
 	int _fd;
 	longitudCliente = sizeof(cliente);
+	/** Si hay un cliente en cola lo atiende, se bloquea hasta que no llegue un cliente **/
 	_fd = accept(fd, &cliente, &longitudCliente);
 	if (_fd == -1){
 		#ifdef SOCKET_SERVIDOR_DEBUG
-			perror("inicializarConexionSocket: No se pudo atender al cliente.\n");
+			perror("inicializarConexionSocket: No se logro atender al cliente.\n");
 		#endif
 		return -1;
 	}else{
@@ -195,7 +199,7 @@ int terminarConexionCliente(int fdCliente){
 		return (0);
 	}else{
 		#ifdef SOCKET_SERVIDOR_DEBUG
-			perror("terminarConexionSocket: Error al intenera terminar la comunición con el cliente.\n");
+			perror("terminarConexionSocket: Error al intentar terminar la comunición con el cliente.\n");
 		#endif
 		return (-1);
 	}
@@ -210,7 +214,7 @@ int terminarConexionSocket(int fd){
 		return (0);
 	}else{
 		#ifdef SOCKET_SERVIDOR_DEBUG
-			perror("terminarConexionSocket: Error al intenera cerrar el socket.\n");
+			perror("terminarConexionSocket: Error al intentar cerrar el socket.\n");
 		#endif
 		return (-1);
 	}
