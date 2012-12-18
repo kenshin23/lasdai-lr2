@@ -26,6 +26,6 @@ int servidor(){
 
 void *atencionCliente(void * parametro){
 	int fdCliente = (int)parametro;
-
+	verificarBufferSocketLeer(fdCliente);
 	return 0;
 }
