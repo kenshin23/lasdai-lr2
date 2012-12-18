@@ -24,7 +24,8 @@ int servidor(){
 
 /*******************************************************/
 
-void *atencionCliente(void * estructura){
+void *atencionCliente(void * parametro){
+	int fdCliente = (int)parametro;
 
 	return 0;
 }
