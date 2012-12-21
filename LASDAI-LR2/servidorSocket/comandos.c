@@ -1,6 +1,6 @@
 /**
  @file comandos.c
- @brief Implementación de las funciones que manejan la interpretación y las
+ @brief Implementación de las funciones declaradas comandos.h, para el manejo de los comandos enviados al servidor socket.
  @date Diciembre, 2012.
  @author José Delgado Pérez, josedelgado@ula.ve josed43@gmail.com.
  @version 0.9
@@ -13,7 +13,7 @@
 #include "../Percepcion/percepcion.h"
 #include "definicionComandos.h"
 
-/****** Métodos para el manejo de la comunicación por socket ******/
+/****** Funiones  para el manejo de los comandos ******/
 
 int inicializarRobot(){
 	int error;
