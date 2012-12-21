@@ -4,7 +4,7 @@
 #include "comandos.h"
 
 struct parametrohilo{
-	struct bufferSocket _buf;
+	struct mensaje _buf;
 	int _fdCliente;
 };
 

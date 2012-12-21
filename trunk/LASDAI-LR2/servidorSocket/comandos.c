@@ -47,7 +47,7 @@ int destruirRobot(){
 
 /*******************************************************/
 
-int comandos(int fdCliente, struct bufferSocket buffer){
+int comandos(int fdCliente, struct mensaje buffer){
 	int error, idSensorUS, idSensorIR, i, angulo;
 	short int medidaUS, medidaIR, medidaUST, *medidasUS, *medidasIR, *medidasUST;
 	double v,w,d, theta ;

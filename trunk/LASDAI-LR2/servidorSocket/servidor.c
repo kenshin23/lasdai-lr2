@@ -29,7 +29,7 @@ int servidor(){
 
 void *atencionCliente(void * parametro){
 	int fdCliente = (int)parametro, error = 0, estadoBuffer = 0;
-	struct bufferSocket buffer;
+	struct mensaje buffer;
 	unsigned char * sbuf;
 	while(error == 0){
 		estadoBuffer = verificarBufferSocketLeer(fdCliente);
