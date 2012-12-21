@@ -1,3 +1,11 @@
+/**
+ @file socketServidor.c
+ @brief Implementación de las funciones que manejo de la comunicación por sockets, definidas en SocketServidor.h
+ @date Diciembre, 2012.
+ @author José Delgado Pérez, josedelgado@ula.ve josed43@gmail.com.
+ @version 0.9
+*/
+
 #include <stdio.h>
 #include "comandos.h"
 #include "SocketServidor.h"
@@ -5,7 +13,7 @@
 #include "../Percepcion/percepcion.h"
 #include "definicionComandos.h"
 
-/*******************************************************/
+/****** Métodos para el manejo de la comunicación por socket ******/
 
 int inicializarRobot(){
 	int error;
