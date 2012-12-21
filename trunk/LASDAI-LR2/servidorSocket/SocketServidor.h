@@ -6,7 +6,7 @@
  @version 0.9
 
  Algunos datos: Se implementa un servidor socket TCP de la familia AF_INET lo que permite que socket pueda ser
- 	 	 	 	 local o remoto.
+ 	 	 	 	local o remoto.
 
 */
 
