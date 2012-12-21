@@ -1,6 +1,6 @@
 /**
- @file socketServidor.c
- @brief Implementación de las funciones que manejo de la comunicación por sockets, definidas en SocketServidor.h
+ @file comandos.c
+ @brief Implementación de las funciones que manejan la interpretación y las
  @date Diciembre, 2012.
  @author José Delgado Pérez, josedelgado@ula.ve josed43@gmail.com.
  @version 0.9
