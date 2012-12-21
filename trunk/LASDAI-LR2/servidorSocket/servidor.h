@@ -3,11 +3,6 @@
 
 #include "comandos.h"
 
-struct parametrohilo{
-	struct mensaje _buf;
-	int _fdCliente;
-};
-
 int servidor();
 
 void *atencionCliente(void * parametro);

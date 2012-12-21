@@ -29,19 +29,19 @@ int servidor(){
 
 void *atencionCliente(void * parametro){
 	int fdCliente = (int)parametro, error = 0, estadoBuffer = 0;
-	struct mensaje buffer;
+	struct mensaje mensajeCliente;
 	unsigned char * sbuf;
 	while(error == 0){
 		estadoBuffer = verificarBufferSocketLeer(fdCliente);
 		if(estadoBuffer == 1){
 			error += leerSocket(fdCliente, sbuf, 2);
 			if(error == 0){
-				buffer._comando = sbuf[0];
-				buffer._len = sbuf[1];
-				error += leerSocket(fdCliente, sbuf, buffer._len);
+				mensajeCliente._comando = sbuf[0];
+				mensajeCliente._len = sbuf[1];
+				error += leerSocket(fdCliente, sbuf, mensajeCliente._len);
 				if(error == 0){
-					buffer._argumentos = sbuf;
-					comandos(fdCliente, buffer);
+					mensajeCliente._argumentos = sbuf;
+					comandos(fdCliente, mensajeCliente);
 				}else{
 					#ifdef SERVIDOR_DEBUG
 						perror("atencionCliente: Se rompio la conexion con el cliente.");
