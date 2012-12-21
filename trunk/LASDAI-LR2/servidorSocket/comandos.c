@@ -23,7 +23,7 @@ int inicializarRobot(){
 		return (0);
 	}else{
 		#ifdef COMANDO_DEBUG
-			perror("incializarRobot: Error al inicializar el Robot.");
+			perror("incializarRobot: Error No se lograron inicializar todos los subsistemas de la plataforma.");
 		#endif
 		return (-1);
 	}
@@ -39,7 +39,7 @@ int destruirRobot(){
 		return (0);
 	}else{
 		#ifdef COMANDO_DEBUG
-			perror("destruirRobot: Error al destruir el Robot.");
+			perror("destruirRobot: Error al desactivar el robot.");
 		#endif
 		return (-1);
 	}
@@ -48,7 +48,7 @@ int destruirRobot(){
 /*******************************************************/
 
 int comandos(int fdCliente, struct mensaje buffer){
-	int error, idSensorUS, idSensorIR, i, angulo;
+	int error, idSensorUS, idSensorIR, i, angulo, errorRespuesta;
 	short int medidaUS, medidaIR, medidaUST, *medidasUS, *medidasIR, *medidasUST;
 	double v,w,d, theta ;
 	struct datosCinematica estadoNuevo;
@@ -59,19 +59,19 @@ int comandos(int fdCliente, struct mensaje buffer){
 			w = deSerializeDouble(&buffer._argumentos[4]);
 			error = asignarVelocidad(v,w);
 			sbuff[0] = error;
-			error = escribirSocket(fdCliente, sbuff, 1);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 1);
 			break;
 		case COMANDO_MOVER_LINEA_RECTA:
 			d = deSerializeDouble(buffer._argumentos);
 			error = moverLineaRecta(d);
 			sbuff[0] = error;
-			error = escribirSocket(fdCliente, sbuff, 1);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 1);
 			break;
 		case COMANDO_GIRO_RELATIVO:
 			theta = deSerializeDouble(buffer._argumentos);
 			error = giroRelativo(theta);
 			sbuff[0] = error;
-			error = escribirSocket(fdCliente, sbuff, 1);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 1);
 			break;
 		case COMANDO_GOTO_XY:
 			estadoNuevo.x = deSerializeDouble(buffer._argumentos);
@@ -79,12 +79,12 @@ int comandos(int fdCliente, struct mensaje buffer){
 			estadoNuevo.theta = deSerializeDouble(&buffer._argumentos[16]);
 			error = gotoXY(estadoNuevo);
 			sbuff[0] = error;
-			error = escribirSocket(fdCliente, sbuff, 1);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 1);
 			break;
 		case COMANDO_DIAGNOSTICO_OPERATIVIDAD:
 			error = diagnosticoOperatividad();
 			sbuff[0] = error;
-			error = escribirSocket(fdCliente, sbuff, 1);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 1);
 			break;
 		case COMANDO_ASIGNAR_DATOS_CINEMATICA:
 			estadoNuevo.x = deSerializeDouble(buffer._argumentos);
@@ -96,7 +96,7 @@ int comandos(int fdCliente, struct mensaje buffer){
 			serializeDouble(sbuff,estadoActual.x);
 			serializeDouble(&sbuff[8],estadoActual.y);
 			serializeDouble(&sbuff[16],estadoActual.theta);
-			error = escribirSocket(fdCliente, sbuff, 24);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 24);
 			break;
 		case COMANDO_OBTENER_MEDIDA_SENSOR_US:
 			idSensorUS = (int)buffer._argumentos[0];
@@ -104,7 +104,7 @@ int comandos(int fdCliente, struct mensaje buffer){
 			error = obtenerMedidaSensorUS(idSensorUS, &medidaUS);
 			sbuff[0] = error;
 			serializeShort(&sbuff[1], medidaUS);
-			error = escribirSocket(fdCliente, sbuff, 3);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 3);
 			break;
 		case COMANDO_OBTENER_MEDIDA_SENSOR_IR:
 			idSensorIR = (int)buffer._argumentos[0];
@@ -112,7 +112,7 @@ int comandos(int fdCliente, struct mensaje buffer){
 			error = obtenerMedidaSensorIR(idSensorIR, &medidaIR);
 			sbuff[0] = error;
 			sbuff[1] = medidaIR;
-			error = escribirSocket(fdCliente, sbuff, 2);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 2);
 			break;
 		case COMANDO_OBTENER_MEDIDA_SENSOR_US_TRASERO:
 			angulo = (int)buffer._argumentos[0];
@@ -120,7 +120,7 @@ int comandos(int fdCliente, struct mensaje buffer){
 			error = obtenerMedidaSensorTraseroUS(angulo, &medidaUST);
 			sbuff[0] = error;
 			serializeShort(&sbuff[1], medidaUST);
-			error = escribirSocket(fdCliente, sbuff, 3);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 3);
 			break;
 		case COMANDO_OBTENER_BARRIDO_FRONTAL_US:
 			error = obtenerBarridoFrontalUS(medidasUS);
@@ -128,7 +128,7 @@ int comandos(int fdCliente, struct mensaje buffer){
 			for(i = 0; i < 6; ++i){
 				serializeShort(&sbuff[(2*i)+1], medidasUS[i]);
 			}
-			error = escribirSocket(fdCliente, sbuff, 13);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 13);
 			break;
 		case COMANDO_OBTENER_BARRIDO_FRONTAL_IR:
 			error = obtenerBarridoFrontalIR(medidasIR);
@@ -136,7 +136,7 @@ int comandos(int fdCliente, struct mensaje buffer){
 			for(i = 0; i < 6; ++i){
 				sbuff[i+1] = medidasIR[i];
 			}
-			error = escribirSocket(fdCliente, sbuff, 13);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 13);
 			break;
 		case COMANDO_OBTENER_BARRIDO_TRASERO_US:
 			error = obtenerBarridoTraseroUS(medidasUST);
@@ -144,19 +144,26 @@ int comandos(int fdCliente, struct mensaje buffer){
 			for(i = 0; i < 5; ++i){
 				serializeShort(&sbuff[(2*i)+1], medidasUST[i]);
 			}
-			error = escribirSocket(fdCliente, sbuff, 11);
+			errorRespuesta = escribirSocket(fdCliente, sbuff, 11);
 			break;
 		default:
 			#ifdef COMANDO_DEBUG
 				perror("comandos: El comando no es valido");
 			#endif
+			return (-1);
 			break;
 	}
 	if(error != 0){
 		#ifdef COMANDO_DEBUG
-			perror("comandos: No se pudo escribir al cliente. \n");
+			perror("comandos: Error al ejecutar comando. \n");
 		#endif
-		return (-1);
+		return (-2);
+	}
+	if(errorRespuesta != 0){
+		#ifdef COMANDO_DEBUG
+			perror("comandos: Error al enviar respuesta al cliente. \n");
+		#endif
+		return (-3);
 	}
 	return 0;
 }

@@ -12,14 +12,14 @@
 #ifndef _COMANDOS_H
 #define _COMANDOS_H
 
-/** @struct datosCinematica
- *  @brief Estructura que contiene los datos de la cinemática de la plataforma, posición y orientación en el plano cartesiano.
- *  @var datosCinematica::X
- *  Member 'x' Almacena la coordenada del robot en el eje de las abscisas (cm).
- *  @var datosCinematica::Y
- *  Member 'y' Almacena la coordenada del robot en el eje de las ordenadas (cm).
- *  @var datosCinematica::teta
- *  Member 'teta' Almacena el ángulo que representa la orientación de la plataforma (rad).
+/** @struct mensaje
+ *  @brief Estructura que almacena el contenido del mensaje enviado por el cliente al servidor.
+ *  @var mensaje::_comando
+ *  Member '_comando' Almacena el bytes que indica el comando a ejecutar.
+ *  @var mensaje::_len
+ *  Member '_len' Almacena el numero de bytes que tiene el mensaje en general (se incluye el mismo y a el comando).
+ *  @var mensaje::_argumentos
+ *  Member '_argumentos' Almacena el conjunto de argumentos que se envián en el mensaje, "Parámetros necesarios para ejecutar los comandos".
  */
 struct mensaje{
 	unsigned char _comando;
@@ -28,38 +28,35 @@ struct mensaje{
 };
 
 /**
- @brief Si hay un cliente en espera lo atiende si no se bloquea hasta llegue un cliente.
- @param fd Descriptor de Servidor.
- @param fdCliente Puntero a la dirección de memoria donde se almacenara el descriptor asignado al cliente.
+ @brief Inicializa todos los subsistemas de la plataforma.
  @return 0 Operación exitosa en caso contrario.
-		-1 No se pudo atender al cliente..
+		-1 Error. No se lograron inicializar todos los subsistemas de la plataforma.
 */
 int inicializarRobot();
 
 /**
- @brief Si hay un cliente en espera lo atiende si no se bloquea hasta llegue un cliente.
- @param fd Descriptor de Servidor.
- @param fdCliente Puntero a la dirección de memoria donde se almacenara el descriptor asignado al cliente.
+ @brief Recibe el mensaje y el descriptor del cliente socket, interpreta el mensaje, ejecuta el comando y enviá la respuesta al cliente.
+ @param fdCliente Descriptor del cliente.
+ @param mensajeCliente Estructura del tipo "mensaje" que almacena el mensaje enviado por el cliente socket.
  @return 0 Operación exitosa en caso contrario.
-		-1 No se pudo atender al cliente..
+		-1 El comando no es valido.
+		-2 Error al ejecutar comando.
+		-3 Error al enviar respuesta al cliente.
 */
-int comandos(int fdCliente, struct mensaje buffer);
+int comandos(int fdCliente, struct mensaje mensajeCliente);
 
 /**
- @brief Si hay un cliente en espera lo atiende si no se bloquea hasta llegue un cliente.
- @param fd Descriptor de Servidor.
- @param fdCliente Puntero a la dirección de memoria donde se almacenara el descriptor asignado al cliente.
+ @brief Desactiva todos los subsistemas de la plataforma, cierra las comunicaciones.
  @return 0 Operación exitosa en caso contrario.
-		-1 No se pudo atender al cliente..
+		-1 Error al desactivar el robot. "Se produjo un error al intentar finalizar los subsistemas"
 */
 int destruirRobot();
 
 /**
- @brief Si hay un cliente en espera lo atiende si no se bloquea hasta llegue un cliente.
- @param fd Descriptor de Servidor.
- @param fdCliente Puntero a la dirección de memoria donde se almacenara el descriptor asignado al cliente.
- @return 0 Operación exitosa en caso contrario.
-		-1 No se pudo atender al cliente..
+ @brief Recibe dos bytes y retorna el "short int" (entero de 2 bytes) que resulta de la union de esos dos bytes.
+ @param buf Puntero a la dirección de memoria al primer elemento del vector donde se almacenan los dos bytes.
+ @return "short int" Resultado de la union.
+		-1 Parámetros incorrecto.
 */
 short int deSerializeShort(unsigned char *buf);
 
