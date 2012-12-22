@@ -81,8 +81,8 @@ int comandos(int fdCliente, struct mensaje buffer){
 			sbuff[0] = error;
 			errorRespuesta = escribirSocket(fdCliente, sbuff, 1);
 			break;
-		case COMANDO_DIAGNOSTICO_OPERATIVIDAD:
-			error = diagnosticoOperatividad();
+		case COMANDO_DIAGNOSTICO_OPERATIVIDAD_MOVILIDAD:
+			error = diagnosticoOperatividadMovilidad();
 			sbuff[0] = error;
 			errorRespuesta = escribirSocket(fdCliente, sbuff, 1);
 			break;
