@@ -1,3 +1,12 @@
+/**
+ @file servidor.c
+ @brief Desarrollo e implementación de la rutinas de movilidad de la plataforma LASDAI LR2.
+ @date Junio, 2012.
+ @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
+ @version 0.9
+
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -8,7 +17,7 @@
 #include "SocketServidor.h"
 #include "comandos.h"
 
-/*******************************************************/
+/****** Funciones de ******/
 
 int servidor(){
 	int fd, fdCliente, error;
