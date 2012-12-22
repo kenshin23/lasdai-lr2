@@ -1,10 +1,9 @@
 /**
  @file servidor.c
- @brief Desarrollo e implementación de la rutinas de movilidad de la plataforma LASDAI LR2.
+ @brief Desarrollo e implementación de las funciones del servidor de la plataforma LASDAI LR2 definidas en servidor.h.
  @date Junio, 2012.
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
  @version 0.9
-
 */
 
 #include <stdio.h>
@@ -17,7 +16,7 @@
 #include "SocketServidor.h"
 #include "comandos.h"
 
-/****** Funciones de ******/
+/****** Funciones de servidor de la plataforma LASDAI LR2******/
 
 int servidor(){
 	int fd, fdCliente, error;
