@@ -61,29 +61,24 @@ int destruirRobot();
 short int deSerializeShort(unsigned char *buf);
 
 /**
- @brief Si hay un cliente en espera lo atiende si no se bloquea hasta llegue un cliente.
- @param fd Descriptor de Servidor.
- @param fdCliente Puntero a la dirección de memoria donde se almacenara el descriptor asignado al cliente.
- @return 0 Operación exitosa en caso contrario.
-		-1 No se pudo atender al cliente..
+ @brief Recibe un "short int" (entero de 2 bytes) y lo particiona en dos bytes.
+ @param buf Puntero al vector donde se van a almacenar los dos bytes.
+ @param value Valor del "short int" a particionar.
 */
 void serializeShort(unsigned char *buf, short int value);
 
 /**
- @brief Si hay un cliente en espera lo atiende si no se bloquea hasta llegue un cliente.
- @param fd Descriptor de Servidor.
- @param fdCliente Puntero a la dirección de memoria donde se almacenara el descriptor asignado al cliente.
- @return 0 Operación exitosa en caso contrario.
-		-1 No se pudo atender al cliente..
+ @brief Recibe ocho bytes y retorna el valor "double" que resulta de la union de esos ocho bytes.
+ @param buf Puntero a la dirección de memoria al primer elemento del vector donde se almacenan los ocho bytes.
+ @return "double" Resultado de la union.
+		-1 Parámetros incorrecto.
 */
 double deSerializeDouble(unsigned char *buf);
 
 /**
- @brief Si hay un cliente en espera lo atiende si no se bloquea hasta llegue un cliente.
- @param fd Descriptor de Servidor.
- @param fdCliente Puntero a la dirección de memoria donde se almacenara el descriptor asignado al cliente.
- @return 0 Operación exitosa en caso contrario.
-		-1 No se pudo atender al cliente..
+ @brief Recibe un "double" y lo particiona en ocho bytes.
+ @param buf Puntero al vector donde se van a almacenar los ocho bytes.
+ @param value Valor del "double" a particionar.
 */
 void serializeDouble(unsigned char *buf, double value);
 
