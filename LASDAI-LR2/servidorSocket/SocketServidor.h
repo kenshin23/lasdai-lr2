@@ -1,5 +1,5 @@
 /**
- @file   SocketServidor .h
+ @file   SocketServidor.h
  @brief  Declaración de constantes y api de funciones para el manejo de la servidor socket.
  @date   Diciembre, 2012
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com

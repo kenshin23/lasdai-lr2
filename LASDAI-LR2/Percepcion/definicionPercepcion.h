@@ -1,5 +1,5 @@
 /**
- @file   definicion.h
+ @file   definicionPercepcion.h
  @brief  Definición de las variables y comando utilizadas por las rutinas de manipulación del sistema de percepción.
  @date   Diciembre, 2012
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
