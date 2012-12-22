@@ -12,6 +12,12 @@
 #ifndef _COMANDOS_H
 #define _COMANDOS_H
 
+#include <stdio.h>
+#include "SocketServidor.h"
+#include "../Movilidad/movilidad.h"
+#include "../Percepcion/percepcion.h"
+#include "definicionComandos.h"
+
 /** @struct mensaje
  *  @brief Estructura que almacena el contenido del mensaje enviado por el cliente al servidor.
  *  @var mensaje::_comando
@@ -82,4 +88,4 @@ double deSerializeDouble(unsigned char *buf);
 */
 void serializeDouble(unsigned char *buf, double value);
 
-#endif
+#endif /* _COMANDOS_H */

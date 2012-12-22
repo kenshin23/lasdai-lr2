@@ -6,13 +6,7 @@
  @version 0.9
 */
 
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
 #include "md49.h"
-#include "definicionMD49.h"
-#include "../ComunicacionSerial/serial.h"
 
 /****** Métodos de manipulación del controlador MD49 ******/
 

@@ -6,13 +6,7 @@
  @version 0.9
 */
 
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
 #include "percepcion.h"
-#include "definicionPercepcion.h"
-#include "../ComunicacionSerial/serial.h"
 
 /****** Métodos de manipulación del sistema de percepción ******/
 

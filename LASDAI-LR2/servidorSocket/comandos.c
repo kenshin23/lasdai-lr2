@@ -6,12 +6,7 @@
  @version 0.9
 */
 
-#include <stdio.h>
 #include "comandos.h"
-#include "SocketServidor.h"
-#include "../Movilidad/movilidad.h"
-#include "../Percepcion/percepcion.h"
-#include "definicionComandos.h"
 
 /****** Funciones  para el manejo de los comandos ******/
 
