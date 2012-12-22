@@ -16,6 +16,13 @@
 #ifndef MD49_H_
 #define MD49_H_
 
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <errno.h>
+#include "definicionMD49.h"
+#include "../ComunicacionSerial/serial.h"
+
 /** fd Número del puerto de comunicación.*/
 int fd;
 

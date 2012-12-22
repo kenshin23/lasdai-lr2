@@ -6,15 +6,7 @@
  @version 0.9
 */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <pthread.h>
 #include "servidor.h"
-#include "SocketServidor.h"
-#include "comandos.h"
 
 /****** Funciones de servidor de la plataforma LASDAI LR2******/
 

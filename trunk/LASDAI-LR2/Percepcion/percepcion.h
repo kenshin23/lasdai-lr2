@@ -14,6 +14,13 @@
 #ifndef PERCEPCION_H_
 #define PERCEPCION_H_
 
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <errno.h>
+#include "definicionPercepcion.h"
+#include "../ComunicacionSerial/serial.h"
+
 /** fd Número del puerto de comunicación. */
 int fd;
 

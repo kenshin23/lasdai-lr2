@@ -7,14 +7,7 @@
 
 */
 
-#include <math.h>
-#include <stdio.h>
-#include <unistd.h>
 #include "movilidad.h"
-#include "../MD49/md49.h"
-#include "definicionMovilidad.h"
-
-
 
 /****** Métodos de movilidad ******/
 

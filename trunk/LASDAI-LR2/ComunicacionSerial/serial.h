@@ -9,6 +9,14 @@
 #ifndef SERIAL_H_
 #define SERIAL_H_
 
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <termios.h>
+#include "definicionSerial.h"
+
 /**
  @brief	Apertura del puerto de comunicación serial.
  @param fd Puntero a la dirección de memoria de la variable entera que almacena el número "ID" del puerto.

@@ -16,6 +16,12 @@
 #ifndef MOVILIDAD_H_
 #define MOVILIDAD_H_
 
+#include <math.h>
+#include <stdio.h>
+#include <unistd.h>
+#include "../MD49/md49.h"
+#include "definicionMovilidad.h"
+
 /** @struct datosCinematica
  *  @brief Estructura que contiene los datos de la cinemática de la plataforma, posición y orientación en el plano cartesiano.
  *  @var datosCinematica::X

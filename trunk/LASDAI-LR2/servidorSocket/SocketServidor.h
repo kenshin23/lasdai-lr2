@@ -13,7 +13,16 @@
 #ifndef _SOCKET_SERVIDOR_H
 #define _SOCKET_SERVIDOR_H
 
-/** API DE FUNCIONES */
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <unistd.h>
+#include <errno.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "definicionSocket.h"
 
 /**
  @brief Apertura el socket del servidor, asocia el socket al servicio "servicioLr2", informa al SO
@@ -92,4 +101,4 @@ int terminarConexionCliente(int fdCliente);
 */
 int terminarConexionSocket(int fd);
 
-#endif
+#endif  /* _SOCKET_SERVIDOR_H */
