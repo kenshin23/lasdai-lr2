@@ -82,7 +82,7 @@ int gotoXY(struct datosCinematica estadoNuevo);
 		-1 Error: No se pudo realizar el diagnostico.
 		-2 Error: La controladora de motores no esta operativa, esta emitiendo un error.
 */
-int diagnosticoOperatividad();
+int diagnosticoOperatividadMovilidad();
 
 /**
  @brief Actualiza el estado de la posición actual.

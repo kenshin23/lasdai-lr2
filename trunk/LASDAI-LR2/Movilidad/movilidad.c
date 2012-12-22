@@ -200,7 +200,7 @@ int gotoXY(struct datosCinematica estadoNuevo){
 
 /**************************************************************************************************/
 
-int diagnosticoOperatividad(){
+int diagnosticoOperatividadMovilidad(){
 	int error;
 	if(obtenerError(&error) == 0){
 		if(error == 0){
