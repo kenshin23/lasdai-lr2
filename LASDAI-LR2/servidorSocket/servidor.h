@@ -3,6 +3,8 @@
 
 #include "comandos.h"
 
+#define SERVIDOR_DEBUG
+
 int servidor();
 
 void *atencionCliente(void * parametro);
