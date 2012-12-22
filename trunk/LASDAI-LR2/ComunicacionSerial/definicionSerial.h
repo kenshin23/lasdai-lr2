@@ -1,7 +1,7 @@
 /**
- @file definicion.h
- @brief Definición de las variables utilizadas en las rutinas de manejo de la comunicación.
- @date Octubre, 2012.
+ @file definicionSerial.h
+ @brief Definición de las variables utilizadas en las rutinas de manejo de la comunicación serial.
+ @date Junio, 2012.
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com.
  @version 0.9
 */
