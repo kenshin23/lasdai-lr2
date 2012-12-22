@@ -13,7 +13,7 @@
 #include "../Percepcion/percepcion.h"
 #include "definicionComandos.h"
 
-/****** Funiones  para el manejo de los comandos ******/
+/****** Funciones  para el manejo de los comandos ******/
 
 int inicializarRobot(){
 	int error;
