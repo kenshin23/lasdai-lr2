@@ -1,12 +1,11 @@
 /**
- @file   SocketServidor .h
- @brief  Declaración de constantes y api de funciones para el manejo de la servidor socket.
+ @file   servidor.h
+ @brief  Declaración de constantes y api de funciones del servidor de control de LASDAI LR2.
  @date   Diciembre, 2012
  @author José Delgado Pérez josedelgado@ula.ve josed43@gmail.com
  @version 0.9
 
- Algunos datos: Se implementa un servidor socket TCP de la familia AF_INET lo que permite que socket pueda ser
- 	 	 	 	local o remoto.
+ Algunos datos: El servidor atiende clientes locales o remotos del servicio socket, asigna un hilo de ejecución para cada cliente.
 
 */
 
@@ -20,20 +19,16 @@
 /** API DE FUNCIONES */
 
 /**
- @brief Si hay un cliente en espera lo atiende si no se bloquea hasta llegue un cliente.
- @param fd Descriptor de Servidor.
- @param fdCliente Puntero a la dirección de memoria donde se almacenara el descriptor asignado al cliente.
+ @brief Inicializa todos los servicios de la plataforma, apertura el socket, atiende a los cliente y le asigna un hilo de
+ 	 	 ejecucion a cada cliente.
  @return 0 Operación exitosa en caso contrario.
-		-1 No se pudo atender al cliente..
+		-1 Error en el servidor.
 */
 int servidor();
 
 /**
- @brief Si hay un cliente en espera lo atiende si no se bloquea hasta llegue un cliente.
- @param fd Descriptor de Servidor.
- @param fdCliente Puntero a la dirección de memoria donde se almacenara el descriptor asignado al cliente.
- @return 0 Operación exitosa en caso contrario.
-		-1 No se pudo atender al cliente..
+ @brief Esta función es ejecutada por cada hilo de ejecución, recibe y atiende las solicitudes del cliente.
+ @param parametro contiene el descriptor del cliente.
 */
 void *atencionCliente(void * parametro);
 

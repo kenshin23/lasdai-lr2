@@ -29,6 +29,12 @@ int servidor(){
 		terminarConexionCliente(fdCliente);
 		error = atenderCliente(fd, &fdCliente);
 	}
+	if(error != 0 ){
+		#ifdef SERVIDOR_DEBUG
+			perror("servidor: Error en el  servidor.");
+		#endif
+		return (-1);
+	}
 	destruirRobot();
 	return 0;
 }
