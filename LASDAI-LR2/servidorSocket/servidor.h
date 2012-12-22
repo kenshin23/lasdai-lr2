@@ -14,8 +14,6 @@
 
 #include "comandos.h"
 
-#define SERVIDOR_DEBUG
-
 /** API DE FUNCIONES */
 
 /**
