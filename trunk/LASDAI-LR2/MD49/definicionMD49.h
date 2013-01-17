@@ -31,7 +31,7 @@
 #define BAUDIOS_MD49 38400
 
 /** Tiempo de retraso para esperar respuesta de la MD49 después de escribir **/
-#define RETRASO 7800
+#define RETRASOMD49 7800
 
 /** Se enviá en el bufer antes de cada comando. */
 #define  BYTE_SINCRONIZACION 0x00

@@ -26,8 +26,8 @@
 int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 	int _fd;
 	struct termios options;
-	_fd = open(tty, O_RDWR | O_NOCTTY);
-    if (_fd >= 0){
+	_fd = open(tty, O_RDWR | O_NOCTTY | O_NDELAY);
+	if (_fd >= 0){
 		fcntl(_fd, F_SETFL, 0);
 		tcgetattr(_fd, &options);
 		cfsetispeed(&options, baudios);
@@ -44,7 +44,7 @@ int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
    }else{
 		#ifdef SERIAL_DEBUG
 		perror("abrirPuerto: No se puede abrir el puerto de comunicación con el dispositivo\n");
-		#endif
+	#endif
 		return (-1);
    }
 }
