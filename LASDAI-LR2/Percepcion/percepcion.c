@@ -213,7 +213,7 @@ int obtenerBarridoTraseroUS(int *distanciasUST){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(9999999);
 		leer = leerDatos(fd,10, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG

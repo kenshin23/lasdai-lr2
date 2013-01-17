@@ -50,7 +50,7 @@ int obtenerVelocidad1(double *velocidad){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -78,7 +78,7 @@ int obtenerVelocidad2(double *velocidad){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -107,7 +107,7 @@ int obtenerCodificadorMotor1(int *codificadorPosicion1){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,4, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -140,7 +140,7 @@ int obtenerCodificadorMotor2(int *codificadorPosicion2){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,4, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -173,7 +173,7 @@ int obtenerCodificadoresMotores(int *codificadorPosicion1, int *codificadorPosic
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,8, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -210,7 +210,7 @@ int obtenerVolajeBateria(double *voltajeBateria){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -238,7 +238,7 @@ int obtenerCorrienteMotor1(double *corrienteMotor1){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -266,7 +266,7 @@ int obtenerCorrienteMotor2(double *corrienteMotor2){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -294,7 +294,7 @@ int obtenerNumeroVersionSoftware(double *versionSoftware){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -322,7 +322,7 @@ int obtenerModoAceleracion(int *modoAceleracion){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -350,7 +350,7 @@ int obtenerModoVelocidad(int *modoVelocidad){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -378,7 +378,7 @@ int obtenerDatosEnergia(double *voltajeBateria, double *corrienteMotor1, double 
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,3, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -408,7 +408,7 @@ int obtenerError(int *error){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -457,7 +457,7 @@ int asignarVelocidad1(double velocidad1){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -485,7 +485,7 @@ int asignarVelocidad2(double velocidad2){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -513,7 +513,7 @@ int asignarModoAceleracion(int modoAceleracion){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -541,7 +541,7 @@ int asignarModoVelocidad(int modoVelocidad){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -568,7 +568,7 @@ int reinicializarCodificadores(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -595,7 +595,7 @@ int activarRetroalimentacionCodificadores(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -622,7 +622,7 @@ int desactivarRetroalimentacionCodificadores(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -649,7 +649,7 @@ int activarTiempoSeguridad(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
@@ -676,7 +676,7 @@ int desactivarTiempoSeguridad(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(RETRASOMD49);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
