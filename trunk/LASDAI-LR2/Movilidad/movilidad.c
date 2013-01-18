@@ -28,21 +28,21 @@ int inicializarMovilidad(){
 	int error = 0;
 	if(iniciarComunicacionMD49() == 0 ){
 		error += reinicializarCodificadores();
-		error += activarRetroalimentacionCodificadores();
-		error += activarTiempoSeguridad();
-		error += asignarModoAceleracion(DEFAUL_ACELERACION_MODE);
-		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
-		if(error == 0 ){
-			estadoActual.theta = 0;
-			estadoActual.x = 0;
-			estadoActual.y = 0;
-			return (0);
-		}else{
-			#ifdef MOVILIDAD_DEBUG
-				perror("inicializarMovilidad: Error al inicializar los parametros en la controladora de motores.\n");
-			#endif
-			return (-2);
-		}
+//		error += activarRetroalimentacionCodificadores();
+//		error += activarTiempoSeguridad();
+//		error += asignarModoAceleracion(DEFAUL_ACELERACION_MODE);
+//		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
+//		if(error == 0 ){
+//			estadoActual.theta = 0;
+//			estadoActual.x = 0;
+//			estadoActual.y = 0;
+//			return (0);
+//		}else{
+//			#ifdef MOVILIDAD_DEBUG
+//				perror("inicializarMovilidad: Error al inicializar los parametros en la controladora de motores.\n");
+//			#endif
+//			return (-2);
+//		}
 	}else{
 		#ifdef MOVILIDAD_DEBUG
 			perror("inicializarMovilidad: No se pudo inicializar la comunicación con la controladora de motores.\n");

@@ -32,6 +32,7 @@ int iniciarComunicacionSP(){
 			#endif
 			return (-1);
 	}else{
+		sleep(1);
 		return (0);
 	}
 }
@@ -148,7 +149,8 @@ int obtenerBarridoFrontalUS(int *distanciasUS){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		//usleep(RETRASO); TODO ARREGLAR
+		sleep(5);
 		leer = leerDatos(fd,12, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
@@ -181,7 +183,8 @@ int obtenerBarridoFrontalIR(int *distanciasIR){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		//usleep(RETRASO); TODO ARREGLAR
+		sleep(5);
 		leer = leerDatos(fd,6, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG

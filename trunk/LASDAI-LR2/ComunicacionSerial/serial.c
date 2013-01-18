@@ -26,7 +26,7 @@
 int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 	int _fd;
 	struct termios options;
-	_fd = open(tty, O_RDWR | O_NOCTTY | O_NDELAY);
+	_fd = open(tty, O_RDWR | O_NOCTTY);
 	if (_fd >= 0){
 		fcntl(_fd, F_SETFL, 0);
 		tcgetattr(_fd, &options);
@@ -38,7 +38,7 @@ int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 		options.c_cflag |= CS8;
 		tcflush(_fd, TCIFLUSH);
 		tcsetattr(_fd, TCSANOW, &options);
-		fcntl(_fd, F_SETFL, FNDELAY);
+		fcntl(_fd, F_SETFL, 0);
 		*fd = _fd;
 		return (0);
    }else{

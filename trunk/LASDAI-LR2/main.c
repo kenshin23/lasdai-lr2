@@ -13,25 +13,34 @@
 
 #include <stdio.h>
 //#include "servidorSocket/servidor.h"
-#include "Percepcion/percepcion.h"
+//#include "Percepcion/percepcion.h"
+#include "Movilidad/movilidad.h"
 //#include "ComunicacionSerial/serial.h"
 
 int main() {
-	int i;
-	int *distanciasUST;
-	//servidor();
-	/*unsigned char sbuf[1];
-	sbuf[0] = 0x01;
-	int fd;
-	abrirPuerto(&fd,"/dev/Arduino",9600);
-	escribirDatos(fd,1, sbuf);
-	cerrarPuerto(fd);*/
-	iniciarComunicacionSP();
-	obtenerBarridoTraseroUS(distanciasUST);
-	for (i = 0; i < 5; ++i) {
-		printf("\n distancia: %d", distanciasUST[i]);
-	}
-	terminarComunicacionSP();
+
+//	iniciarComunicacionSP();
+//
+//	int lectura[6];
+//	//obtenerBarridoTraseroUS(lectura);
+//	obtenerBarridoFrontalIR(lectura);
+//
+//	int var;
+//	printf("\nval: ");
+//	for ( var = 0; var < 6; var++) {
+//		printf(" %d", lectura[var]);
+//	}
+//	printf("\n");
+//	terminarComunicacionSP();
+
+	inicializarMovilidad();
+
+	sleep(1);
+	printf("\nINIT\n");
+
+
+	terminarMovilidad();
+
 	return 0;
 }
 

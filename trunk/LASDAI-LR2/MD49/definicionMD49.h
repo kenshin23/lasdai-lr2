@@ -29,6 +29,7 @@
 
 /** Velocidad de trabajo de la comunicación Serial con la MD49 **/
 #define BAUDIOS_MD49 38400
+//#define BAUDIOS_MD49 9600
 
 /** Tiempo de retraso para esperar respuesta de la MD49 después de escribir **/
 #define RETRASOMD49 7800

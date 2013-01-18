@@ -569,6 +569,7 @@ int reinicializarCodificadores(){
 			return (-1);
 	}else{
 		usleep(RETRASOMD49);
+		usleep(900000);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
