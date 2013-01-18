@@ -13,19 +13,23 @@
 
 #include <stdio.h>
 //#include "servidorSocket/servidor.h"
-#include "Percepcion/percepcion.h"
-//#include "Movilidad/movilidad.h"
+//#include "Percepcion/percepcion.h"
+#include "Movilidad/movilidad.h"
 //#include "ComunicacionSerial/serial.h"
 
 int main() {
 
-	iniciarComunicacionSP();
+/*	iniciarComunicacionSP();
 
 	int lectura;
 	obtenerMedidaSensorTraseroUS(20, &lectura);
 	printf(" %d", lectura);
 	printf("\n");
-	terminarComunicacionSP();
+	terminarComunicacionSP();*/
+	inicializarMovilidad();
+	printf("Hola mundo");
+	terminarMovilidad();
+
 	return 0;
 }
 
