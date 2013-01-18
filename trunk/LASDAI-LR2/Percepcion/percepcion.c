@@ -54,7 +54,7 @@ int obtenerMedidaSensorUS(int idSensorUS, int *distanciaUS){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(50000);
 		leer = leerDatos(fd,2, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
@@ -86,7 +86,7 @@ int obtenerMedidaSensorIR(int idSensorIR, int *distanciaIR){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(50000);
 		leer = leerDatos(fd,1, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
@@ -117,7 +117,7 @@ int obtenerMedidaSensorTraseroUS(int angulo, int *distanciaUST){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASO);
+		usleep(300000);
 		leer = leerDatos(fd,2, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
