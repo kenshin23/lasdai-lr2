@@ -27,23 +27,22 @@
 int inicializarMovilidad(){
 	int error = 0;
 	if(iniciarComunicacionMD49() == 0 ){
-		usleep(1500000);
 		error += reinicializarCodificadores();
-//		error += activarRetroalimentacionCodificadores();
-//		error += activarTiempoSeguridad();
-//		error += asignarModoAceleracion(DEFAUL_ACELERACION_MODE);
-//		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
-//		if(error == 0 ){
-//			estadoActual.theta = 0;
-//			estadoActual.x = 0;
-//			estadoActual.y = 0;
-//			return (0);
-//		}else{
-//			#ifdef MOVILIDAD_DEBUG
-//				perror("inicializarMovilidad: Error al inicializar los parametros en la controladora de motores.\n");
-//			#endif
-//			return (-2);
-//		}
+		error += activarRetroalimentacionCodificadores();
+		error += activarTiempoSeguridad();
+		error += asignarModoAceleracion(DEFAUL_ACELERACION_MODE);
+		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
+		if(error == 0 ){
+			estadoActual.theta = 0;
+			estadoActual.x = 0;
+			estadoActual.y = 0;
+			return (0);
+		}else{
+			#ifdef MOVILIDAD_DEBUG
+				perror("inicializarMovilidad: Error al inicializar los parametros en la controladora de motores.\n");
+			#endif
+			return (-2);
+		}
 	}else{
 		#ifdef MOVILIDAD_DEBUG
 			perror("inicializarMovilidad: No se pudo inicializar la comunicación con la controladora de motores.\n");
@@ -57,14 +56,15 @@ int inicializarMovilidad(){
 int asignarVelocidad(double v, double w){
 	double v1, v2;
 	int aux = 0;
-	long int vm1, vm2;
+	int vm1, vm2;
 	v1 = v + w*LONGITUD_EJE*0.5;
 	v2 = v - w*LONGITUD_EJE*0.5;
 	// 60 para pasar a minutos, 127 es el indicador maximo de 122 rpm.
-	v1 = v1*60*128/M_PI*DIAMETRO_RUEDA*122 ;
-	v2 = v2*60*128/M_PI*DIAMETRO_RUEDA*122;
-	vm1 = (long int)v1;
-	vm2 = (long int)v2;
+	v1 = (v1*60*128)/(M_PI*122*12.5);
+	v2 = (v2*60*128)/(M_PI*122*12.5);
+	vm1 = (int)v1;
+	vm2 = (int)v2;
+	printf("\n vm1 %d y vm2 %d ", vm1, vm2);
 	aux += asignarVelocidad1(vm1);
 	aux += asignarVelocidad2(vm2);
 	if(aux != 0){
@@ -80,7 +80,7 @@ int asignarVelocidad(double v, double w){
 
 int moverLineaRecta(double d){
 	int pulsos, codificador1, codificador2, error = 0, signo = 1;
-	int aux = 2, aux2, vl = 0, cambios, cambiosHechos = 0, pulsosDesaceleracion;
+	int aux = 2, aux2, vl = VELOCIDAD_INICIAL_RAMPA, cambios, cambiosHechos = 0, pulsosDesaceleracion;
 	double distancia;
 	pulsos = calculoNumeroPulsos(d);
 	error += asignarModoVelocidad(VELOCIDAD_MODO_GIRO);
@@ -88,7 +88,9 @@ int moverLineaRecta(double d){
 	if(d < 0) signo=-1;
 	distancia = fabs(d);
 	cambios = calculoCambios(distancia);
+	printf("\n cambios: %d \n", cambios);
 	pulsosDesaceleracion = pulsos-(cambios/2)*PULSOS_DE_CAMBIOS_RAMPA;
+	printf("\n pulsosDesaceleracion: %d \n", pulsosDesaceleracion);
 	error += asignarVelocidad1(VELOCIDAD_INICIAL_RAMPA*signo);
 	do{
 		error += obtenerCodificadoresMotores(&codificador1, &codificador2);
@@ -97,12 +99,12 @@ int moverLineaRecta(double d){
 		if((cambiosHechos < cambios/2) && (codificador1 >= PULSOS_DE_CAMBIOS_RAMPA*(cambiosHechos+1))){
 			vl = VELOCIDAD_INICIAL_RAMPA*aux;
 			cambiosHechos++;
-			aux = aux+2;
-			aux2 = aux-2;
+			aux = aux+1;
+			aux2 = aux-1;
 		}else{
 			if(cambiosHechos >= cambios/2 ){
 				if((cambiosHechos < cambios) && (codificador1 >= pulsosDesaceleracion)){
-					aux2 = aux2-2;
+					aux2 = aux2-1;
 					if(aux2 == 0) aux2 = 1;
 					vl = VELOCIDAD_INICIAL_RAMPA*aux2;
 					cambiosHechos++;
@@ -110,10 +112,13 @@ int moverLineaRecta(double d){
 				}
 			}
 		}
+		printf("\n vl: %d", vl);
+
 		error += asignarVelocidad1(vl*signo);
 	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad1(DETENER);
 	error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
+	error += reinicializarCodificadores();
 	if(error == 0){
 		return (0);
 	}else{
@@ -128,7 +133,7 @@ int moverLineaRecta(double d){
 
 int giroRelativo(double theta){
 	int pulsos, codificador1, codificador2, error = 0, signo = 1;
-	int aux = 2, aux2, w = 0, cambios, cambiosHechos = 0, pulsosDesaceleracion;
+	int aux = 2, aux2, w = VELOCIDAD_INICIAL_RAMPA, cambios, cambiosHechos = 0, pulsosDesaceleracion;
 	double distancia;
 	theta = calcularAnguloGiroRelativo(theta);
 	distancia = (theta*LONGITUD_EJE)/2;
@@ -149,12 +154,12 @@ int giroRelativo(double theta){
 		if((cambiosHechos < cambios/2) && (codificador1 >= PULSOS_DE_CAMBIOS_RAMPA*(cambiosHechos+1))){
 			w = VELOCIDAD_INICIAL_RAMPA*aux;
 			cambiosHechos++;
-			aux = aux+2;
-			aux2 = aux-2;
+			aux = aux+1;
+			aux2 = aux-1;
 		}else{
 			if(cambiosHechos >= cambios/2 ){
 				if((cambiosHechos < cambios) && (codificador1 >= pulsosDesaceleracion)){
-					aux2 = aux2-2;
+					aux2 = aux2-1;
 					if(aux2 == 0) aux2 = 1;
 					w = VELOCIDAD_INICIAL_RAMPA*aux2;
 					cambiosHechos++;
@@ -162,6 +167,7 @@ int giroRelativo(double theta){
 				}
 			}
 		}
+		printf("w: %d \n",w);
 		error += asignarVelocidad2(w*signo);
 	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad2(DETENER);

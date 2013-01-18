@@ -13,23 +13,25 @@
 
 #include <stdio.h>
 //#include "servidorSocket/servidor.h"
-//#include "Percepcion/percepcion.h"
+#include "Percepcion/percepcion.h"
 #include "Movilidad/movilidad.h"
-//#include "ComunicacionSerial/serial.h"
+#include "MD49/md49.h"
 
 int main() {
-
-/*	iniciarComunicacionSP();
-
-	int lectura;
-	obtenerMedidaSensorTraseroUS(20, &lectura);
-	printf(" %d", lectura);
-	printf("\n");
-	terminarComunicacionSP();*/
+	int error, distancia[6];
+	double angulo;
 	inicializarMovilidad();
-	printf("Hola mundo");
+	/*error = diagnosticoOperatividadMovilidad();
+	printf("Error:  %d", error);
+	angulo = M_PI;
+	giroRelativo(angulo);*/
+	asignarVelocidad(50,0);
+	do{
+		obtenerBarridoFrontalUS(distancia);
+		asignarVelocidad(50,0);
+	}while(distancia[0] >  50 || distancia[2] >  50 || distancia[3] >  50 || distancia[4] >  50 || distancia[5] >  50);
+	asignarVelocidad(0,0);
 	terminarMovilidad();
-
 	return 0;
 }
 
