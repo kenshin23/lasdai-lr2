@@ -40,6 +40,7 @@ int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 		tcsetattr(_fd, TCSANOW, &options);
 		fcntl(_fd, F_SETFL, 0);
 		*fd = _fd;
+		usleep(10000);
 		return (0);
    }else{
 		#ifdef SERIAL_DEBUG
@@ -58,6 +59,7 @@ int escribirDatos(int fd, int nBytes, unsigned char* sbuf){
 		#ifdef SERIAL_DEBUG
 			perror("escribirDatos: Error no se lograron escribir los datos\n");
 		#endif
+		close(fd);
 		return (-1);
 	}else{
 		if(bytes != nBytes){
@@ -79,6 +81,7 @@ int leerDatos(int fd, int nBytes, unsigned char* sbuf){
 		#ifdef SERIAL_DEBUG
 			perror("leerDatos: Error no se logro leer los datos\n");
 		#endif
+			close(fd);
 		return (-1);
 	}if(bytes != nBytes){
 		#ifdef SERIAL_DEBUG
@@ -112,11 +115,11 @@ int verificarBufer(int fd, int *nBytes){
 				perror("verificarBufer: Error no se logro censar si hay datos en el bufer serial.\n");
 			#endif
 		  *nBytes = 0;
+		  close(fd);
 		  return (-1);
 		}
 	}
 }
-
 
 /*******************************************************/
 

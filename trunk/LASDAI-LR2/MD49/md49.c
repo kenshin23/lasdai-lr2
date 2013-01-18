@@ -449,7 +449,7 @@ int asignarVelocidad1(double velocidad1){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ASIGNAR_VELOCIDAD_1;
 	sbuf[2] = velocidad1;
-	int escribir,leer;
+	int escribir;
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
@@ -457,16 +457,7 @@ int asignarVelocidad1(double velocidad1){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef MD49_DEBUG
-				perror("asignarVelocidad1: Error el comando no se ejecuto correctamente.\n");
-			#endif
-			return (-2);
-		}else{
-			return (0);
-		}
+		return (0);
 	}
 }
 
@@ -477,7 +468,7 @@ int asignarVelocidad2(double velocidad2){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ASIGNAR_VELOCIDAD_2;
 	sbuf[2] = velocidad2;
-	int escribir,leer;
+	int escribir;
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
@@ -485,16 +476,7 @@ int asignarVelocidad2(double velocidad2){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef MD49_DEBUG
-				perror("asignarVelocidad2: Error el comando no se ejecuto correctamente.\n");
-			#endif
-			return (-2);
-		}else{
-			return (0);
-		}
+		return (0);
 	}
 }
 
@@ -505,7 +487,7 @@ int asignarModoAceleracion(int modoAceleracion){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ASIGNAR_MODO_ACELERACION;
 	sbuf[2] = modoAceleracion;
-	int escribir, leer;
+	int escribir;
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
@@ -513,16 +495,7 @@ int asignarModoAceleracion(int modoAceleracion){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef MD49_DEBUG
-				perror("asignarModoAceleracion: Error el comando no se ejecuto correctamente.\n");
-			#endif
-			return (-2);
-		}else{
-			return (0);
-		}
+		return (0);
 	}
 }
 
@@ -533,7 +506,7 @@ int asignarModoVelocidad(int modoVelocidad){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ASIGNAR_MODO_VELOCIAD;
 	sbuf[2] = modoVelocidad;
-	int escribir, leer;
+	int escribir;
 	escribir = escribirDatos(fd, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
@@ -541,16 +514,7 @@ int asignarModoVelocidad(int modoVelocidad){
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef MD49_DEBUG
-				perror("asignarModoAceleracion: Error el comando no se ejecuto correctamente.\n");
-			#endif
-			return (-2);
-		}else{
-			return (0);
-		}
+		return (0);
 	}
 }
 
@@ -560,7 +524,7 @@ int reinicializarCodificadores(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_REINICIO_CONTADOR_CODIFICADOR;
-	int escribir, leer;
+	int escribir;
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
@@ -568,17 +532,7 @@ int reinicializarCodificadores(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		usleep(900000);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef MD49_DEBUG
-				perror("reinicializarCodificadores: Error el comando no se ejecuto correctamente.\n");
-			#endif
-			return (-2);
-		}else{
 			return (0);
-		}
 	}
 }
 
@@ -588,7 +542,7 @@ int activarRetroalimentacionCodificadores(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ACTIVAR_RETROALIMENTACION;
-	int escribir, leer;
+	int escribir;
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
@@ -596,16 +550,7 @@ int activarRetroalimentacionCodificadores(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef MD49_DEBUG
-				perror("activarRetroalimentacionCodificadores: Error el comando no se ejecuto correctamente.\n");
-			#endif
-			return (-2);
-		}else{
-			return (0);
-		}
+		return (0);
 	}
 }
 
@@ -615,7 +560,7 @@ int desactivarRetroalimentacionCodificadores(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_DESACTIVAR_RETROALIMENTACION;
-	int escribir, leer;
+	int escribir;
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
@@ -623,16 +568,7 @@ int desactivarRetroalimentacionCodificadores(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef MD49_DEBUG
-				perror("desactivarRetroalimentacionCodificadores: Error el comando no se ejecuto correctamente.\n");
-			#endif
-			return (-2);
-		}else{
 			return (0);
-		}
 	}
 }
 
@@ -642,7 +578,7 @@ int activarTiempoSeguridad(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ACTIVAR_TIEMPO_SEGURIDAD;
-	int escribir, leer;
+	int escribir;
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
@@ -650,16 +586,7 @@ int activarTiempoSeguridad(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef MD49_DEBUG
-				perror("activarTiempoSeguridad: Error el comando no se ejecuto correctamente.\n");
-			#endif
-			return (-2);
-		}else{
-			return (0);
-		}
+		return 0;
 	}
 }
 
@@ -669,7 +596,7 @@ int desactivarTiempoSeguridad(){
 	static unsigned char sbuf[2];
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_DESACTIVAR_TIEMPO_SEGURIDAD;
-	int escribir, leer;
+	int escribir;
 	escribir = escribirDatos(fd, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
@@ -677,16 +604,7 @@ int desactivarTiempoSeguridad(){
 			#endif
 			return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
-		if(leer != 0){
-			#ifdef MD49_DEBUG
-				perror("desactivarTiempoSeguridad: Error el comando no se ejecuto correctamente.\n");
-			#endif
-			return (-2);
-		}else{
-			return (0);
-		}
+		return 0;
 	}
 }
 

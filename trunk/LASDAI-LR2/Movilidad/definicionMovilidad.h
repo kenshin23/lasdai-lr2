@@ -28,16 +28,16 @@
 #define DEFAUL_VELOCIDAD_MODO 1
 
 /** Distancia entre los puntos de contactos de las ruedas **/
-#define LONGITUD_EJE 30
+#define LONGITUD_EJE 33
 
 /** Diametro de las ruedas (cm)  **/
-#define DIAMETRO_RUEDA 12,5
+#define DIAMETRO_RUEDA 12.5
 
 /**  Número de pulsos por revolución del motor **/
 #define PULSOS_REVOLUCION 980
 
 /** Modo de velocidad usado para la controladora de motores donde Velocidad 2 es la velocidad de giro **/
-#define VELOCIDAD_MODO_GIRO 4
+#define VELOCIDAD_MODO_GIRO 3
 
 /** Velocidad 0 para detener la plataforma  **/
 #define DETENER 0
