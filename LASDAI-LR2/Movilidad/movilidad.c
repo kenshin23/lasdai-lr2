@@ -27,6 +27,7 @@
 int inicializarMovilidad(){
 	int error = 0;
 	if(iniciarComunicacionMD49() == 0 ){
+		usleep(1500000);
 		error += reinicializarCodificadores();
 //		error += activarRetroalimentacionCodificadores();
 //		error += activarTiempoSeguridad();
