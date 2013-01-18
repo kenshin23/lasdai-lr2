@@ -149,8 +149,7 @@ int obtenerBarridoFrontalUS(int *distanciasUS){
 		#endif
 		return (-1);
 	}else{
-		//usleep(RETRASO); TODO ARREGLAR
-		sleep(5);
+		usleep(300000);
 		leer = leerDatos(fd,12, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
@@ -183,8 +182,7 @@ int obtenerBarridoFrontalIR(int *distanciasIR){
 		#endif
 		return (-1);
 	}else{
-		//usleep(RETRASO); TODO ARREGLAR
-		sleep(5);
+		usleep(1500000);
 		leer = leerDatos(fd,6, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
@@ -216,7 +214,7 @@ int obtenerBarridoTraseroUS(int *distanciasUST){
 		#endif
 		return (-1);
 	}else{
-		usleep(9999999);
+		usleep(700000);
 		leer = leerDatos(fd,10, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG

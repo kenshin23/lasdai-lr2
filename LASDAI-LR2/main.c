@@ -13,34 +13,24 @@
 
 #include <stdio.h>
 //#include "servidorSocket/servidor.h"
-//#include "Percepcion/percepcion.h"
-#include "Movilidad/movilidad.h"
+#include "Percepcion/percepcion.h"
+//#include "Movilidad/movilidad.h"
 //#include "ComunicacionSerial/serial.h"
 
 int main() {
 
-//	iniciarComunicacionSP();
-//
-//	int lectura[6];
-//	//obtenerBarridoTraseroUS(lectura);
-//	obtenerBarridoFrontalIR(lectura);
-//
-//	int var;
-//	printf("\nval: ");
-//	for ( var = 0; var < 6; var++) {
-//		printf(" %d", lectura[var]);
-//	}
-//	printf("\n");
-//	terminarComunicacionSP();
+	iniciarComunicacionSP();
 
-	inicializarMovilidad();
-
-	sleep(1);
-	printf("\nINIT\n");
-
-
-	terminarMovilidad();
-
+	int lectura[6];
+	obtenerBarridoFrontalIR(lectura);
+	//obtenerBarridoFrontalIR(lectura);
+	int var;
+	printf("\nval: ");
+	for ( var = 0; var < 6; var++) {
+		printf(" %d", lectura[var]);
+	}
+	printf("\n");
+	terminarComunicacionSP();
 	return 0;
 }
 
