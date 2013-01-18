@@ -21,14 +21,9 @@ int main() {
 
 	iniciarComunicacionSP();
 
-	int lectura[6];
-	obtenerBarridoFrontalUS(lectura);
-	//obtenerBarridoFrontalIR(lectura);
-	int var;
-	printf("\nval: ");
-	for ( var = 0; var < 6; var++) {
-		printf(" %d", lectura[var]);
-	}
+	int lectura;
+	obtenerMedidaSensorTraseroUS(20, &lectura);
+	printf(" %d", lectura);
 	printf("\n");
 	terminarComunicacionSP();
 	return 0;
