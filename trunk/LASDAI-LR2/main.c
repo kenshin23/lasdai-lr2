@@ -22,7 +22,7 @@ int main() {
 	iniciarComunicacionSP();
 
 	int lectura[6];
-	obtenerBarridoFrontalIR(lectura);
+	obtenerBarridoFrontalUS(lectura);
 	//obtenerBarridoFrontalIR(lectura);
 	int var;
 	printf("\nval: ");
