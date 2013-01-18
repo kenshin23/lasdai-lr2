@@ -44,8 +44,8 @@ int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 		return (0);
    }else{
 		#ifdef SERIAL_DEBUG
-		perror("abrirPuerto: No se puede abrir el puerto de comunicación con el dispositivo\n");
-	#endif
+			perror("abrirPuerto: No se puede abrir el puerto de comunicación con el dispositivo\n");
+		#endif
 		return (-1);
    }
 }

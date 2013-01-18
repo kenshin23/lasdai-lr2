@@ -32,7 +32,7 @@ int iniciarComunicacionSP(){
 			#endif
 			return (-1);
 	}else{
-		sleep(1);
+
 		return (0);
 	}
 }
