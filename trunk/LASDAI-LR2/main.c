@@ -12,18 +12,19 @@
 ********************************************************************************/
 
 #include <stdio.h>
-
-#include "Movilidad/movilidad.h"
+#include "Percepcion/percepcion.h"
+//#include "Movilidad/movilidad.h"
 
 
 int main() {
-	/*
+
 	int distancia[5];
 	iniciarComunicacionSP();
 	sleep(1);
 	obtenerBarridoTraseroUS(distancia);
-	terminarComunicacionSP();*/
-	double angulo = M_PI/2;
+	terminarComunicacionSP();
+
+	/*double angulo = M_PI/2;
 	inicializarMovilidad();
 	sleep(1);
 	moverLineaRecta(100);
@@ -42,8 +43,7 @@ int main() {
 			usleep(2500000);
 				giroRelativo(angulo);
 	usleep(70000);
-	terminarMovilidad();
-
+	terminarMovilidad();*/
 
 	return 0;
 }
