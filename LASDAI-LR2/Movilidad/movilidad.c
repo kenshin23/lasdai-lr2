@@ -88,9 +88,7 @@ int moverLineaRecta(double d){
 	if(d < 0) signo=-1;
 	distancia = fabs(d);
 	cambios = calculoCambios(distancia);
-	printf("\n cambios: %d \n", cambios);
 	pulsosDesaceleracion = pulsos-(cambios/2)*PULSOS_DE_CAMBIOS_RAMPA;
-	printf("\n pulsosDesaceleracion: %d \n", pulsosDesaceleracion);
 	error += asignarVelocidad1(VELOCIDAD_INICIAL_RAMPA*signo);
 	do{
 		error += obtenerCodificadoresMotores(&codificador1, &codificador2);
@@ -112,13 +110,11 @@ int moverLineaRecta(double d){
 				}
 			}
 		}
-		printf("\n vl: %d", vl);
-
 		error += asignarVelocidad1(vl*signo);
+		usleep(70000);
 	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad1(DETENER);
 	error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
-	error += reinicializarCodificadores();
 	if(error == 0){
 		return (0);
 	}else{
@@ -167,7 +163,7 @@ int giroRelativo(double theta){
 				}
 			}
 		}
-		printf("w: %d \n",w);
+		usleep(700000);
 		error += asignarVelocidad2(w*signo);
 	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad2(DETENER);
