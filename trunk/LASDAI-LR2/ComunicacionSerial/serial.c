@@ -40,7 +40,6 @@ int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 		tcsetattr(_fd, TCSANOW, &options);
 		fcntl(_fd, F_SETFL, 0);
 		*fd = _fd;
-		usleep(10000);
 		return (0);
    }else{
 		#ifdef SERIAL_DEBUG
@@ -48,6 +47,7 @@ int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 		#endif
 		return (-1);
    }
+	return (0);
 }
 
 /*******************************************************/

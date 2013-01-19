@@ -12,19 +12,38 @@
 ********************************************************************************/
 
 #include <stdio.h>
-//#include "servidorSocket/servidor.h"
-#include "Percepcion/percepcion.h"
-//#include "Movilidad/movilidad.h"
+
+#include "Movilidad/movilidad.h"
+
 
 int main() {
-	int distancia;
-
+	/*
+	int distancia[5];
 	iniciarComunicacionSP();
 	sleep(1);
-	printf("hola");
-	obtenerMedidaSensorUS(2,&distancia);
+	obtenerBarridoTraseroUS(distancia);
+	terminarComunicacionSP();*/
+	double angulo = M_PI/2;
+	inicializarMovilidad();
+	sleep(1);
+	moverLineaRecta(100);
+	usleep(2500000);
+	giroRelativo(angulo);
+	usleep(2500000);
+	moverLineaRecta(100);
+	usleep(2500000);
+		giroRelativo(angulo);
+		usleep(2500000);
+		moverLineaRecta(100);
+		usleep(2500000);
+			giroRelativo(angulo);
+			usleep(2500000);
+			moverLineaRecta(100);
+			usleep(2500000);
+				giroRelativo(angulo);
+	usleep(70000);
+	terminarMovilidad();
 
-	terminarComunicacionSP();
 
 	return 0;
 }

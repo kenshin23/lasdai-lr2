@@ -25,7 +25,9 @@
 
 int iniciarComunicacionSP(){
 	int com;
+	printf("llegue aqui3");
 	com = abrirPuerto(&fd,TTY_PERCEPCION,BAUDIOS_PERCEPCION);
+
 	if(com !=  0){
 			#ifdef PERCEPCION_DEBUG
 				perror("iniciarComunicacionSP: Error al iniciar la comunicación con el Sistema de Percepción.\n");
@@ -54,7 +56,7 @@ int obtenerMedidaSensorUS(int idSensorUS, int *distanciaUS){
 		#endif
 		return (-1);
 	}else{
-		usleep(50000);
+		usleep(500000);
 		leer = leerDatos(fd,2, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
