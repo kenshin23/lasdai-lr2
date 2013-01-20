@@ -182,7 +182,7 @@ int obtenerBarridoFrontalIR(int *distanciasIR){
 		#endif
 		return (-1);
 	}else{
-		usleep(1500000);
+		usleep(1200000);
 		leer = leerDatos(fdPercepcion,6, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG

@@ -28,7 +28,7 @@
 #define DEFAUL_VELOCIDAD_MODO 1
 
 /** Distancia entre los puntos de contactos de las ruedas **/
-#define LONGITUD_EJE 33
+#define LONGITUD_EJE 34
 
 /** Diametro de las ruedas (cm)  **/
 #define DIAMETRO_RUEDA 12.5

@@ -13,12 +13,13 @@
 
 #include <stdio.h>
 #include "Percepcion/percepcion.h"
-//#include "Movilidad/movilidad.h"
+#include "Movilidad/movilidad.h"
 #include "MD49/md49.h"
 
 int main() {
 	iniciarComunicacionSP();
-	int distanciaUS, distanciaIR, distanciasUS[6], distanciasIR[6], distanciasUST[5], i;
+	inicializarMovilidad();
+	int distanciaUS, distanciaIR, distanciasUS[6], distanciasIR[6], distanciasUST[5], i, error;
 	obtenerMedidaSensorUS(1,&distanciaUS);
 	printf("Sensor US 1 %d \n ", distanciaUS);
 	obtenerMedidaSensorIR(1,&distanciaIR);
@@ -38,7 +39,22 @@ int main() {
 	for (i = 0; i < 5; ++i) {
 		printf("%d - ", distanciasUST[i]);
 	}
+	error = diagnosticoOperatividadMovilidad();
+	printf("\n error: %d \n", error);
+	moverLineaRecta(50);
+	terminarMovilidad();
 	terminarComunicacionSP();
+
+	inicializarMovilidad();
+	sleep(1);
+
+	double velocidad;
+	velocidad = 8.0;
+	asignarVelocidad(velocidad,0);
+	sleep(1);
+	asignarVelocidad(0,0);
+	terminarMovilidad();
+
 	return 0;
 }
 
