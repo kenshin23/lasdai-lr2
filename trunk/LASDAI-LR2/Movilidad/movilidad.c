@@ -28,11 +28,11 @@ int inicializarMovilidad(){
 	int error = 0;
 	error =iniciarComunicacionMD49();
 	if( error == 0 ){
-		/*error += reinicializarCodificadores();
+		error += reinicializarCodificadores();
 		error += activarRetroalimentacionCodificadores();
 		error += activarTiempoSeguridad();
 		error += asignarModoAceleracion(DEFAUL_ACELERACION_MODE);
-		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);*/
+		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
 		if(error == 0 ){
 			estadoActual.theta = 0;
 			estadoActual.x = 0;
@@ -65,7 +65,6 @@ int asignarVelocidad(double v, double w){
 	v2 = (v2*60*128)/(M_PI*122*12.5);
 	vm1 = (int)v1;
 	vm2 = (int)v2;
-	printf("\n vm1 %d y vm2 %d ", vm1, vm2);
 	aux += asignarVelocidad1(vm1);
 	aux += asignarVelocidad2(vm2);
 	if(aux != 0){
@@ -112,7 +111,7 @@ int moverLineaRecta(double d){
 			}
 		}
 		error += asignarVelocidad1(vl*signo);
-		usleep(70000);
+		usleep(7000);
 	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad1(DETENER);
 	error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
@@ -164,7 +163,7 @@ int giroRelativo(double theta){
 				}
 			}
 		}
-		usleep(700000);
+		usleep(7000);
 		error += asignarVelocidad2(w*signo);
 	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad2(DETENER);
