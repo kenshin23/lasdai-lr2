@@ -38,7 +38,9 @@
  @return 0 operación exitosa en caso contrario.
 		-1 Error: No se logro abrir el puerto de comunicación con el dispositivo.
 */
-int abrirPuerto(int *fd, char *tty,  unsigned int baudios);
+int abrirPuertoPercepcion(int *fd);
+
+int abrirPuertoMD49(int *fd);
 
 /**
  @brief Escribir datos por el puerto serial.

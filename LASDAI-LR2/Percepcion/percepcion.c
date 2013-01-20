@@ -25,16 +25,14 @@
 
 int iniciarComunicacionSP(){
 	int com;
-	printf("llegue aqui3");
-	com = abrirPuerto(&fd,TTY_PERCEPCION,BAUDIOS_PERCEPCION);
-
+	com = abrirPuertoPercepcion(&fdPercepcion);
 	if(com !=  0){
 			#ifdef PERCEPCION_DEBUG
 				perror("iniciarComunicacionSP: Error al iniciar la comunicación con el Sistema de Percepción.\n");
 			#endif
 			return (-1);
 	}else{
-
+		sleep(1);
 		return (0);
 	}
 }
@@ -49,15 +47,15 @@ int obtenerMedidaSensorUS(int idSensorUS, int *distanciaUS){
 	sbuf[1] = OBTENER_MEDIDA_US;
 	sbuf[2] = idSensorUS;
 	sbuf[3] = BYTE_FIN_COMANDO;
-	escribir = escribirDatos(fd, 4, sbuf);
+	escribir = escribirDatos(fdPercepcion, 4, sbuf);
 	if(escribir !=  0){
 		#ifdef PERCEPCION_DEBUG
 			perror("obtenerMedidaSensorUS: Error al intentar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
-		usleep(500000);
-		leer = leerDatos(fd,2, sbuf);
+		usleep(50000);
+		leer = leerDatos(fdPercepcion,2, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
 				perror("obtenerMedidaSensorUS: Error el comando no se ejecuto correctamente.\n");
@@ -81,7 +79,7 @@ int obtenerMedidaSensorIR(int idSensorIR, int *distanciaIR){
 	sbuf[1] = OBTENER_MEDIDA_IR;
 	sbuf[2] = idSensorIR;
 	sbuf[3] = BYTE_FIN_COMANDO;
-	escribir = escribirDatos(fd, 4, sbuf);
+	escribir = escribirDatos(fdPercepcion, 4, sbuf);
 	if(escribir !=  0){
 		#ifdef PERCEPCION_DEBUG
 			perror("obtenerMedidaSensorIR: Error al intenetar escribir el comando.\n");
@@ -89,7 +87,7 @@ int obtenerMedidaSensorIR(int idSensorIR, int *distanciaIR){
 		return (-1);
 	}else{
 		usleep(50000);
-		leer = leerDatos(fd,1, sbuf);
+		leer = leerDatos(fdPercepcion,1, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
 				perror("obtenerMedidaSensorIR: Error el comando no se ejecuto correctamente.\n");
@@ -112,7 +110,7 @@ int obtenerMedidaSensorTraseroUS(int angulo, int *distanciaUST){
 	sbuf[1] = OBTENER_MEDIDA_UST;
 	sbuf[2] = angulo;
 	sbuf[3] = BYTE_FIN_COMANDO;
-	escribir = escribirDatos(fd,4,sbuf);
+	escribir = escribirDatos(fdPercepcion,4,sbuf);
 	if(escribir !=  0){
 		#ifdef PERCEPCION_DEBUG
 			perror("obtenerMedidaSensorTraseroUS: Error al intenetar escribir el comando.\n");
@@ -120,7 +118,7 @@ int obtenerMedidaSensorTraseroUS(int angulo, int *distanciaUST){
 		return (-1);
 	}else{
 		usleep(300000);
-		leer = leerDatos(fd,2, sbuf);
+		leer = leerDatos(fdPercepcion,2, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
 				perror("obtenerMedidaSensorTraseroUS: Error el comando no se ejecuto correctamente.\n");
@@ -144,7 +142,7 @@ int obtenerBarridoFrontalUS(int *distanciasUS){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = OBTENER_BARRIDO_FRONTAL_US;
 	sbuf[2] = BYTE_FIN_COMANDO;
-	escribir = escribirDatos(fd,3,sbuf);
+	escribir = escribirDatos(fdPercepcion,3,sbuf);
 	if(escribir !=  0){
 		#ifdef PERCEPCION_DEBUG
 			perror("obtenerBarridoFrontalUS: Error al intenetar escribir el comando.\n");
@@ -152,7 +150,7 @@ int obtenerBarridoFrontalUS(int *distanciasUS){
 		return (-1);
 	}else{
 		usleep(300000);
-		leer = leerDatos(fd,12, sbuf);
+		leer = leerDatos(fdPercepcion,12, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
 				perror("obtenerBarridoFrontalUS: Error el comando no se ejecuto correctamente.\n");
@@ -177,7 +175,7 @@ int obtenerBarridoFrontalIR(int *distanciasIR){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = OBTENER_BARRIDO_FRONTAL_IR;
 	sbuf[3] = BYTE_FIN_COMANDO;
-	escribir = escribirDatos(fd, 3, sbuf);
+	escribir = escribirDatos(fdPercepcion, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef PERCEPCION_DEBUG
 			perror("obtenerBarridoFrontalIR: Error al intenetar escribir el comando.\n");
@@ -185,7 +183,7 @@ int obtenerBarridoFrontalIR(int *distanciasIR){
 		return (-1);
 	}else{
 		usleep(1500000);
-		leer = leerDatos(fd,6, sbuf);
+		leer = leerDatos(fdPercepcion,6, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
 				perror("obtenerBarridoFrontalIR: Error el comando no se ejecuto correctamente.\n");
@@ -209,7 +207,7 @@ int obtenerBarridoTraseroUS(int *distanciasUST){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = OBTENER_BARRIDO_TRASERO;
 	sbuf[2] = BYTE_FIN_COMANDO;
-	escribir = escribirDatos(fd,3,sbuf);
+	escribir = escribirDatos(fdPercepcion,3,sbuf);
 	if(escribir !=  0){
 		#ifdef PERCEPCION_DEBUG
 			perror("obtenerBarridoTraseroUS: Error al intenetar escribir el comando.\n");
@@ -217,7 +215,7 @@ int obtenerBarridoTraseroUS(int *distanciasUST){
 		return (-1);
 	}else{
 		usleep(700000);
-		leer = leerDatos(fd,10, sbuf);
+		leer = leerDatos(fdPercepcion,10, sbuf);
 		if(leer != 0){
 			#ifdef PERCEPCION_DEBUG
 				perror("obtenerBarridoTraseroUS: Error el comando no se ejecuto correctamente.\n");
@@ -238,7 +236,7 @@ int obtenerBarridoTraseroUS(int *distanciasUST){
 
 int terminarComunicacionSP(){
 	int com;
-	com = cerrarPuerto(fd);
+	com = cerrarPuerto(fdPercepcion);
 	if(com !=  0){
 			#ifdef PERCEPCION_DEBUG
 				perror("terminarComunicacionSP: Error al terminar la comunicación con el sistema de Percepción.\n");
