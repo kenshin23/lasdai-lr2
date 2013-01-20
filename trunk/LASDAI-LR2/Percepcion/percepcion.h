@@ -35,7 +35,7 @@
 #include "../ComunicacionSerial/serial.h"
 
 /** fd Número del puerto de comunicación. */
-int fd;
+int fdPercepcion;
 
 /** API DE FUNCIONES */
 

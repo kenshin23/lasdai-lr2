@@ -37,7 +37,7 @@
 #include "../ComunicacionSerial/serial.h"
 
 /** fd Número del puerto de comunicación.*/
-int fd;
+int fdMD49;
 
 /** API DE FUNCIONES */
 

@@ -26,12 +26,13 @@
 
 int inicializarMovilidad(){
 	int error = 0;
-	if(iniciarComunicacionMD49() == 0 ){
-		error += reinicializarCodificadores();
+	error =iniciarComunicacionMD49();
+	if( error == 0 ){
+		/*error += reinicializarCodificadores();
 		error += activarRetroalimentacionCodificadores();
 		error += activarTiempoSeguridad();
 		error += asignarModoAceleracion(DEFAUL_ACELERACION_MODE);
-		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
+		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);*/
 		if(error == 0 ){
 			estadoActual.theta = 0;
 			estadoActual.x = 0;

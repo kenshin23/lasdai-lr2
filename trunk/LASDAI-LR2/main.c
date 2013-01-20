@@ -14,37 +14,31 @@
 #include <stdio.h>
 #include "Percepcion/percepcion.h"
 //#include "Movilidad/movilidad.h"
-
+#include "MD49/md49.h"
 
 int main() {
-
-	int distancia[5];
 	iniciarComunicacionSP();
-	sleep(1);
-	obtenerBarridoTraseroUS(distancia);
+	int distanciaUS, distanciaIR, distanciasUS[6], distanciasIR[6], distanciasUST[5], i;
+	obtenerMedidaSensorUS(1,&distanciaUS);
+	printf("Sensor US 1 %d \n ", distanciaUS);
+	obtenerMedidaSensorIR(1,&distanciaIR);
+	printf("Sensor IR 1 %d \n ", distanciaIR);
+	obtenerBarridoFrontalUS(distanciasUS);
+	printf("Anillo frontalUS: ");
+	for (i = 0; i < 6; ++i) {
+		printf("%d - ", distanciasUS[i]);
+	}
+	printf("\n Anillo de frontal de IR: ");
+	obtenerBarridoFrontalIR(distanciasIR);
+	for (i = 0; i < 6; ++i) {
+		printf("%d - ", distanciasIR[i]);
+	}
+	printf("\n Anillo de US trasero: ");
+	obtenerBarridoTraseroUS(distanciasUST);
+	for (i = 0; i < 5; ++i) {
+		printf("%d - ", distanciasUST[i]);
+	}
 	terminarComunicacionSP();
-
-	/*double angulo = M_PI/2;
-	inicializarMovilidad();
-	sleep(1);
-	moverLineaRecta(100);
-	usleep(2500000);
-	giroRelativo(angulo);
-	usleep(2500000);
-	moverLineaRecta(100);
-	usleep(2500000);
-		giroRelativo(angulo);
-		usleep(2500000);
-		moverLineaRecta(100);
-		usleep(2500000);
-			giroRelativo(angulo);
-			usleep(2500000);
-			moverLineaRecta(100);
-			usleep(2500000);
-				giroRelativo(angulo);
-	usleep(70000);
-	terminarMovilidad();*/
-
 	return 0;
 }
 

@@ -23,14 +23,14 @@
 
 /*******************************************************/
 
-int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
+int abrirPuertoPercepcion(int *fd){
 	int _fd;
 	struct termios options;
-	_fd = open(tty, O_RDWR | O_NOCTTY);
+	_fd = open("/dev/Arduino", O_RDWR | O_NOCTTY);
 	if (_fd >= 0){
 		fcntl(_fd, F_SETFL, 0);
 		tcgetattr(_fd, &options);
-		cfsetispeed(&options, baudios);
+		cfsetispeed(&options, B9600);
 		options.c_cflag |= (CLOCAL | CREAD);
 		options.c_cflag &= ~PARENB;
 		options.c_cflag &= ~CSTOPB;
@@ -48,6 +48,28 @@ int abrirPuerto(int *fd, char *tty,  unsigned int baudios){
 		return (-1);
    }
 	return (0);
+}
+
+int abrirPuertoMD49(int *fd){
+	   int _fd;
+	   struct termios options;
+	   _fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY);
+	   if (_fd >= 0){
+	   	fcntl(_fd, F_SETFL, 0);
+		tcgetattr(_fd, &options);
+		cfsetispeed(&options, B38400);
+		cfsetospeed(&options, B38400);
+		tcflush(_fd, TCIFLUSH);
+		tcsetattr(_fd, TCSANOW, &options);
+		usleep(10000);
+		*fd = _fd;
+		return (0);
+	   }else{
+		#ifdef DEBUG
+			perror("abrirPuerto: No se puede abrir el puerto de comunicacion con el dispocitivo\n");
+		#endif
+		return (-1);
+	   }
 }
 
 /*******************************************************/

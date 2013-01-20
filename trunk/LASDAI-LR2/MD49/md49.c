@@ -25,13 +25,14 @@
 
 int iniciarComunicacionMD49(){
 	int com;
-	com = abrirPuerto(&fd,TTY_MD49,BAUDIOS_MD49);
+	com = abrirPuertoMD49(&fdMD49);
 	if(com !=  0){
 			#ifdef MD49_DEBUG
 				perror("iniciarComunicacionMD49: Error al iniciar la comunicación con la MD49.\n");
 			#endif
 			return (-1);
 	}else{
+		sleep(1);
 		return (0);
 	}
 }
@@ -43,7 +44,7 @@ int obtenerVelocidad1(double *velocidad){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_VELOCIDAD_1;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerVelocidad1: Error al intenetar escribir el comando.\n");
@@ -51,7 +52,7 @@ int obtenerVelocidad1(double *velocidad){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
+		leer = leerDatos(fdMD49,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerVelocidad1: Error el comando no se ejecuto correctamente.\n");
@@ -71,7 +72,7 @@ int obtenerVelocidad2(double *velocidad){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_VELOCIDAD_2;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerVelocidad2: Error al intenetar escribir el comando.\n");
@@ -79,7 +80,7 @@ int obtenerVelocidad2(double *velocidad){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
+		leer = leerDatos(fdMD49,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerVelocidad2: Error el comando no se ejecuto correctamente.\n");
@@ -100,7 +101,7 @@ int obtenerCodificadorMotor1(int *codificadorPosicion1){
 	sbuf[1] = COMANDO_OBTENER_CODIFICADOR_MOTOR_1;
 	unsigned long _codificador;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerCodificadorMotor1: Error al intenetar escribir el comando.\n");
@@ -108,7 +109,7 @@ int obtenerCodificadorMotor1(int *codificadorPosicion1){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,4, sbuf);
+		leer = leerDatos(fdMD49,4, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerCodificadorMotor1: Error el comando no se ejecuto correctamente.\n");
@@ -133,7 +134,7 @@ int obtenerCodificadorMotor2(int *codificadorPosicion2){
 	sbuf[1] = COMANDO_OBTENER_CODIFICADOR_MOTOR_2;
 	unsigned long _codificador;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerCodificadorMotor2: Error al intenetar escribir el comando.\n");
@@ -141,7 +142,7 @@ int obtenerCodificadorMotor2(int *codificadorPosicion2){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,4, sbuf);
+		leer = leerDatos(fdMD49,4, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerCodificadorMotor2: Error el comando no se ejecuto correctamente.\n");
@@ -166,7 +167,7 @@ int obtenerCodificadoresMotores(int *codificadorPosicion1, int *codificadorPosic
 	sbuf[1] = COMANDO_OBTENER_CODIFICADOR_MOTORES;
 	unsigned long _codificador1, _codificador2;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerCodificadorMotores: Error al intenetar escribir el comando.\n");
@@ -174,7 +175,7 @@ int obtenerCodificadoresMotores(int *codificadorPosicion1, int *codificadorPosic
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,8, sbuf);
+		leer = leerDatos(fdMD49,8, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerCodificadorMotores: Error el comando no se ejecuto correctamente.\n");
@@ -203,7 +204,7 @@ int obtenerVolajeBateria(double *voltajeBateria){
 	sbuf[0] = BYTE_SINCRONIZACION;
    	sbuf[1] = COMANDO_OBTENER_VOLTAJE_BATERIA;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerVolajeBateria: Error al intenetar escribir el comando.\n");
@@ -211,7 +212,7 @@ int obtenerVolajeBateria(double *voltajeBateria){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
+		leer = leerDatos(fdMD49,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerVolajeBateria: Error el comando no se ejecuto correctamente.\n");
@@ -231,7 +232,7 @@ int obtenerCorrienteMotor1(double *corrienteMotor1){
 	sbuf[0] = BYTE_SINCRONIZACION;
    	sbuf[1] = COMANDO_OBTENER_CORRIENTE_MOTOR_1;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerCorrienteMotor1: Error al intenetar escribir el comando.\n");
@@ -239,7 +240,7 @@ int obtenerCorrienteMotor1(double *corrienteMotor1){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
+		leer = leerDatos(fdMD49,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerCorrienteMotor1: Error el comando no se ejecuto correctamente.\n");
@@ -259,7 +260,7 @@ int obtenerCorrienteMotor2(double *corrienteMotor2){
 	sbuf[0] = BYTE_SINCRONIZACION;
    	sbuf[1] = COMANDO_OBTENER_CORRIENTE_MOTOR_2;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerCorrienteMotor2: Error al intenetar escribir el comando.\n");
@@ -267,7 +268,7 @@ int obtenerCorrienteMotor2(double *corrienteMotor2){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
+		leer = leerDatos(fdMD49,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerCorrienteMotor2: Error el comando no se ejecuto correctamente.\n");
@@ -287,15 +288,15 @@ int obtenerNumeroVersionSoftware(double *versionSoftware){
 	sbuf[0] = BYTE_SINCRONIZACION;
    	sbuf[1] = COMANDO_OBTENER_VERSION_SOFTWARE;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerNumeroVersion: Error al intenetar escribir el comando.\n");
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
+		sleep(RETRASOMD49);
+		leer = leerDatos(fdMD49,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerNumeroVersion: Error el comando no se ejecuto correctamente.\n");
@@ -315,7 +316,7 @@ int obtenerModoAceleracion(int *modoAceleracion){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_MODO_ACELERACION;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerModoAceleracion: Error al intenetar escribir el comando.\n");
@@ -323,7 +324,7 @@ int obtenerModoAceleracion(int *modoAceleracion){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
+		leer = leerDatos(fdMD49,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerModoAceleracion: Error el comando no se ejecuto correctamente.\n");
@@ -343,7 +344,7 @@ int obtenerModoVelocidad(int *modoVelocidad){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_MODO_VELOCIDAD;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerModoVelocidad: Error al intenetar escribir el comando.\n");
@@ -351,7 +352,7 @@ int obtenerModoVelocidad(int *modoVelocidad){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
+		leer = leerDatos(fdMD49,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerModoVelocidad: Error el comando no se ejecuto correctamente.\n");
@@ -371,7 +372,7 @@ int obtenerDatosEnergia(double *voltajeBateria, double *corrienteMotor1, double 
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_DATOS_ENERGIA;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerDatosEnergia: Error al intenetar escribir el comando.\n");
@@ -379,7 +380,7 @@ int obtenerDatosEnergia(double *voltajeBateria, double *corrienteMotor1, double 
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,3, sbuf);
+		leer = leerDatos(fdMD49,3, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerDatosEnergia: Error el comando no se ejecuto correctamente.\n");
@@ -401,7 +402,7 @@ int obtenerError(int *error){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_OBTENER_ERROR;
 	int escribir, leer;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("obtenerError: Error al intenetar escribir el comando.\n");
@@ -409,7 +410,7 @@ int obtenerError(int *error){
 		return (-1);
 	}else{
 		usleep(RETRASOMD49);
-		leer = leerDatos(fd,1, sbuf);
+		leer = leerDatos(fdMD49,1, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG
 				perror("obtenerError: Error el comando no se ejecuto correctamente.\n");
@@ -450,7 +451,7 @@ int asignarVelocidad1(double velocidad1){
 	sbuf[1] = COMANDO_ASIGNAR_VELOCIDAD_1;
 	sbuf[2] = velocidad1;
 	int escribir;
-	escribir = escribirDatos(fd, 3, sbuf);
+	escribir = escribirDatos(fdMD49, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("asignarVelocidad1: Error al intenetar escribir el comando.\n");
@@ -469,7 +470,7 @@ int asignarVelocidad2(double velocidad2){
 	sbuf[1] = COMANDO_ASIGNAR_VELOCIDAD_2;
 	sbuf[2] = velocidad2;
 	int escribir;
-	escribir = escribirDatos(fd, 3, sbuf);
+	escribir = escribirDatos(fdMD49, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("asignarVelocidad2: Error al intenetar escribir el comando.\n");
@@ -488,7 +489,7 @@ int asignarModoAceleracion(int modoAceleracion){
 	sbuf[1] = COMANDO_ASIGNAR_MODO_ACELERACION;
 	sbuf[2] = modoAceleracion;
 	int escribir;
-	escribir = escribirDatos(fd, 3, sbuf);
+	escribir = escribirDatos(fdMD49, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("asignarModoAceleracion: Error al intenetar escribir el comando.\n");
@@ -507,7 +508,7 @@ int asignarModoVelocidad(int modoVelocidad){
 	sbuf[1] = COMANDO_ASIGNAR_MODO_VELOCIAD;
 	sbuf[2] = modoVelocidad;
 	int escribir;
-	escribir = escribirDatos(fd, 3, sbuf);
+	escribir = escribirDatos(fdMD49, 3, sbuf);
 	if(escribir !=  0){
 		#ifdef MD49_DEBUG
 			perror("asignarModoVelocidad:Error al intenetar escribir el comando.\n");
@@ -525,7 +526,7 @@ int reinicializarCodificadores(){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_REINICIO_CONTADOR_CODIFICADOR;
 	int escribir;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
 				perror("reinicializarCodificadores: Error al intenetar escribir el comando.\n");
@@ -543,7 +544,7 @@ int activarRetroalimentacionCodificadores(){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ACTIVAR_RETROALIMENTACION;
 	int escribir;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
 				perror("activarRetroalimentacionCodificadores: Error al intenetar escribir el comando.\n");
@@ -561,7 +562,7 @@ int desactivarRetroalimentacionCodificadores(){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_DESACTIVAR_RETROALIMENTACION;
 	int escribir;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
 				perror("desactivarRetroalimentacionCodificadores: Error al intenetar escribir el comando.\n");
@@ -579,7 +580,7 @@ int activarTiempoSeguridad(){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_ACTIVAR_TIEMPO_SEGURIDAD;
 	int escribir;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
 				perror("activarTiempoSeguridad: Error al intenetar escribir el comando.\n");
@@ -597,7 +598,7 @@ int desactivarTiempoSeguridad(){
 	sbuf[0] = BYTE_SINCRONIZACION;
 	sbuf[1] = COMANDO_DESACTIVAR_TIEMPO_SEGURIDAD;
 	int escribir;
-	escribir = escribirDatos(fd, 2, sbuf);
+	escribir = escribirDatos(fdMD49, 2, sbuf);
 	if(escribir !=  0){
 			#ifdef MD49_DEBUG
 				perror("desactivarTiempoSeguridad: Error al intenetar escribir el comando.\n");
@@ -612,7 +613,7 @@ int desactivarTiempoSeguridad(){
 
 int terminarComunicacionMD49(){
 	int com;
-	com = cerrarPuerto(fd);
+	com = cerrarPuerto(fdMD49);
 	if(com !=  0){
 			#ifdef MD49_DEBUG
 				perror("terminarComunicacionMD49: Error al terminar la comunicación con la MD49.\n");
