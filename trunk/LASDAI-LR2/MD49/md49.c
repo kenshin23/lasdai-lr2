@@ -174,7 +174,7 @@ int obtenerCodificadoresMotores(int *codificadorPosicion1, int *codificadorPosic
 		#endif
 		return (-1);
 	}else{
-		usleep(RETRASOMD49);
+		usleep(10000);
 		leer = leerDatos(fdMD49,8, sbuf);
 		if(leer != 0){
 			#ifdef MD49_DEBUG

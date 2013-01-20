@@ -28,15 +28,16 @@ int inicializarMovilidad(){
 	int error = 0;
 	error =iniciarComunicacionMD49();
 	if( error == 0 ){
+		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
 		error += reinicializarCodificadores();
 		error += activarRetroalimentacionCodificadores();
 		error += activarTiempoSeguridad();
 		error += asignarModoAceleracion(DEFAUL_ACELERACION_MODE);
-		error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
 		if(error == 0 ){
 			estadoActual.theta = 0;
 			estadoActual.x = 0;
 			estadoActual.y = 0;
+			sleep(2);
 			return (0);
 		}else{
 			#ifdef MOVILIDAD_DEBUG
@@ -89,6 +90,7 @@ int moverLineaRecta(double d){
 	distancia = fabs(d);
 	cambios = calculoCambios(distancia);
 	pulsosDesaceleracion = pulsos-(cambios/2)*PULSOS_DE_CAMBIOS_RAMPA;
+	usleep(30000);
 	error += asignarVelocidad1(VELOCIDAD_INICIAL_RAMPA*signo);
 	do{
 		error += obtenerCodificadoresMotores(&codificador1, &codificador2);
@@ -111,7 +113,7 @@ int moverLineaRecta(double d){
 			}
 		}
 		error += asignarVelocidad1(vl*signo);
-		usleep(7000);
+		//usleep(7000);
 	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad1(DETENER);
 	error += asignarModoVelocidad(DEFAUL_VELOCIDAD_MODO);
@@ -134,7 +136,7 @@ int giroRelativo(double theta){
 	theta = calcularAnguloGiroRelativo(theta);
 	distancia = (theta*LONGITUD_EJE)/2;
 	pulsos = calculoNumeroPulsos(distancia);
-	error += asignarModoVelocidad(VELOCIDAD_MODO_GIRO);
+	error += asignarModoVelocidad(3);
 	error += reinicializarCodificadores();
 	if(theta > 0) signo=-1;
 	cambios = calculoCambios(fabs(distancia));
@@ -163,7 +165,6 @@ int giroRelativo(double theta){
 				}
 			}
 		}
-		usleep(7000);
 		error += asignarVelocidad2(w*signo);
 	}while(codificador1 < pulsos || codificador2 < pulsos);
 	error += asignarVelocidad2(DETENER);
@@ -186,7 +187,8 @@ int gotoXY(struct datosCinematica estadoNuevo){
 	catetoOpuesto = estadoNuevo.y - estadoActual.y;
 	catetoAdyacente = estadoNuevo.x - estadoActual.x;
 	distancia = sqrt(pow(catetoAdyacente, 2) + pow(catetoOpuesto,2));
-	thetaAuxiliar = calculoAnguloGotoXY(distancia, catetoAdyacente,  catetoOpuesto);
+	thetaAuxiliar = asin(catetoOpuesto/distancia);
+	thetaAuxiliar = calculoAnguloGotoXY(thetaAuxiliar, catetoAdyacente,  catetoOpuesto);
 	thetaGiro = thetaAuxiliar - estadoActual.theta;
 	error += giroRelativo(thetaGiro);
 	estadoActual.theta = thetaAuxiliar;
@@ -290,9 +292,7 @@ double calcularAnguloGiroRelativo(double theta){
 
 /**************************************************************************************************/
 
-double calculoAnguloGotoXY(double distancia, double catetoAdyacente, double catetoOpuesto){
-	double theta;
-	theta = asin(catetoOpuesto/distancia);
+double calculoAnguloGotoXY(double theta, double catetoAdyacente, double catetoOpuesto){
 	if(catetoOpuesto >= 0){
 		if(catetoAdyacente >= 0){
 			return theta;		

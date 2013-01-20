@@ -17,14 +17,7 @@
 #include "MD49/md49.h"
 
 int main() {
-	int distanciasIR[6], i;
-	iniciarComunicacionSP();
-	printf("\n Anillo de frontal de IR: ");
-	obtenerBarridoFrontalIR(distanciasIR);
-	for (i = 0; i < 6; ++i) {
-		printf("%d - ", distanciasIR[i]);
-	}
-	terminarComunicacionSP();
+
 
 	/*iniciarComunicacionSP();
 	inicializarMovilidad();
@@ -52,17 +45,25 @@ int main() {
 	printf("\n error: %d \n", error);
 	moverLineaRecta(50);
 	terminarMovilidad();
-	terminarComunicacionSP();
-
+	terminarComunicacionSP();*/
+	int error;
+	struct datosCinematica estado;
+	estado.x = 50;
+	estado.y = 50;
+	estado.theta = 0;
 	inicializarMovilidad();
-	sleep(1);
-
-	double velocidad;
-	velocidad = 8.0;
-	asignarVelocidad(velocidad,0);
-	sleep(1);
-	asignarVelocidad(0,0);
-	terminarMovilidad();*/
+	//asignarVelocidad(20,0);
+	double angulo = M_PI/4;
+	gotoXY(estado);
+	estado.x = 0;
+	estado.y = 0;
+	estado.theta = 0;
+	gotoXY(estado);
+	//moverLineaRecta(10);
+	//giroRelativo(angulo);
+	//usleep(500000);
+	//giroRelativo(-angulo);
+	terminarMovilidad();
 
 	return 0;
 }
