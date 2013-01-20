@@ -17,7 +17,16 @@
 #include "MD49/md49.h"
 
 int main() {
+	int distanciasIR[6], i;
 	iniciarComunicacionSP();
+	printf("\n Anillo de frontal de IR: ");
+	obtenerBarridoFrontalIR(distanciasIR);
+	for (i = 0; i < 6; ++i) {
+		printf("%d - ", distanciasIR[i]);
+	}
+	terminarComunicacionSP();
+
+	/*iniciarComunicacionSP();
 	inicializarMovilidad();
 	int distanciaUS, distanciaIR, distanciasUS[6], distanciasIR[6], distanciasUST[5], i, error;
 	obtenerMedidaSensorUS(1,&distanciaUS);
@@ -53,7 +62,7 @@ int main() {
 	asignarVelocidad(velocidad,0);
 	sleep(1);
 	asignarVelocidad(0,0);
-	terminarMovilidad();
+	terminarMovilidad();*/
 
 	return 0;
 }
